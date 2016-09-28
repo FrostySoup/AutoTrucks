@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Views.MainWindowViews.SearchTrucksView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Views.MainWindowViews"
+             mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <TextBlock Style="{StaticResource TitleText}">Search Trucks</TextBlock>
+        <StackPanel Style="{StaticResource CRUDStackPanel}">
+            <Button Style="{StaticResource CRUDButtons}">Play</Button>
+            <Button Style="{StaticResource CRUDButtons}">Stop</Button>
+            <Button Style="{StaticResource CRUDButtons}">New</Button>
+            <Button Style="{StaticResource CRUDButtons}">Edit</Button>
+            <Button Style="{StaticResource CRUDButtons}">Del</Button>
+        </StackPanel>
+
+        <DataGrid x:Name="dataGridPostLoadsResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Style="{StaticResource CRUDStackPanel}">
+            <TextBlock>Search results Total:0 New:0</TextBlock>
+            <Button Style="{StaticResource CRUDButtons}" >Undo</Button>
+            <Button Style="{StaticResource CRUDButtons}" >Clear</Button>
+        </StackPanel>
+
+        <DataGrid x:Name="dataGridCallResults" Style="{StaticResource ListResultsDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </StackPanel>
+
+</UserControl>
+
+

@@ -1,0 +1,30 @@
+﻿<Window x:Class="Views.MainWindowViews.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Views.MainWindowViews"
+        mc:Ignorable="d"
+        Title="LoginView" Height="300" Width="300">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+    <StackPanel>
+        <Rectangle Height="40" Fill="Azure"></Rectangle>
+        <Label>Username</Label>
+        <TextBox Text="{Binding Username}"></TextBox>
+
+        <Label>Password</Label>
+        <TextBox Text="{Binding Password}"></TextBox>
+
+        <Button Content="Login" Style="{StaticResource LoginButton}" Command="{Binding LoginCommand, Mode=OneWay}"/>
+
+    </StackPanel>
+</Window>

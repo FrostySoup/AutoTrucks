@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mainWindowViews="clr-namespace:Views.MainWindowViews;assembly=Views"
+                    xmlns:mainWindowViewModel="clr-namespace:ViewModels.MainWindowViewModels;assembly=ViewModels">
+
+    <DataTemplate DataType="{x:Type mainWindowViewModel:TopButtonsViewModel}">
+        <mainWindowViews:TopButtonsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type mainWindowViewModel:PostTrucksViewModel}">
+        <mainWindowViews:PostTrucksView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type mainWindowViewModel:PostLoadsViewModel}">
+        <mainWindowViews:PostLoadsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type mainWindowViewModel:SearchLoadsViewModel}">
+        <mainWindowViews:SearchLoadsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type mainWindowViewModel:SearchTrucksViewModel}">
+        <mainWindowViews:SearchTrucksView/>
+    </DataTemplate>
+
+
+</ResourceDictionary>
