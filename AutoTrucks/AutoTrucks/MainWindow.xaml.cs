@@ -1,5 +1,4 @@
-﻿using Service.AddNewWindowFactory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ViewModels;
-using ViewModels.MainWindowViewModels;
 
 namespace AutoTrucks
 {
@@ -25,9 +22,8 @@ namespace AutoTrucks
     {
         public MainWindow()
         {
-            Unity unity = new Unity();
             InitializeComponent();
-            DataContext = unity.ResolveMainWindow();
+            DataContext = UnitySingleton.UnitySingleton.Instance.ResolveMainWindow();
         }
     }
 }

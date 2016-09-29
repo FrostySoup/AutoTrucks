@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ViewModels.MainWindowViewModels;
 using ViewModels.MainWindowViewModels.MainWindowViewModelsInterfaces;
 
 namespace ViewModels
@@ -20,20 +21,25 @@ namespace ViewModels
 
 
         private ITopButtonsViewModel topButtonsViewModel;
-        private IMainWindowCanvasViewModel postLoadsViewModel;
-        //private IMainWindowCanvasViewModel postTrucksViewModel;
-        private IMainWindowCanvasViewModel searchLoadsViewModel;
-        //private IMainWindowCanvasViewModel searchTrucksViewModel;
+        private IPostLoadsViewModel postLoadsViewModel;
+        private IPostTrucksViewModel postTrucksViewModel;
+        private ISearchLoadsViewModel searchLoadsViewModel;
+        private ISearchTrucksViewModel searchTrucksViewModel;
 
 
-
-        public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IMainWindowCanvasViewModel postLoadsViewModel,
-             IMainWindowCanvasViewModel searchLoadsViewModel, ILoginViewModel loginViewModel, IWindowFactory windowFactory)
+        //Too many params?
+        public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IPostLoadsViewModel postLoadsViewModel,
+             ISearchLoadsViewModel searchLoadsViewModel, ILoginViewModel loginViewModel, IWindowFactory windowFactory,
+             ISearchTrucksViewModel searchTrucksViewModel, IPostTrucksViewModel postTrucksViewModel)
         {           
             this.windowFactory = windowFactory;
             this.topButtonsViewModel = topButtonsViewModel;
+
             this.postLoadsViewModel = postLoadsViewModel;
             this.searchLoadsViewModel = searchLoadsViewModel;
+            this.searchTrucksViewModel = searchTrucksViewModel;
+            this.postTrucksViewModel = postTrucksViewModel;
+
             this.loginViewModel = loginViewModel;
             ShowLoginWindow();
         }
@@ -43,7 +49,27 @@ namespace ViewModels
             windowFactory.CreateNewWindow(loginViewModel);
         }
 
-        public IMainWindowCanvasViewModel PostLoadsViewModel
+        public ISearchTrucksViewModel SearchTrucksViewModel
+        {
+            get { return searchTrucksViewModel; }
+            set
+            {
+                searchTrucksViewModel = value;
+                this.OnPropertyChanged("SearchTrucksViewModel");
+            }
+        }
+
+        public IPostTrucksViewModel PostTrucksViewModel
+        {
+            get { return postTrucksViewModel; }
+            set
+            {
+                postTrucksViewModel = value;
+                this.OnPropertyChanged("PostTrucksViewModel");
+            }
+        }
+
+        public IPostLoadsViewModel PostLoadsViewModel
         {
             get { return postLoadsViewModel; }
             set
@@ -53,7 +79,7 @@ namespace ViewModels
             }
         }
 
-        public IMainWindowCanvasViewModel SearchLoadsViewModel
+        public ISearchLoadsViewModel SearchLoadsViewModel
         {
             get { return searchLoadsViewModel; }
             set

@@ -81,7 +81,7 @@
       <Name>Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Views\Views.csproj">
-      <Project>{cd04e4ff-f809-4d08-8200-552ba59ad3bb}</Project>
+      <Project>{CD04E4FF-F809-4D08-8200-552BA59AD3BB}</Project>
       <Name>Views</Name>
     </ProjectReference>
   </ItemGroup>
