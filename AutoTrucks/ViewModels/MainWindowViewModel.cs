@@ -19,13 +19,14 @@ namespace ViewModels
 
         private readonly IWindowFactory windowFactory;
 
-
         private ITopButtonsViewModel topButtonsViewModel;
         private IPostLoadsViewModel postLoadsViewModel;
         private IPostTrucksViewModel postTrucksViewModel;
         private ISearchLoadsViewModel searchLoadsViewModel;
         private ISearchTrucksViewModel searchTrucksViewModel;
 
+        public ICommand ChangePostTrucksViewModelCommand { get; private set; }
+        public ICommand ChangePostLoadsViewModelCommand { get; private set; }
 
         //Too many params?
         public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IPostLoadsViewModel postLoadsViewModel,
@@ -33,7 +34,12 @@ namespace ViewModels
              ISearchTrucksViewModel searchTrucksViewModel, IPostTrucksViewModel postTrucksViewModel)
         {           
             this.windowFactory = windowFactory;
-            this.topButtonsViewModel = topButtonsViewModel;
+            this.topButtonsViewModel = topButtonsViewModel;           
+
+            this.ChangePostTrucksViewModelCommand = new DelegateCommand(o => this.ChangeViewModel(MainWindowViewModelsEnum.PostTrucksViewModel));
+            this.ChangePostLoadsViewModelCommand = new DelegateCommand(o => this.ChangeViewModel(MainWindowViewModelsEnum.PostLoadsViewModel));
+
+            this.topButtonsViewModel.AddCommand(ChangePostTrucksViewModelCommand, ChangePostLoadsViewModelCommand);
 
             this.postLoadsViewModel = postLoadsViewModel;
             this.searchLoadsViewModel = searchLoadsViewModel;
@@ -44,10 +50,32 @@ namespace ViewModels
             ShowLoginWindow();
         }
 
+        private void ChangeViewModel(MainWindowViewModelsEnum ViewModel)
+        {
+            switch (ViewModel) {
+                case MainWindowViewModelsEnum.PostLoadsViewModel:
+                    if (postLoadsViewModel != null)
+                        postLoadsViewModel = null;
+                    else
+                        postLoadsViewModel = new PostLoadsViewModel();
+                    this.OnPropertyChanged("PostLoadsViewModel");
+                    break;
+                case MainWindowViewModelsEnum.PostTrucksViewModel:
+                    if (postTrucksViewModel != null)
+                        postTrucksViewModel = null;
+                    else
+                        postTrucksViewModel = new PostTrucksViewModel();
+                    this.OnPropertyChanged("PostTrucksViewModel");
+                    break;
+            }
+        }
+
         private void ShowLoginWindow()
         {
             windowFactory.CreateNewWindow(loginViewModel);
         }
+
+        #region OnPropertyChanged data
 
         public ISearchTrucksViewModel SearchTrucksViewModel
         {
@@ -98,6 +126,8 @@ namespace ViewModels
                 this.OnPropertyChanged("TopButtonsViewModel");
             }
         }
+
+        #endregion
 
         #region INotifyPropertyChanged Members
 

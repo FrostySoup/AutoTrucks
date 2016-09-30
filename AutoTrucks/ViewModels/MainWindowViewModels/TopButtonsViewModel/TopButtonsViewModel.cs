@@ -20,6 +20,9 @@ namespace ViewModels.MainWindowViewModels
 
         public ICommand LoginConnexionCommand { get; private set; }
 
+        public ICommand ChangePostTrucksViewModelCommand { get; private set; }
+        public ICommand ChangePostLoadsViewModelCommand { get; private set; }
+
         public TopButtonsViewModel()
         {          
             this.LoginConnexionCommand = new DelegateCommand(o => this.LoginUserIntoConextion());
@@ -27,12 +30,15 @@ namespace ViewModels.MainWindowViewModels
 
         private void LoginUserIntoConextion()
         {
-            ConnectConnexionService connectConnexionService = new ConnectConnexionService();
-            ReceivedLogin receivedLogin = connectConnexionService.LoginToConnexion();
-            token = System.Text.Encoding.UTF8.GetString(receivedLogin.Token.Primary);
-            date = receivedLogin.Expiration.ToString();
-            OnPropertyChanged("Token");
-            OnPropertyChanged("Date");
+            Task.Run(() =>
+            {
+                ConnectConnexionService connectConnexionService = new ConnectConnexionService();
+                ReceivedLogin receivedLogin = connectConnexionService.LoginToConnexion();
+                token = System.Text.Encoding.UTF8.GetString(receivedLogin.Token.Primary);
+                date = receivedLogin.Expiration.ToString();
+                OnPropertyChanged("Token");
+                OnPropertyChanged("Date");
+            });
         }
 
         public string Token
@@ -61,6 +67,12 @@ namespace ViewModels.MainWindowViewModels
             }
         }
 
+        public void AddCommand(ICommand changePostTrucksViewModelCommand, ICommand changePostLoadsViewModelCommand)
+        {
+            ChangePostTrucksViewModelCommand = changePostTrucksViewModelCommand;
+            ChangePostLoadsViewModelCommand = changePostLoadsViewModelCommand;
+        }
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -69,6 +81,8 @@ namespace ViewModels.MainWindowViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        
 
         #endregion
     }

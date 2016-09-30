@@ -18,8 +18,8 @@
         <StackPanel Orientation="Horizontal">
             <Button Style="{StaticResource MainWindowTopButtons}">Post Loads</Button>
             <Button Style="{StaticResource MainWindowTopButtons}">Post Trucks</Button>
-            <Button Style="{StaticResource MainWindowTopButtons}">Search Loads</Button>
-            <Button Style="{StaticResource MainWindowTopButtons}">Search Trucks</Button>
+            <Button Command="{Binding ChangePostLoadsViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Search Loads</Button>
+            <Button Command="{Binding ChangePostTrucksViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Search Trucks</Button>
             <Button Command="{Binding LoginConnexionCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">LogConnexion</Button>
             <StackPanel>
                 <Label>Token from API (Encrypted)</Label>

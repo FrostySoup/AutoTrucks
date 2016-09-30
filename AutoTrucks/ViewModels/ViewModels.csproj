@@ -51,6 +51,7 @@
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="MainWindowViewModels\LoginViewModel\LoginViewModel.cs" />
     <Compile Include="MainWindowViewModels\LoginViewModel\ILoginViewModel.cs" />
+    <Compile Include="MainWindowViewModels\MainWindowViewModelsEnum.cs" />
     <Compile Include="MainWindowViewModels\SearchTrucksViewModel\ISearchTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\ITopButtonsViewModel.cs" />
     <Compile Include="MainWindowViewModels\PostLoadsViewModel\IPostLoadsViewModel.cs" />
