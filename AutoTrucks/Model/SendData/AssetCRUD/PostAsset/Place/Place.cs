@@ -8,6 +8,6 @@ namespace Model.SendData.PostAsset
 {
     public class Place
     {
-       
+        public CityAndState cityAndState { get; set; }
     }
 }

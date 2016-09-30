@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Views.MainWindowViews"
-             mc:Ignorable="d" 
-             d:DesignHeight="70" d:DesignWidth="400">
+             mc:Ignorable="d" >
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -21,6 +20,13 @@
             <Button Style="{StaticResource MainWindowTopButtons}">Post Trucks</Button>
             <Button Style="{StaticResource MainWindowTopButtons}">Search Loads</Button>
             <Button Style="{StaticResource MainWindowTopButtons}">Search Trucks</Button>
+            <Button Command="{Binding LoginConnexionCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">LogConnexion</Button>
+            <StackPanel>
+                <Label>Token from API (Encrypted)</Label>
+                <TextBlock Text="{Binding Token}"/>
+                <Label>Expiration date</Label>
+                <TextBlock Text="{Binding Date}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 

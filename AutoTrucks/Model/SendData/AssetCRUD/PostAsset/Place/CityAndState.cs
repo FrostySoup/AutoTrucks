@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.SendData.PostAsset.Place
+namespace Model.SendData.PostAsset
 {
     public class CityAndState
     {

@@ -8,8 +8,8 @@ namespace Model.ReceiveData.Login
 {
     public class Token
     {
-        public Int64 Primary { get; set; }
-        public Int64 Secondary { get; set; }
+        public Byte[] Primary { get; set; }
+        public Byte[] Secondary { get; set; }
         public DateTime Expiration { get; set; }
     }
 }

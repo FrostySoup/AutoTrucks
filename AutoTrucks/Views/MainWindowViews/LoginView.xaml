@@ -24,7 +24,7 @@
         <Label>Password</Label>
         <TextBox Text="{Binding Password}"></TextBox>
 
-        <Button Content="Login" Style="{StaticResource LoginButton}" Command="{Binding LoginCommand, Mode=OneWay}"/>
+        <Button Content="Login" Background="Red" Style="{StaticResource LoginButton}" Command="{Binding LoginCommand, Mode=OneWay}"/>
 
     </StackPanel>
 </Window>
