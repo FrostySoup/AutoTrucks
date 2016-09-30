@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Model.SendData.SearchCRUD
 {
-    public class Login
+    public class DeleteSearch
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string deleteSearchesBySearchIds { get; set; }
     }
 }
