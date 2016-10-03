@@ -21,12 +21,6 @@
             <Button Command="{Binding ChangePostLoadsViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Search Loads</Button>
             <Button Command="{Binding ChangePostTrucksViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Search Trucks</Button>
             <Button Command="{Binding OpenWindowCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Data Sources</Button>
-            <StackPanel>
-                <Label>(OFF)Token from API (Encrypted)</Label>
-                <TextBlock Text="{Binding Token}"/>
-                <Label>Expiration date</Label>
-                <TextBlock Text="{Binding Date}"/>
-            </StackPanel>
         </StackPanel>
     </Grid>
 

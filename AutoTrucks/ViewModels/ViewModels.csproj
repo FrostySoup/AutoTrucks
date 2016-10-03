@@ -49,21 +49,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="MainWindowViewModels\SearchViewModels\SearchViewModelAbstract.cs" />
     <Compile Include="MainWindowViewModels\LoginViewModel\LoginViewModel.cs" />
     <Compile Include="MainWindowViewModels\LoginViewModel\ILoginViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowViewModelsEnum.cs" />
-    <Compile Include="MainWindowViewModels\SearchTrucksViewModel\ISearchTrucksViewModel.cs" />
+    <Compile Include="MainWindowViewModels\SearchViewModels\SearchTrucksViewModel\ISearchTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\ITopButtonsViewModel.cs" />
     <Compile Include="MainWindowViewModels\PostLoadsViewModel\IPostLoadsViewModel.cs" />
     <Compile Include="MainWindowViewModels\PostLoadsViewModel\PostLoadsViewModel.cs" />
     <Compile Include="MainWindowViewModels\PostTrucksViewModel\IPostTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\PostTrucksViewModel\PostTrucksViewModel.cs" />
-    <Compile Include="MainWindowViewModels\SearchLoadsViewModel\ISearchLoadsViewModel.cs" />
-    <Compile Include="MainWindowViewModels\SearchLoadsViewModel\SearchLoadsViewModel.cs" />
-    <Compile Include="MainWindowViewModels\SearchTrucksViewModel\SearchTrucksViewModel.cs" />
+    <Compile Include="MainWindowViewModels\SearchViewModels\SearchLoadsViewModel\ISearchLoadsViewModel.cs" />
+    <Compile Include="MainWindowViewModels\SearchViewModels\SearchLoadsViewModel\SearchLoadsViewModel.cs" />
+    <Compile Include="MainWindowViewModels\SearchViewModels\SearchTrucksViewModel\SearchTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\TopButtonsViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\DataSourceViewModel\DataSourceViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\DataSourceViewModel\IDataSourceViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\SearchWindowViewModels\ISearchWindowViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\SearchWindowViewModels\SearchWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -97,6 +100,7 @@
       <Name>Service</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

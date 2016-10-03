@@ -1,13 +1,17 @@
 ﻿using Model;
+using Service.AddNewWindowFactory;
+using Service.Commands;
 using Service.FillDataFactory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
+using ViewModels.PopUpWindowViewModels;
 
 namespace ViewModels.MainWindowViewModels
 {
-    public class SearchTrucksViewModel : ISearchTrucksViewModel
+    public class SearchTrucksViewModel : SearchViewModelAbstract, ISearchTrucksViewModel
     {
         private ObservableCollection<Truck> trucks;
 
@@ -15,15 +19,21 @@ namespace ViewModels.MainWindowViewModels
 
         private int number;
 
-        public SearchTrucksViewModel()
+        public ICommand OpenSearchWindowCommand { get; private set; }
+
+        public SearchTrucksViewModel(IWindowFactory windowFactory)
         {
             //Remove later-----------------------------
             FillDataFactory fillDataFactory = new FillDataFactory();
 
             trucks = fillDataFactory.GenerateTrucks();
 
+            this.windowFactory = windowFactory;
+
+            this.OpenSearchWindowCommand = new DelegateCommand(o => this.OpenWindowConnections());
+
             //-----------------------------------------
-        }
+        }       
 
         public string Name
         {
@@ -45,16 +55,5 @@ namespace ViewModels.MainWindowViewModels
                 OnPropertyChanged("Trucks");
             }
         }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
     }
 }

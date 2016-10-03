@@ -28,7 +28,7 @@
         <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
             <Button Style="{StaticResource CRUDButtons}">Play</Button>
             <Button Style="{StaticResource CRUDButtons}">Stop</Button>
-            <Button Style="{StaticResource CRUDButtons}">New</Button>
+            <Button Command="{Binding OpenSearchWindowCommand, Mode=OneWay}" Style="{StaticResource CRUDButtons}" Background="Green">New</Button>
             <Button Style="{StaticResource CRUDButtons}">Edit</Button>
             <Button Style="{StaticResource CRUDButtons}">Del</Button>
         </StackPanel>

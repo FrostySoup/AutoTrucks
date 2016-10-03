@@ -29,7 +29,6 @@ namespace ViewModels.PopUpWindowViewModels
 
         public DataSourceViewModel(IWindowFactory windowFactory)
         {
-            DataSources = new ObservableCollection<DataSource>();
 
             DataSources = SerializeServiceSingleton.Instance.ReturnDataSource();            
 

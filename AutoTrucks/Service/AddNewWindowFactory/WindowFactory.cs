@@ -23,5 +23,12 @@ namespace Service.AddNewWindowFactory
             view.DataContext = dataContext;
             view.ShowDialog();
         }
+
+        public void CreateNewSearchWindow(object dataContext)
+        {
+            SearchWindowView view = new SearchWindowView();
+            view.DataContext = dataContext;
+            view.ShowDialog();
+        }
     }
 }

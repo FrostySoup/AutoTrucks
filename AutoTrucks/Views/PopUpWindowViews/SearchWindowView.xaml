@@ -1,0 +1,114 @@
+﻿<Window x:Class="Views.PopUpWindowViews.SearchWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Views.PopUpWindowViews"
+        mc:Ignorable="d"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="SearchWindowView" Height="500" Width="500">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="0" Grid.Column="0">Truck:</Label>
+        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="0" Grid.Column="1">
+            <ComboBoxItem Tag="None" IsSelected="True"></ComboBoxItem>
+            <ComboBoxItem Tag="AC">Auto Carrier</ComboBoxItem>
+            <ComboBoxItem Tag="CN" >Conestoga</ComboBoxItem>
+            <ComboBoxItem Tag="C">Container</ComboBoxItem>
+        </ComboBox>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="0">Origin:</Label>
+        <TextBlock Style="{StaticResource SearchTextBlock}" Grid.Row="1" Grid.Column="1" Width="144" Height="29">Chicago, IL</TextBlock>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="0">DH-O</Label>
+        <UniformGrid Grid.Row="2" Grid.Column="1" Columns="2">
+            <TextBlock Style="{StaticResource SearchTextBlock}" Grid.Column="0"> 150</TextBlock>
+            <Slider Style="{StaticResource SearchSlider}" Grid.Column="0"></Slider>
+        </UniformGrid>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="3" Grid.Column="0">Length:</Label>
+        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="3" Grid.Column="1">
+            <ComboBoxItem Tag="None" IsSelected="True"></ComboBoxItem>
+            <ComboBoxItem Tag="53">53</ComboBoxItem>
+            <ComboBoxItem Tag="48">48</ComboBoxItem>
+            <ComboBoxItem Tag="45">45</ComboBoxItem>
+            <ComboBoxItem Tag="20">20</ComboBoxItem>
+        </ComboBox>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="0">Search Back</Label>
+        <UniformGrid Grid.Row="4" Grid.Column="1" Columns="2">
+            <TextBlock Style="{StaticResource SearchTextBlock}" Grid.Column="0">0</TextBlock>
+            <Slider Style="{StaticResource SearchSlider}" Grid.Column="0"></Slider>
+        </UniformGrid>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="5" Grid.Column="0">Avail From</Label>
+        <DatePicker Grid.Row="5" Grid.Column="1"/>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="6" Grid.Column="0">Foreground</Label>
+
+        <xctk:ColorPicker SelectedColor="Black" Grid.Row="6" Grid.Column="1" Name="ClrPcker_Background"></xctk:ColorPicker>
+
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="2">Destination:</Label>
+        <TextBlock Style="{StaticResource SearchTextBlock}" Grid.Row="1" Grid.Column="3" Width="144" Height="29">Chicago, IL</TextBlock>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="2">DH-D</Label>
+        <UniformGrid Grid.Row="2" Grid.Column="1" Columns="2">
+            <TextBlock Style="{StaticResource SearchTextBlock}" Grid.Column="2"> 150</TextBlock>
+            <Slider Style="{StaticResource SearchSlider}" Grid.Column="2"></Slider>
+        </UniformGrid>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="3" Grid.Column="2">Weight:</Label>
+        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="3" Grid.Column="3">
+            <ComboBoxItem Tag="None" IsSelected="True"></ComboBoxItem>
+            <ComboBoxItem Tag="53">50</ComboBoxItem>
+            <ComboBoxItem Tag="48">45</ComboBoxItem>
+            <ComboBoxItem Tag="45">42</ComboBoxItem>
+            <ComboBoxItem Tag="20">2</ComboBoxItem>
+        </ComboBox>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="2">F/P</Label>
+        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="4" Grid.Column="3">
+            <ComboBoxItem Tag="None" IsSelected="True"></ComboBoxItem>
+            <ComboBoxItem Tag="Full">Full</ComboBoxItem>
+            <ComboBoxItem Tag="Partial">Partial</ComboBoxItem>
+            <ComboBoxItem Tag="Both">Both</ComboBoxItem>
+        </ComboBox>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="5" Grid.Column="2">Avail To</Label>
+        <DatePicker Grid.Row="5" Grid.Column="3"/>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="6" Grid.Column="2">Background</Label>
+
+        <xctk:ColorPicker SelectedColor="Black" Grid.Row="6" Grid.Column="3"></xctk:ColorPicker>
+
+
+    </Grid>
+</Window>
