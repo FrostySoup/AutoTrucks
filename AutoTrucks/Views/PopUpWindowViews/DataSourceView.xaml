@@ -33,7 +33,7 @@
         </DataGrid>
 
         <DockPanel Grid.Row="2">
-            <Button DockPanel.Dock="Left" Style="{StaticResource DataSourceButtons}">Delete</Button>
+            <Button DockPanel.Dock="Left" Style="{StaticResource DataSourceButtons}" Background="Green" Command="{Binding DeleteSelectedDataSourcesCommand, Mode=OneWay}">Delete</Button>
             <Button DockPanel.Dock="Right" Style="{StaticResource DataSourceButtons}">Close</Button>
         </DockPanel>
     </Grid>

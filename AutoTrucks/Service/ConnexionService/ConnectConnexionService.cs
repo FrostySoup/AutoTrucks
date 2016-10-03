@@ -25,8 +25,7 @@ namespace Service.ConnexionService
             // build request
             var loginRequest = new LoginRequest
             {
-                loginOperation =
-                                       new LoginOperation { loginId = username, password = password, thirdPartyId = "SampleClient.NET" }
+                loginOperation = new LoginOperation { loginId = username, password = password, thirdPartyId = "SampleClient.NET" }
             };
             // build various headers required by the service method
             var applicationHeader = new ApplicationHeader

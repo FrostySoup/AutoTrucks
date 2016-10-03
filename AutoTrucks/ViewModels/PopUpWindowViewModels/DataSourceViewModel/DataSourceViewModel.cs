@@ -1,6 +1,7 @@
 ﻿using Model;
 using Service.AddNewWindowFactory;
 using Service.Commands;
+using Service.SerializeServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace ViewModels.PopUpWindowViewModels
 {
     public class DataSourceViewModel : IDataSourceViewModel
     {
-        private ObservableCollection<DataSource> model;
+        private ObservableCollection<DataSource> dataSourceCollection;
 
         private readonly IWindowFactory windowFactory;
 
@@ -24,40 +25,55 @@ namespace ViewModels.PopUpWindowViewModels
 
         public ICommand OpenWindowCommand { get; private set; }
 
+        public ICommand DeleteSelectedDataSourcesCommand { get; private set; }
+
         public DataSourceViewModel(IWindowFactory windowFactory)
         {
             DataSources = new ObservableCollection<DataSource>();
 
-            DataSources.Add(new DataSource()
-            {
-                UserName = "Testas",
-                Selected = true,
-                Source = "Connexion"
-            });
+            DataSources = SerializeServiceSingleton.Instance.ReturnDataSource();            
 
-            this.windowFactory = windowFactory;
-
-            this.loginViewModel = new LoginViewModel();
+            this.windowFactory = windowFactory;           
 
             this.OpenWindowCommand = new DelegateCommand(o => this.OpenWindowLogin());
+
+            this.DeleteSelectedDataSourcesCommand = new DelegateCommand(o => this.DeleteSelectedDataSources());
+        }
+
+        private void DeleteSelectedDataSources()
+        {
+            dataSourceCollection = new ObservableCollection<DataSource>(dataSourceCollection
+                .Where(x => x.Selected == false));
+            SerializeServiceSingleton.Instance.SerializeDataSourceList(dataSourceCollection);
+            OnPropertyChanged("DataSources");
         }
 
         public ObservableCollection<DataSource> DataSources
         {
             get
             {
-                return model;
+                return dataSourceCollection;
             }
             set
             {
-                model = value;
+                dataSourceCollection = value;
                 OnPropertyChanged("DataSources");
             }
         }
 
+
         private void OpenWindowLogin()
         {
+            loginViewModel = new LoginViewModel();
             windowFactory.CreateNewLoginWindow(loginViewModel);
+            if (loginViewModel.loginCompleted)
+            {
+                if (SerializeServiceSingleton.Instance.SerializeDataSource(loginViewModel.DataSource))
+                {
+                    dataSourceCollection.Add(loginViewModel.DataSource);
+                    OnPropertyChanged("DataSources");
+                }
+            }
         }
 
         #region INotifyPropertyChanged Members

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    [Serializable]
     public class DataSource
     {
         public bool Selected { get; set; }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.ReceiveData.Login
 {
+    [Serializable]
     public class Token
     {
         public Byte[] Primary { get; set; }
