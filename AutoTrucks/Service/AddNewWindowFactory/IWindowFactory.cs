@@ -8,6 +8,7 @@ namespace Service.AddNewWindowFactory
 {
     public interface IWindowFactory
     {
-        void CreateNewWindow(object dataContext);
+        void CreateNewDataSourceWindow(object dataContext);
+        void CreateNewLoginWindow(object loginViewModel);
     }
 }

@@ -62,6 +62,8 @@
     <Compile Include="MainWindowViewModels\SearchLoadsViewModel\SearchLoadsViewModel.cs" />
     <Compile Include="MainWindowViewModels\SearchTrucksViewModel\SearchTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\TopButtonsViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\DataSourceViewModel\DataSourceViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\DataSourceViewModel\IDataSourceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

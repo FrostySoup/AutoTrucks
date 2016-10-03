@@ -16,7 +16,7 @@ namespace Service.ConnexionService
     {
         private string URL = "http://www.transcoreservices.com:8000/TfmiRequest";
 
-        public ReceivedLogin LoginToConnexion()
+        public ReceivedLogin LoginToConnexion(string username, string password)
         {
             var remoteAddress = new EndpointAddress(URL);
             var binding = new BasicHttpBinding(BasicHttpSecurityMode.None) { MaxReceivedMessageSize = 2 << 20 };
@@ -26,7 +26,7 @@ namespace Service.ConnexionService
             var loginRequest = new LoginRequest
             {
                 loginOperation =
-                                       new LoginOperation { loginId = "TES7", password = "teservices", thirdPartyId = "SampleClient.NET" }
+                                       new LoginOperation { loginId = username, password = password, thirdPartyId = "SampleClient.NET" }
             };
             // build various headers required by the service method
             var applicationHeader = new ApplicationHeader
@@ -48,7 +48,8 @@ namespace Service.ConnexionService
             // return a SessionFacade, which wraps the login results along with the client object
             var data = loginResponse.loginResult.Item as LoginSuccessData;
 
-
+            if (data == null)
+                return null;
             //Shortcut for testing purposes
             ReceivedLogin receivedLogin = new ReceivedLogin()
             {

@@ -1,5 +1,7 @@
 ﻿using Model;
+using Model.ReceiveData.Login;
 using Service.Commands;
+using Service.ConnexionService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,8 @@ namespace ViewModels.MainWindowViewModels
 
         private string password;
 
+       
+
         public ICommand LoginCommand { get; private set; }
 
         public LoginViewModel()
@@ -26,7 +30,16 @@ namespace ViewModels.MainWindowViewModels
 
         private void LoginUser()
         {
-            
+            Task.Run(() =>
+            {
+                IConnectConnexionService connectConnexionService = new ConnectConnexionService();
+                ReceivedLogin receivedLogin = connectConnexionService.LoginToConnexion(username, password);
+                if (receivedLogin == null)
+                {
+                    //Login failed, do something
+                }
+                int a = 5;
+            });
         }
 
         public string Username

@@ -1,4 +1,5 @@
 ﻿using Model.ReceiveData.Login;
+using Service.AddNewWindowFactory;
 using Service.Commands;
 using Service.ConnexionService;
 using Service.FillDataFactory;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ViewModels.PopUpWindowViewModels;
 
 namespace ViewModels.MainWindowViewModels
 {
@@ -18,18 +20,28 @@ namespace ViewModels.MainWindowViewModels
 
         private string date;
 
-        public ICommand LoginConnexionCommand { get; private set; }
+        private readonly IWindowFactory windowFactory;
+
+        private IDataSourceViewModel dataSourceViewModel;
+
+        public ICommand OpenWindowCommand { get; private set; }
 
         public ICommand ChangePostTrucksViewModelCommand { get; private set; }
         public ICommand ChangePostLoadsViewModelCommand { get; private set; }
 
-        public TopButtonsViewModel()
-        {          
-            this.LoginConnexionCommand = new DelegateCommand(o => this.LoginUserIntoConextion());
+        public TopButtonsViewModel(IWindowFactory windowFactory)
+        {
+            this.windowFactory = windowFactory;
+
+            this.OpenWindowCommand = new DelegateCommand(o => this.OpenWindowConnections());
+            dataSourceViewModel = new DataSourceViewModel(windowFactory);
         }
 
-        private void LoginUserIntoConextion()
+        private void OpenWindowConnections()
         {
+            windowFactory.CreateNewDataSourceWindow(dataSourceViewModel);
+
+            /*
             Task.Run(() =>
             {
                 ConnectConnexionService connectConnexionService = new ConnectConnexionService();
@@ -38,7 +50,7 @@ namespace ViewModels.MainWindowViewModels
                 date = receivedLogin.Expiration.ToString();
                 OnPropertyChanged("Token");
                 OnPropertyChanged("Date");
-            });
+            });*/
         }
 
         public string Token
@@ -82,7 +94,7 @@ namespace ViewModels.MainWindowViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+
 
         #endregion
     }

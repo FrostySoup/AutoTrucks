@@ -72,7 +72,7 @@ namespace ViewModels
 
         private void ShowLoginWindow()
         {
-            windowFactory.CreateNewWindow(loginViewModel);
+
         }
 
         #region OnPropertyChanged data

@@ -18,6 +18,9 @@
 
     <StackPanel>
         <Rectangle Height="40" Fill="Azure"></Rectangle>
+        <Label>Data source</Label>
+        <ComboBox></ComboBox>
+
         <Label>Username</Label>
         <TextBox Text="{Binding Username}"></TextBox>
 
@@ -28,3 +31,4 @@
 
     </StackPanel>
 </Window>
+

@@ -9,6 +9,6 @@ namespace Service.ConnexionService
 {
     public interface IConnectConnexionService
     {
-        ReceivedLogin LoginToConnexion();
+        ReceivedLogin LoginToConnexion(string username, string password);
     }
 }

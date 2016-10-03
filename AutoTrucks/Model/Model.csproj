@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSource.cs" />
     <Compile Include="Enum\AssetType.cs" />
     <Compile Include="Enum\EquipmentType.cs" />
     <Compile Include="Enum\StateProvince.cs" />
