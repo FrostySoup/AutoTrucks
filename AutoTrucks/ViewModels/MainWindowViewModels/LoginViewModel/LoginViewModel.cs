@@ -15,9 +15,9 @@ namespace ViewModels.MainWindowViewModels
 {
     public class LoginViewModel : ILoginViewModel
     {
-        private string username;
+        private string username = "TES7";
 
-        private string password;
+        private string password = "teservices";
 
         private string message;
 
@@ -42,9 +42,9 @@ namespace ViewModels.MainWindowViewModels
                 Task.Run(() =>
                 {
                     IConnectConnexionService connectConnexionService = new ConnectConnexionService();
-                    ReceivedLogin receivedLogin = connectConnexionService.LoginToConnexion(username, password);
+                    bool correctLogin = connectConnexionService.CheckIfValidLoginToConnexion(username, password);
 
-                    if (receivedLogin == null)
+                    if (correctLogin == false)
                     {
                         message = "Failed to log in";
                     }
@@ -56,8 +56,7 @@ namespace ViewModels.MainWindowViewModels
                         {
                             UserName = username,
                             Selected = false,
-                            Source = "Connexion",
-                            LoginData = receivedLogin
+                            Source = "Connexion"
                         };
                     }
                     this.OnPropertyChanged("Message");

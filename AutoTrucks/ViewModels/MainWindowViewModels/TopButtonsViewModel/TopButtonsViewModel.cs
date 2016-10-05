@@ -39,18 +39,7 @@ namespace ViewModels.MainWindowViewModels
 
         private void OpenWindowConnections()
         {
-            windowFactory.CreateNewDataSourceWindow(dataSourceViewModel);
-
-            /*
-            Task.Run(() =>
-            {
-                ConnectConnexionService connectConnexionService = new ConnectConnexionService();
-                ReceivedLogin receivedLogin = connectConnexionService.LoginToConnexion();
-                token = System.Text.Encoding.UTF8.GetString(receivedLogin.Token.Primary);
-                date = receivedLogin.Expiration.ToString();
-                OnPropertyChanged("Token");
-                OnPropertyChanged("Date");
-            });*/
+            windowFactory.CreateNewDataSourceWindow(dataSourceViewModel);      
         }
 
         public string Token

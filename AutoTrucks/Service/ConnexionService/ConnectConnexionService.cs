@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using Model.SearchCRUD;
 
 namespace Service.ConnexionService
 {
@@ -16,7 +17,16 @@ namespace Service.ConnexionService
     {
         private string URL = "http://www.transcoreservices.com:8000/TfmiRequest";
 
-        public ReceivedLogin LoginToConnexion(string username, string password)
+        public bool CheckIfValidLoginToConnexion(string username, string password)
+        {
+            SessionFacade session = LoginToConnexion(username, password);
+
+            if (session != null)
+                return true;
+            return false;
+        }
+
+        public SessionFacade LoginToConnexion(string user, string password)
         {
             var remoteAddress = new EndpointAddress(URL);
             var binding = new BasicHttpBinding(BasicHttpSecurityMode.None) { MaxReceivedMessageSize = 2 << 20 };
@@ -25,8 +35,9 @@ namespace Service.ConnexionService
             // build request
             var loginRequest = new LoginRequest
             {
-                loginOperation = new LoginOperation { loginId = username, password = password, thirdPartyId = "SampleClient.NET" }
+                loginOperation = new LoginOperation { loginId = user, password = password, thirdPartyId = "SampleClient.NET" }
             };
+
             // build various headers required by the service method
             var applicationHeader = new ApplicationHeader
             { application = "Connexion C# .NET Test", applicationVersion = "1.0" };
@@ -46,22 +57,36 @@ namespace Service.ConnexionService
 
             // return a SessionFacade, which wraps the login results along with the client object
             var data = loginResponse.loginResult.Item as LoginSuccessData;
-
             if (data == null)
-                return null;
-            //Shortcut for testing purposes
-            ReceivedLogin receivedLogin = new ReceivedLogin()
             {
-                Expiration = data.expiration,
-                Token = new Token()
-                {
-                    Expiration = data.token.expiration,
-                    Primary = data.token.primary,
-                    Secondary = data.token.secondary
-                }
+                var serviceError = loginResponse.loginResult.Item as ServiceError;
+                return null;
+            }
+            return new SessionFacade(applicationHeader, correlationHeader, data, client);
+        }
+
+        public void SearchConnexion(SessionFacade session, CreateSearch searchDataProvided)
+        {
+            CreateSearchRequest searchRequest = new CreateSearchRequest()
+            {
+               createSearchOperation = new CreateSearchOperation()
+               {
+                   criteria = new SearchCriteria()
+                   {
+                       ageLimitMinutes = searchDataProvided.ageLimitMinutes,
+                       assetType = (AssetType)searchDataProvided.criteria,
+                       destination = new GeoCriteria()
+                       {
+                           Item = searchDataProvided.destination
+                       },
+                       origin = new GeoCriteria()
+                       {
+                           Item = searchDataProvided.origin
+                       }
+                   }
+               } 
             };
-            
-            return receivedLogin;
+            session.Search(searchRequest);
         }
 
         /*public async Task<string> LoginToConnexion()

@@ -67,6 +67,7 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="ConnexionService\ConnectConnexionService.cs" />
     <Compile Include="ConnexionService\IConnectConnexionService.cs" />
+    <Compile Include="ConnexionService\SessionFacade.cs" />
     <Compile Include="FillDataFactory\AddUserFactory.cs" />
     <Compile Include="FillDataFactory\FillDataFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

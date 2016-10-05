@@ -16,10 +16,10 @@
 
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <Button Style="{StaticResource MainWindowTopButtons}">Post Loads</Button>
-            <Button Style="{StaticResource MainWindowTopButtons}">Post Trucks</Button>
-            <Button Command="{Binding ChangePostLoadsViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Search Loads</Button>
-            <Button Command="{Binding ChangePostTrucksViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Search Trucks</Button>
+            <Button Style="{StaticResource MainWindowTopButtons}">Search Loads</Button>
+            <Button Style="{StaticResource MainWindowTopButtons}">Search Trucks</Button>
+            <Button Command="{Binding ChangePostLoadsViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Post Loads</Button>
+            <Button Command="{Binding ChangePostTrucksViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Post Trucks</Button>
             <Button Command="{Binding OpenWindowCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtonsWorking}">Data Sources</Button>
         </StackPanel>
     </Grid>
