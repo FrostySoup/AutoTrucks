@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.SendData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowViewModelsInterfaces
 {
     public interface ILoginViewModel : INotifyPropertyChanged
     {
-        DataSource DataSource { get; set; }
+        Login loginCredentials { get; set; }
 
         bool loginCompleted { get; set; }
     }

@@ -144,10 +144,8 @@ namespace Service.ConnexionService
         /// 	Calls <see cref="TfmiFreightMatchingPortTypeClient.CreateSearch" /> method and writes result to console.
         /// </summary>
         /// <param name="searchRequest"> </param>
-        public void Search(CreateSearchRequest searchRequest)
+        public CreateSearchSuccessData Search(CreateSearchRequest searchRequest)
         {
-            /* pass a local variable as a "ref" parameter, rather than passing the field itself, so 
-			 * the service can't modify what the field refers to */
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
@@ -160,7 +158,6 @@ namespace Service.ConnexionService
                 out warningHeader,
                 out createSearchResponse);
 
-            Console.WriteLine("===============Search Results===============");
 
             if (createSearchResponse != null)
             {
@@ -171,9 +168,10 @@ namespace Service.ConnexionService
                 }
                 else
                 {
-
+                    return data;
                 }
             }
+            return null;
         }
 
         public void UpdateAlarm(string alarmUrl)

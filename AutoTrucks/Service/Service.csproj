@@ -65,8 +65,9 @@
     <Compile Include="AddNewWindowFactory\IWindowFactory.cs" />
     <Compile Include="AddNewWindowFactory\WindowFactory.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="ConnexionService\ConnectConnexionService.cs" />
+    <Compile Include="ConnexionService\ConnectConnexionServiceSingleton.cs" />
     <Compile Include="ConnexionService\IConnectConnexionService.cs" />
+    <Compile Include="ConnexionService\SessionCacheSingleton.cs" />
     <Compile Include="ConnexionService\SessionFacade.cs" />
     <Compile Include="FillDataFactory\AddUserFactory.cs" />
     <Compile Include="FillDataFactory\FillDataFactory.cs" />
@@ -84,7 +85,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SerializeServices\SerializeServiceSingleton.cs" />
-    <Compile Include="TFMIProxy\TFMIProxy.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

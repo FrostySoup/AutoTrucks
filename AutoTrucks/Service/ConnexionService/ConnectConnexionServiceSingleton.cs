@@ -13,9 +13,27 @@ using Model.SearchCRUD;
 
 namespace Service.ConnexionService
 {
-    public class ConnectConnexionService : IConnectConnexionService
+    public class ConnectConnexionServiceSingleton
     {
         private string URL = "http://www.transcoreservices.com:8000/TfmiRequest";
+
+        private static ConnectConnexionServiceSingleton instance;
+
+        private ConnectConnexionServiceSingleton()
+        {}
+
+        public static ConnectConnexionServiceSingleton Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ConnectConnexionServiceSingleton();
+                }
+                return instance;
+            }
+        }
+
 
         public bool CheckIfValidLoginToConnexion(string username, string password)
         {
@@ -65,56 +83,44 @@ namespace Service.ConnexionService
             return new SessionFacade(applicationHeader, correlationHeader, data, client);
         }
 
-        public void SearchConnexion(SessionFacade session, CreateSearch searchDataProvided)
+        public CreateSearchSuccessData SearchConnexion(SessionFacade session, SearchOperationParams searchDataProvided)
         {
-            CreateSearchRequest searchRequest = new CreateSearchRequest()
-            {
-               createSearchOperation = new CreateSearchOperation()
-               {
-                   criteria = new SearchCriteria()
-                   {
-                       ageLimitMinutes = searchDataProvided.ageLimitMinutes,
-                       assetType = (AssetType)searchDataProvided.criteria,
-                       destination = new GeoCriteria()
-                       {
-                           Item = searchDataProvided.destination
-                       },
-                       origin = new GeoCriteria()
-                       {
-                           Item = searchDataProvided.origin
-                       }
-                   }
-               } 
-            };
-            session.Search(searchRequest);
+            CreateSearchRequest searchRequest = MapSearchOperationWithCreateSearchOperation(searchDataProvided);
+
+            return session.Search(searchRequest);
         }
 
-        /*public async Task<string> LoginToConnexion()
+        private CreateSearchRequest MapSearchOperationWithCreateSearchOperation(SearchOperationParams searchDataProvided)
         {
-            string Token = "";
+            CreateSearchRequest searchRequest = new CreateSearchRequest();
 
-            HttpClient client = new HttpClient();
-
-            // build client to TFMI service 
-            var remoteAddress = new Uri(URL);
-
-            // build request
-            Login user = AddUserFactory.GetUser();
-
-            ReceivedLogin loginTokens;
-
-            client.BaseAddress = new Uri(URL);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            HttpResponseMessage response = await client.PostAsJsonAsync(URL, user);
-            if (response.IsSuccessStatusCode)
+            searchRequest = new CreateSearchRequest()
             {
-                loginTokens = await response.Content.ReadAsAsync<ReceivedLogin>();
-            }
+                createSearchOperation = new CreateSearchOperation()
+                {
+                    criteria = new SearchCriteria()
+                    {
+                        ageLimitMinutes = searchDataProvided.criteria.ageLimitMinutes,
+                        ageLimitMinutesSpecified = searchDataProvided.criteria.ageLimitMinutesSpecified,
+                        assetType = searchDataProvided.criteria.assetType,
+                        destination = searchDataProvided.criteria.destination,
+                        equipmentClasses = searchDataProvided.criteria.equipmentClasses,
+                        excludeOpenDestinationEquipment = searchDataProvided.criteria.excludeOpenDestinationEquipment,
+                        availability = searchDataProvided.criteria.availability,
+                        origin = searchDataProvided.criteria.origin,
+                        includeFulls = searchDataProvided.criteria.includeFulls,
+                        excludeOpenDestinationEquipmentSpecified = searchDataProvided.criteria.excludeOpenDestinationEquipment,
+                        limits = searchDataProvided.criteria.limits
+                    },
+                    includeSearch = searchDataProvided.includeSearch,
+                    includeSearchSpecified = searchDataProvided.includeSearchSpecified,
+                    sortOrder = searchDataProvided.sortOrder,
+                    sortOrderSpecified = searchDataProvided.sortOrderSpecified
+                }
+            };
 
-            return Token;
-        }*/
+            return searchRequest;
+        }
 
 
     }

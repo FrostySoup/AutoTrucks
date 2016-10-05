@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.ReceiveData.Login;
+using Model.SendData;
 using Service.Commands;
 using Service.ConnexionService;
 using System;
@@ -21,7 +22,7 @@ namespace ViewModels.MainWindowViewModels
 
         private string message;
 
-        public DataSource DataSource { get; set; }
+        public Login loginCredentials { get; set; }
 
         public bool loginCompleted { get; set; }
 
@@ -41,8 +42,7 @@ namespace ViewModels.MainWindowViewModels
             {
                 Task.Run(() =>
                 {
-                    IConnectConnexionService connectConnexionService = new ConnectConnexionService();
-                    bool correctLogin = connectConnexionService.CheckIfValidLoginToConnexion(username, password);
+                    bool correctLogin = ConnectConnexionServiceSingleton.Instance.CheckIfValidLoginToConnexion(username, password);
 
                     if (correctLogin == false)
                     {
@@ -52,11 +52,11 @@ namespace ViewModels.MainWindowViewModels
                     {
                         loginCompleted = true;
                         message = "Log in succesful";
-                        DataSource = new DataSource()
+                        loginCredentials = new Login
                         {
-                            UserName = username,
-                            Selected = false,
-                            Source = "Connexion"
+                            loginId = username,
+                            password = password,
+                            thirdPartyId = "Connexion"
                         };
                     }
                     this.OnPropertyChanged("Message");

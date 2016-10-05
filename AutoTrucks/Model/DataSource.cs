@@ -12,6 +12,8 @@ namespace Model
     {
         public bool Selected { get; set; }
         public string Source { get; set; }
+
+        public string Password { get; set; }
         public string UserName { get; set; }
         public ReceivedLogin LoginData { get; set; }
     }

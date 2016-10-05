@@ -28,7 +28,6 @@ namespace ViewModels
         public ICommand ChangePostTrucksViewModelCommand { get; private set; }
         public ICommand ChangePostLoadsViewModelCommand { get; private set; }
 
-        //Too many params?
         public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IPostLoadsViewModel postLoadsViewModel,
              ISearchLoadsViewModel searchLoadsViewModel, ILoginViewModel loginViewModel, IWindowFactory windowFactory,
              ISearchTrucksViewModel searchTrucksViewModel, IPostTrucksViewModel postTrucksViewModel)

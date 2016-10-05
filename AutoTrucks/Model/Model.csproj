@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,13 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataSource.cs" />
-    <Compile Include="Enum\AssetType.cs" />
-    <Compile Include="Enum\EquipmentType.cs" />
-    <Compile Include="Enum\StateProvince.cs" />
     <Compile Include="ReceiveData\CreateSearch\SearchCreated.cs" />
     <Compile Include="ReceiveData\PostAsset\ReceivedAssetInfo.cs" />
     <Compile Include="SendData\AssetCRUD\DeleteAsset\DeleteAsset.cs" />
-    <Compile Include="SendData\SearchCRUD\CreateSearch.cs" />
+    <Compile Include="SendData\SearchCRUD\CreateSearchCriteria.cs" />
     <Compile Include="SendData\AssetCRUD\PostAsset\Equipment.cs" />
     <Compile Include="SendData\AssetCRUD\PostAsset\Place\CityAndState.cs" />
     <Compile Include="SendData\AssetCRUD\PostAsset\Place\Place.cs" />
@@ -57,8 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendData\AssetCRUD\PostAsset\Shipment.cs" />
     <Compile Include="SendData\AssetCRUD\UpdateAsset\UpdateAsset.cs" />
+    <Compile Include="SendData\SearchCRUD\SearchOperationParams.cs" />
     <Compile Include="SendData\SearchCRUD\DeleteSearch.cs" />
-    <Compile Include="Truck.cs" />
+    <Compile Include="TFMIProxy\TFMIProxy.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

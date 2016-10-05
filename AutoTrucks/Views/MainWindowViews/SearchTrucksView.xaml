@@ -26,14 +26,14 @@
 
         <TextBlock Grid.Row="0" Style="{StaticResource TitleText}">Search Trucks</TextBlock>
         <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
-            <Button Style="{StaticResource CRUDButtons}">Play</Button>
+            <Button Command="{Binding SearchForSelectedTruckCommand, Mode=OneWay}" Style="{StaticResource CRUDButtons}" Background="Green">Play</Button>
             <Button Style="{StaticResource CRUDButtons}">Stop</Button>
             <Button Command="{Binding OpenSearchWindowCommand, Mode=OneWay}" Style="{StaticResource CRUDButtons}" Background="Green">New</Button>
             <Button Style="{StaticResource CRUDButtons}">Edit</Button>
             <Button Style="{StaticResource CRUDButtons}">Del</Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults"  Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
@@ -46,10 +46,17 @@
             <Button Style="{StaticResource CRUDButtons}" >Clear</Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="4" x:Name="dataGridCallResults" Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="4" x:Name="dataGridCallResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Avail" Binding="{Binding Avail}"/>
                 <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>
+                <DataGridTextColumn Header="Truck" Binding="{Binding Truck}"/>
+                <DataGridTextColumn Header="F/P" Binding="{Binding FP}"/>
+                <DataGridTextColumn Header="Origin" Binding="{Binding OriginToString}"/>
+                <DataGridTextColumn Header="DH-O" Binding="{Binding DHO}"/>
+                <DataGridTextColumn Header="Destination" Binding="{Binding DestinationToString}"/>
+                <DataGridTextColumn Header="DH-D" Binding="{Binding DHD}"/>
+                <DataGridTextColumn Header="InitialO" Binding="{Binding InitialO}"/>
             </DataGrid.Columns>
         </DataGrid>
 
