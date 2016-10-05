@@ -33,7 +33,7 @@
             <Button Style="{StaticResource CRUDButtons}">Del</Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults"  Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
@@ -48,14 +48,14 @@
 
         <DataGrid Grid.Row="4" x:Name="dataGridCallResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Avail" Binding="{Binding Avail}"/>
-                <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>
+                <DataGridTextColumn Header="Avail" Binding="{Binding AvailabilityToString}"/>
+                <DataGridTextColumn Header="Age" Binding="{Binding AgeToString}"/>
                 <DataGridTextColumn Header="Truck" Binding="{Binding Truck}"/>
-                <DataGridTextColumn Header="F/P" Binding="{Binding FP}"/>
+                <DataGridTextColumn Header="F/P" Binding="{Binding FullORPartial}"/>
                 <DataGridTextColumn Header="Origin" Binding="{Binding OriginToString}"/>
-                <DataGridTextColumn Header="DH-O" Binding="{Binding DHO}"/>
+                <DataGridTextColumn Header="DH-O" Binding="{Binding DHOToString}"/>
                 <DataGridTextColumn Header="Destination" Binding="{Binding DestinationToString}"/>
-                <DataGridTextColumn Header="DH-D" Binding="{Binding DHD}"/>
+                <DataGridTextColumn Header="DH-D" Binding="{Binding DHDToString}"/>
                 <DataGridTextColumn Header="InitialO" Binding="{Binding InitialO}"/>
             </DataGrid.Columns>
         </DataGrid>

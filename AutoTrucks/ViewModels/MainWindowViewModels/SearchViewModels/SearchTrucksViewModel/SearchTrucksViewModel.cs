@@ -48,9 +48,9 @@ namespace ViewModels.MainWindowViewModels
 
         private SearchOperationParams SetValuesForSearch()
         {
-            var origin = new SearchArea { stateProvinces = new[] { StateProvince.CA, StateProvince.IL } };
+            var origin = new SearchArea { stateProvinces = new[] { StateProvince.CA } };
 
-            var destination = new SearchArea { zones = new[] { Zone.MidAtlantic } };
+            var destination = new SearchArea { stateProvinces = new[] { StateProvince.IL } };
 
             var searchCriteria = new CreateSearchCriteria
             {
@@ -69,7 +69,7 @@ namespace ViewModels.MainWindowViewModels
                 criteria = searchCriteria,
                 includeSearch = true,
                 includeSearchSpecified = true,
-                sortOrder = SortOrder.Closest,
+                sortOrder = SortOrder.Age,
                 sortOrderSpecified = true
             };
         }
@@ -93,7 +93,13 @@ namespace ViewModels.MainWindowViewModels
                     {
                         Destination = truck.destination,
                         Truck = truck.equipmentType,
-                        Origin = truck.origin
+                        Origin = truck.origin,
+                        Avail = match.asset.availability,
+                        FP = match.asset.ltl,
+                        DHD = match.destinationDeadhead,
+                        DHO = match.originDeadhead,
+                        Age = match.asset.status.created.date,
+                        InitialO = match.callback.postersStateProvince.ToString()
                     });
                 }
                 OnPropertyChanged("Trucks");

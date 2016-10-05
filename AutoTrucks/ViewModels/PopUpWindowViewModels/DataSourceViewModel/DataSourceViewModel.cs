@@ -65,18 +65,21 @@ namespace ViewModels.PopUpWindowViewModels
         {
             loginViewModel = new LoginViewModel();
             windowFactory.CreateNewLoginWindow(loginViewModel);
-            DataSource loginToDataSource = new DataSource()
+            if (loginViewModel.loginCredentials != null)
             {
-                UserName = loginViewModel.loginCredentials.loginId,
-                Password = loginViewModel.loginCredentials.password,
-                Selected = false
-            };
-            if (loginViewModel.loginCompleted)
-            {
-                if (SerializeServiceSingleton.Instance.SerializeDataSource(loginToDataSource))
+                DataSource loginToDataSource = new DataSource()
                 {
-                    dataSourceCollection.Add(loginToDataSource);
-                    OnPropertyChanged("DataSources");
+                    UserName = loginViewModel.loginCredentials.loginId,
+                    Password = loginViewModel.loginCredentials.password,
+                    Selected = false
+                };
+                if (loginViewModel.loginCompleted)
+                {
+                    if (SerializeServiceSingleton.Instance.SerializeDataSource(loginToDataSource))
+                    {
+                        dataSourceCollection.Add(loginToDataSource);
+                        OnPropertyChanged("DataSources");
+                    }
                 }
             }
         }
