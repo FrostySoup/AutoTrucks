@@ -10,9 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ViewModels.MainWindowViewModels.MainWindowViewModelsInterfaces;
 
-namespace ViewModels.MainWindowViewModels
+namespace ViewModels.PopUpWindowViewModels
 {
     public class LoginViewModel : ILoginViewModel
     {

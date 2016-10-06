@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ViewModels.MainWindowViewModels
 {
-    public interface IPostLoadsViewModel : INotifyPropertyChanged
+    public interface IMainWindowDisplayViewModel : INotifyPropertyChanged
     {
     }
 }

@@ -18,6 +18,7 @@ namespace ViewModels.MainWindowViewModels
 
         protected void OpenWindowConnections()
         {
+            //initiating VIEWMODEL
             searchWindowViewModel = new SearchWindowViewModel();
             windowFactory.CreateNewSearchWindow(searchWindowViewModel);
         }

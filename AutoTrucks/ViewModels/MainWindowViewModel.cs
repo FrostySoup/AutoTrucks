@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ViewModels.MainWindowViewModels;
-using ViewModels.MainWindowViewModels.MainWindowViewModelsInterfaces;
+using ViewModels.PopUpWindowViewModels;
 
 namespace ViewModels
 {
@@ -20,17 +20,17 @@ namespace ViewModels
         private readonly IWindowFactory windowFactory;
 
         private ITopButtonsViewModel topButtonsViewModel;
-        private IPostLoadsViewModel postLoadsViewModel;
-        private IPostTrucksViewModel postTrucksViewModel;
-        private ISearchLoadsViewModel searchLoadsViewModel;
-        private ISearchTrucksViewModel searchTrucksViewModel;
+        private IMainWindowDisplayViewModel postLoadsViewModel;
+        private IMainWindowDisplayViewModel postTrucksViewModel;
+        private IMainWindowDisplayViewModel searchLoadsViewModel;
+        private IMainWindowDisplayViewModel searchTrucksViewModel;
 
         public ICommand ChangePostTrucksViewModelCommand { get; private set; }
         public ICommand ChangePostLoadsViewModelCommand { get; private set; }
 
-        public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IPostLoadsViewModel postLoadsViewModel,
-             ISearchLoadsViewModel searchLoadsViewModel, ILoginViewModel loginViewModel, IWindowFactory windowFactory,
-             ISearchTrucksViewModel searchTrucksViewModel, IPostTrucksViewModel postTrucksViewModel)
+        public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IMainWindowDisplayViewModel postLoadsViewModel,
+             IMainWindowDisplayViewModel searchLoadsViewModel, ILoginViewModel loginViewModel, IWindowFactory windowFactory,
+             IMainWindowDisplayViewModel searchTrucksViewModel, IMainWindowDisplayViewModel postTrucksViewModel)
         {           
             this.windowFactory = windowFactory;
             this.topButtonsViewModel = topButtonsViewModel;           
@@ -46,11 +46,11 @@ namespace ViewModels
             this.postTrucksViewModel = postTrucksViewModel;
 
             this.loginViewModel = loginViewModel;
-            ShowLoginWindow();
         }
 
         private void ChangeViewModel(MainWindowViewModelsEnum ViewModel)
         {
+            //initiating VIEWMODEL
             switch (ViewModel) {
                 case MainWindowViewModelsEnum.PostLoadsViewModel:
                     if (postLoadsViewModel != null)
@@ -69,14 +69,9 @@ namespace ViewModels
             }
         }
 
-        private void ShowLoginWindow()
-        {
-
-        }
-
         #region OnPropertyChanged data
 
-        public ISearchTrucksViewModel SearchTrucksViewModel
+        public IMainWindowDisplayViewModel SearchTrucksViewModel
         {
             get { return searchTrucksViewModel; }
             set
@@ -86,7 +81,7 @@ namespace ViewModels
             }
         }
 
-        public IPostTrucksViewModel PostTrucksViewModel
+        public IMainWindowDisplayViewModel PostTrucksViewModel
         {
             get { return postTrucksViewModel; }
             set
@@ -96,7 +91,7 @@ namespace ViewModels
             }
         }
 
-        public IPostLoadsViewModel PostLoadsViewModel
+        public IMainWindowDisplayViewModel PostLoadsViewModel
         {
             get { return postLoadsViewModel; }
             set
@@ -106,7 +101,7 @@ namespace ViewModels
             }
         }
 
-        public ISearchLoadsViewModel SearchLoadsViewModel
+        public IMainWindowDisplayViewModel SearchLoadsViewModel
         {
             get { return searchLoadsViewModel; }
             set

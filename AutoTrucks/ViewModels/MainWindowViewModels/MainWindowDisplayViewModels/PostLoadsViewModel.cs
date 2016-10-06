@@ -8,7 +8,7 @@ using ViewModels.MainWindowViewModels;
 
 namespace ViewModels.MainWindowViewModels
 {
-    public class PostLoadsViewModel : IPostLoadsViewModel
+    public class PostLoadsViewModel : IMainWindowDisplayViewModel
     {
 
 

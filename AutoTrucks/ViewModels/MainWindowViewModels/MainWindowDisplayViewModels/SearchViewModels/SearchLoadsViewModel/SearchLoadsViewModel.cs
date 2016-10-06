@@ -11,7 +11,7 @@ using ViewModels.PopUpWindowViewModels;
 
 namespace ViewModels.MainWindowViewModels
 {
-    public class SearchLoadsViewModel : SearchViewModelAbstract, ISearchLoadsViewModel
+    public class SearchLoadsViewModel : SearchViewModelAbstract, IMainWindowDisplayViewModel
     {
 
         public ICommand OpenSearchWindowCommand { get; private set; }

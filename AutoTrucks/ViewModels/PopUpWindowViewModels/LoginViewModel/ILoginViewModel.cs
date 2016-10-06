@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ViewModels.MainWindowViewModels.MainWindowViewModelsInterfaces
+namespace ViewModels.PopUpWindowViewModels
 {
     public interface ILoginViewModel : INotifyPropertyChanged
     {

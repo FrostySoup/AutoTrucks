@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ViewModels.MainWindowViewModels;
-using ViewModels.MainWindowViewModels.MainWindowViewModelsInterfaces;
+using Model.SendData;
 
 namespace ViewModels.PopUpWindowViewModels
 {
@@ -63,8 +63,14 @@ namespace ViewModels.PopUpWindowViewModels
 
         private void OpenWindowLogin()
         {
+            //initiating VIEWMODEL
             loginViewModel = new LoginViewModel();
             windowFactory.CreateNewLoginWindow(loginViewModel);
+            SaveLoginCredentials(loginViewModel.loginCredentials);      
+        }
+
+        private void SaveLoginCredentials(Login loginCredentials)
+        {
             if (loginViewModel.loginCredentials != null)
             {
                 DataSource loginToDataSource = new DataSource()
@@ -83,6 +89,7 @@ namespace ViewModels.PopUpWindowViewModels
                 }
             }
         }
+
 
         #region INotifyPropertyChanged Members
 

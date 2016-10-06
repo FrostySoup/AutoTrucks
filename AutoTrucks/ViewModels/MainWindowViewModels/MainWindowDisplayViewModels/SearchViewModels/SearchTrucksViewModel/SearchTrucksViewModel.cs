@@ -15,7 +15,7 @@ using ViewModels.PopUpWindowViewModels;
 
 namespace ViewModels.MainWindowViewModels
 {
-    public class SearchTrucksViewModel : SearchViewModelAbstract, ISearchTrucksViewModel
+    public class SearchTrucksViewModel : SearchViewModelAbstract, IMainWindowDisplayViewModel
     {
         private ObservableCollection<SearchCreated> trucks;
 
@@ -86,6 +86,22 @@ namespace ViewModels.MainWindowViewModels
             {
                 Trucks = new ObservableCollection<SearchCreated>();
                 searchSuccessData = ConnectConnexionServiceSingleton.Instance.SearchConnexion(SessionCacheSingleton.Instance.sessions[0], newSearch);
+
+                MapSearchResultsToSearchCreated(searchSuccessData);
+              
+                OnPropertyChanged("Trucks");
+            }
+            else
+            {
+                //Temporary solution
+                SessionCacheSingleton.Instance.RenewSessionsForEachData();
+            }                  
+        }
+
+        private void MapSearchResultsToSearchCreated(CreateSearchSuccessData searchSuccessData)
+        {
+            if (searchSuccessData != null)
+            {
                 foreach (MatchingAsset match in searchSuccessData.matches)
                 {
                     Shipment truck = (Shipment)match.asset.Item;
@@ -102,13 +118,7 @@ namespace ViewModels.MainWindowViewModels
                         InitialO = match.callback.postersStateProvince.ToString()
                     });
                 }
-                OnPropertyChanged("Trucks");
             }
-            else
-            {
-                //Temporary solution
-                SessionCacheSingleton.Instance.RenewSessionsForEachData();
-            }                  
         }
 
         public string Name
