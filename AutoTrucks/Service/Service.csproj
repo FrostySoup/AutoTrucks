@@ -62,8 +62,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddNewWindowFactory\IWindowFactory.cs" />
-    <Compile Include="AddNewWindowFactory\WindowFactory.cs" />
+    <Compile Include="DataConvertService\DataConvertSingleton.cs" />
+    <Compile Include="WindowsFactory\IWindowFactory.cs" />
+    <Compile Include="WindowsFactory\WindowFactory.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="ConnexionService\ConnectConnexionServiceSingleton.cs" />
     <Compile Include="ConnexionService\IConnectConnexionService.cs" />

@@ -11,5 +11,6 @@ namespace Service.AddNewWindowFactory
         void CreateNewDataSourceWindow(object dataContext);
         void CreateNewLoginWindow(object loginViewModel);
         void CreateNewSearchWindow(object dataContext);
+        void CloseSearchWindow();
     }
 }

@@ -33,13 +33,19 @@
             <Button Style="{StaticResource CRUDButtons}">Del</Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults" Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="2" x:Name="dataGridSearchOptions" ItemsSource="{Binding SearchesToDisplay}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
+                <DataGridTextColumn Header="Truck" Binding="{Binding EquipmentClasses}"/>
+                <DataGridTextColumn Header="Origin" Binding="{Binding Origin}"/>
+                <DataGridTextColumn Header="Destination" Binding="{Binding Destination}"/>
+                <DataGridTextColumn Header="Pickup" Binding="{Binding Pickup}"/>
+                <DataGridTextColumn Header="DH-O" Binding="{Binding DHO}"/>
+                <DataGridTextColumn Header="DH-D" Binding="{Binding DHD}"/>
+                <DataGridTextColumn Header="F/P" Binding="{Binding FP}"/>
+                <DataGridTextColumn Header="Lenght" Binding="{Binding Lenght}"/>
+                <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
             </DataGrid.Columns>
         </DataGrid>
-
         <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
             <TextBlock>Search results Total:0 New:0</TextBlock>
             <Button Style="{StaticResource CRUDButtons}" >Undo</Button>

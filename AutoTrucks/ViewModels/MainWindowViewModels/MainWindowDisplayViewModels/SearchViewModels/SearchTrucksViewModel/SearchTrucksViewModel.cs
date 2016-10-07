@@ -1,10 +1,13 @@
 ﻿using Model;
+using Model.DataFromView;
+using Model.DataToView;
 using Model.ReceiveData.CreateSearch;
 using Model.SearchCRUD;
 using Model.SendData;
 using Service.AddNewWindowFactory;
 using Service.Commands;
 using Service.ConnexionService;
+using Service.DataConvertService;
 using Service.FillDataFactory;
 using System;
 using System.Collections.Generic;
@@ -19,20 +22,21 @@ namespace ViewModels.MainWindowViewModels
     {
         private ObservableCollection<SearchCreated> trucks;
 
-        private string name;
-
-        private int number;
-
         private SearchOperationParams newSearch;
 
-        public ICommand OpenSearchWindowCommand { get; private set; }
+        private ObservableCollection<SearchOperationParams> searches;
 
-        public ICommand CreateSearchCommand { get; private set; }
+        private ObservableCollection<SearchTrucksSearches> searchesToDisplay;
+
+        public ICommand OpenSearchWindowCommand { get; private set; }
 
         public ICommand SearchForSelectedTruckCommand { get; private set; }
 
         public SearchTrucksViewModel(IWindowFactory windowFactory)
         {
+            searches = new ObservableCollection<SearchOperationParams>();
+
+            searchesToDisplay = new ObservableCollection<SearchTrucksSearches>();
 
             newSearch = SetValuesForSearch();
 
@@ -40,9 +44,16 @@ namespace ViewModels.MainWindowViewModels
 
             this.OpenSearchWindowCommand = new DelegateCommand(o => this.OpenWindowConnections());
 
-            this.CreateSearchCommand = new DelegateCommand(o => this.CreateSearch());
-
             this.SearchForSelectedTruckCommand = new DelegateCommand(o => this.SearchForSelectedTruck());
+        }
+
+        protected override void AddNewSearch(SearchDataFromView searchData)
+        {
+            //searches.Add(DataConvertSingleton.Instance
+            //.ToSearchOperationParams(searchData, AssetType.Shipment));
+
+            searchesToDisplay.Add(new SearchTrucksSearches(searchData));
+            OnPropertyChanged("SearchesToDisplay");
 
         }
 
@@ -74,18 +85,17 @@ namespace ViewModels.MainWindowViewModels
             };
         }
 
-        private void CreateSearch()
-        {
-            throw new NotImplementedException();
-        }
-
         private void SearchForSelectedTruck()
         {
             CreateSearchSuccessData searchSuccessData;
-            if (SessionCacheSingleton.Instance.sessions.Count > 0)
+            
+            if (SessionCacheSingleton.Instance.sessions.Count > 0 && searchesToDisplay.Count > 0)
             {
+                searches.Add(DataConvertSingleton.Instance
+                    .ToSearchOperationParams(searchesToDisplay[0].SearchData, AssetType.Shipment));
                 Trucks = new ObservableCollection<SearchCreated>();
-                searchSuccessData = ConnectConnexionServiceSingleton.Instance.SearchConnexion(SessionCacheSingleton.Instance.sessions[0], newSearch);
+                searchSuccessData = ConnectConnexionServiceSingleton
+                    .Instance.SearchConnexion(SessionCacheSingleton.Instance.sessions[0], searches[0]);
 
                 MapSearchResultsToSearchCreated(searchSuccessData);
               
@@ -121,14 +131,6 @@ namespace ViewModels.MainWindowViewModels
             }
         }
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-        }
-
         public ObservableCollection<SearchCreated> Trucks
         {
             get
@@ -139,6 +141,13 @@ namespace ViewModels.MainWindowViewModels
             {
                 trucks = value;
                 OnPropertyChanged("Trucks");
+            }
+        }
+
+        public ObservableCollection<SearchTrucksSearches> SearchesToDisplay
+        {
+            get { 
+                return searchesToDisplay;
             }
         }
     }

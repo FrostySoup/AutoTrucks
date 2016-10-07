@@ -1,4 +1,5 @@
-﻿using Service.AddNewWindowFactory;
+﻿using Model.DataFromView;
+using Service.AddNewWindowFactory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,14 +15,18 @@ namespace ViewModels.MainWindowViewModels
     {
         protected ISearchWindowViewModel searchWindowViewModel;
 
-        protected IWindowFactory windowFactory;     
+        protected IWindowFactory windowFactory;
 
         protected void OpenWindowConnections()
         {
             //initiating VIEWMODEL
-            searchWindowViewModel = new SearchWindowViewModel();
+            searchWindowViewModel = new SearchWindowViewModel(windowFactory);
             windowFactory.CreateNewSearchWindow(searchWindowViewModel);
+            if (searchWindowViewModel.saveData == true)
+                AddNewSearch(searchWindowViewModel.searchData);
         }
+
+        protected virtual void AddNewSearch(SearchDataFromView searchData){}
 
         #region INotifyPropertyChanged Members
 

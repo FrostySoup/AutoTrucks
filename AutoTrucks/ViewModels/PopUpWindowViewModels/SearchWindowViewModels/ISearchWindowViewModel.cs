@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Model.DataFromView;
+using Model.DataToView;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,5 +11,8 @@ namespace ViewModels.PopUpWindowViewModels
 {
     public interface ISearchWindowViewModel : INotifyPropertyChanged
     {
+        SearchDataFromView searchData { get; }
+
+        bool saveData { get; }
     }
 }
