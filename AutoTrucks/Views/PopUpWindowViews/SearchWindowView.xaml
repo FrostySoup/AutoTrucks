@@ -94,9 +94,9 @@
 
         <xctk:ColorPicker SelectedColor="{Binding BackgroundColor}" Grid.Row="6" Grid.Column="3"></xctk:ColorPicker>
 
-        <Button Command="{Binding CloseWindowSaveDataCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="0" Background="Green">Ok</Button>
+        <Button Command="{Binding CloseWindowSaveDataCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="0">Ok</Button>
 
-        <Button Command="{Binding CloseWindowCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="4" Background="Green">Close</Button>
+        <Button Command="{Binding CloseWindowCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="4">Close</Button>
 
         <xctk:CheckComboBox Grid.Row="7" Grid.Column="0" x:Name="_combo" 
                              HorizontalAlignment="Center" 

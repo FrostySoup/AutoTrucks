@@ -1,24 +1,24 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                    xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--BUTTONS-->
 
-    <Style x:Key="MainWindowTopButtons" TargetType="Button">
+    <Style x:Key="MainWindowTopButtons" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
         <Setter Property="Width" Value="80"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Margin" Value="10,10,10,10"/>
-        <Setter Property="Background" Value="Red"/>
     </Style>
 
-    <Style x:Key="DataSourceButtons" TargetType="Button">
+    <Style x:Key="DataSourceButtons" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
         <Setter Property="Width" Value="80"/>
-        <Setter Property="Height" Value="20"/>
+        <Setter Property="Height" Value="30"/>
         <Setter Property="FontSize" Value="12"/>
-        <Setter Property="Background" Value="Red"/>
     </Style>
 
-    <Style x:Key="MainWindowTopButtonsWorking" TargetType="Button">
+    <Style x:Key="MainWindowTopButtonsWorking" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
         <Setter Property="Width" Value="80"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="FontSize" Value="12"/>
@@ -26,19 +26,71 @@
         <Setter Property="Background" Value="Green"/>
     </Style>
 
-    <Style x:Key="CRUDButtons" TargetType="Button">
+    <Style x:Key="CRUDButtons" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
         <Setter Property="Width" Value="40"/>
         <Setter Property="Height" Value="25"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Margin" Value="5,5,5,5"/>
-        <Setter Property="Background" Value="Red"/>
     </Style>
 
-    <Style x:Key="LoginButton" TargetType="Button">
+    <Style x:Key="BaseButtonImageStyle" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
         <Setter Property="Width" Value="40"/>
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="40"/>
         <Setter Property="Margin" Value="5,5,5,5"/>
+        <Setter Property="Background" Value="Azure"/>
+    </Style>
+
+    <Style x:Key="StartButton" TargetType="Button" BasedOn="{StaticResource BaseButtonImageStyle}">
+        <Setter Property="Button.Content">
+            <Setter.Value>
+                <Image Source=".\Images\Start.png"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="UndoButton" TargetType="Button" BasedOn="{StaticResource BaseButtonImageStyle}">
+        <Setter Property="Button.Content">
+            <Setter.Value>
+                <Image Source=".\Images\Undo.png"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ClearButton" TargetType="Button" BasedOn="{StaticResource BaseButtonImageStyle}">
+        <Setter Property="Button.Content">
+            <Setter.Value>
+                <Image Source=".\Images\Clear.png"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EditButton" TargetType="Button" BasedOn="{StaticResource BaseButtonImageStyle}">
+        <Setter Property="Button.Content">
+            <Setter.Value>
+                <Image Source=".\Images\Edit.png"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DeleteButton" TargetType="Button" BasedOn="{StaticResource BaseButtonImageStyle}">
+        <Setter Property="Button.Content">
+            <Setter.Value>
+                <Image Source=".\Images\delete.png"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AddButton" TargetType="Button" BasedOn="{StaticResource BaseButtonImageStyle}">
+        <Setter Property="Button.Content">
+            <Setter.Value>
+                <Image Source=".\Images\Add.png"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LoginButton" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="30"/>
     </Style>
 
     <!--Stack panels-->
@@ -50,17 +102,20 @@
 
     <!--Data grid-->
 
-    <Style x:Key="ListResultsDataGrid" TargetType="DataGrid">
+    <Style x:Key="ListResultsDataGrid" TargetType="DataGrid" BasedOn="{StaticResource AzureDataGrid}">
         <Setter Property="MinHeight" Value="200"/>
         <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
     </Style>
 
     <!--Text block-->
 
     <Style x:Key="TitleText" TargetType="TextBlock">
-        <Setter Property="Background" Value="Azure"/>
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0,10,0,10"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="Century Gothic"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
 
     <Style x:Key="SearchTextBlock" TargetType="TextBlock">
@@ -69,6 +124,12 @@
         <Setter Property="Margin" Value="10"/>
     </Style>
 
+    <!--Rectangle--> 
+
+    <Style x:Key="TextBoxBackGround" TargetType="Rectangle">
+        <Setter Property="Fill" Value="DeepSkyBlue"/>
+    </Style>
+    
     <!--Label-->
 
     <Style x:Key="SearchLabel" TargetType="Label">

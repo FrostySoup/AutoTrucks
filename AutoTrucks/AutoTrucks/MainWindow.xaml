@@ -1,24 +1,37 @@
-﻿<Window x:Class="AutoTrucks.MainWindow"
+﻿<Controls:MetroWindow x:Class="AutoTrucks.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AutoTrucks"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:AutoTrucks"       
         mc:Ignorable="d"
         Title="MainWindow">
     
     <Grid x:Name="MainGrid">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
-        <ContentControl Grid.Row="0" Content="{Binding Path = TopButtonsViewModel}" />
+        <Border Style="{StaticResource MainBorders}">
+            <ContentControl Grid.Row="0" Content="{Binding Path = TopButtonsViewModel}" />
+        </Border>
         <UniformGrid Grid.Row="1" Rows="1">
-            <ContentControl Grid.Row="0" Content="{Binding Path = PostLoadsViewModel}"/>
-            <ContentControl Grid.Row="0" Content="{Binding Path = SearchLoadsViewModel}"/>
-            <ContentControl Grid.Row="0" Content="{Binding Path = SearchTrucksViewModel}"/>
-            <ContentControl Grid.Row="0" Content="{Binding Path = PostTrucksViewModel}"/>
+            <Border Style="{StaticResource MainBorders}">
+                <ContentControl Grid.Row="0" Content="{Binding Path = PostLoadsViewModel}"/>
+            </Border>
+            <Border Style="{StaticResource MainBorders}">
+                <ContentControl Grid.Row="0" Content="{Binding Path = SearchLoadsViewModel}"/>
+            </Border>
+            <Border Style="{StaticResource MainBorders}">
+                <ContentControl Grid.Row="0" Content="{Binding Path = SearchTrucksViewModel}"/>
+            </Border>
+            <Border Style="{StaticResource MainBorders}">
+                <ContentControl Grid.Row="0" Content="{Binding Path = PostTrucksViewModel}"/>
+            </Border>
+
         </UniformGrid>
     </Grid>
     
-</Window>
+</Controls:MetroWindow>

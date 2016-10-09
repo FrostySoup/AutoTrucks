@@ -24,13 +24,13 @@
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
 
-
+        <Rectangle Grid.Row="0" Style="{StaticResource TextBoxBackGround}"/>
         <TextBlock Grid.Row="0" Style="{StaticResource TitleText}">Search Loads</TextBlock>
         <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
-            <Button Style="{StaticResource CRUDButtons}">Play</Button>
-            <Button Command="{Binding OpenSearchWindowCommand, Mode=OneWay}" Style="{StaticResource CRUDButtons}" Background="Green">New</Button> 
-            <Button Style="{StaticResource CRUDButtons}">Edit</Button>
-            <Button Style="{StaticResource CRUDButtons}">Del</Button>
+            <Button Style="{StaticResource StartButton}"/>
+            <Button Command="{Binding OpenSearchWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
+            <Button Style="{StaticResource EditButton}"/>
+            <Button Style="{StaticResource DeleteButton}"/>
         </StackPanel>
 
         <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
@@ -42,8 +42,8 @@
 
         <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
             <TextBlock>Search results Total:0 New:0</TextBlock>
-            <Button Style="{StaticResource CRUDButtons}" >Undo</Button>
-            <Button Style="{StaticResource CRUDButtons}" >Clear</Button>
+            <Button Style="{StaticResource UndoButton}"/>
+            <Button Style="{StaticResource ClearButton}"/>
         </StackPanel>
 
         <DataGrid Grid.Row="4" x:Name="dataGridCallResults" Style="{StaticResource ListResultsDataGrid}">
