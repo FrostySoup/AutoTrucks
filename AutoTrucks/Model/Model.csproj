@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="DataFromView\SearchDataFromView.cs" />
     <Compile Include="DataSource.cs" />
-    <Compile Include="DataToView\SearchTrucksSearches.cs" />
+    <Compile Include="DataToView\SearchAssetsSearches.cs" />
     <Compile Include="Enums\EnumExtensionForDescription.cs" />
     <Compile Include="Enums\FullOrPartial.cs" />
     <Compile Include="Enums\Length.cs" />

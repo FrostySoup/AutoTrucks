@@ -23,6 +23,10 @@ namespace Model.DataFromView
 
         public string weight { get; set; }
 
+        public string cityOrigin { get; set; }
+
+        public string cityDestination { get; set; }
+
         public int searchBack { get; set; }
 
         public bool includeFulls { get; set; }

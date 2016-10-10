@@ -37,13 +37,23 @@
         </Grid.ColumnDefinitions>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="0" Grid.Column="0">Truck:</Label>
-        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="0" Grid.Column="1"
-                  SelectedItem="{Binding EquipmentTypeSelect}" ItemsSource="{Binding EquipmentTypeValues}"/>
-        
-        <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="0">Origin:</Label>
-        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="1" Grid.Column="1"
-                  SelectedItem="{Binding OriginProvinceSelect}" ItemsSource="{Binding ProvinceValues}"/>
+        <xctk:CheckComboBox Grid.Row="0" Grid.Column="1" x:Name="_combo" 
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center"    
+                             Width="373"
+                             Height="22"
+                             ItemsSource="{Binding EquipmentTypeValues}"
+                             SelectedItemsOverride="{Binding EquipmentTypeSelected}"
+                             Grid.ColumnSpan="3" Margin="20.4,15,18.6,15" />
 
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="0">Origin:</Label>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <ComboBox Style="{StaticResource SearchComboBox}" SelectedItem="{Binding OriginProvinceSelect}" 
+                  ItemsSource="{Binding ProvinceValues}"/>
+            <TextBox Text="{Binding CityOrigin}" Height="27" Margin="0,0,-0.2,0"/>
+        </StackPanel>
+        
         <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="0">DH-O</Label>
         <UniformGrid Grid.Row="2" Grid.Column="1" Columns="2">
             <TextBlock Style="{StaticResource SearchTextBlock}" Text="{Binding DHO}" Grid.Column="0"/>
@@ -69,9 +79,13 @@
 
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="2">Destination:</Label>
-        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="1" Grid.Column="3"
+        
+        <StackPanel Grid.Row="1" Grid.Column="3">
+        <ComboBox Style="{StaticResource SearchComboBox}"
                   SelectedItem="{Binding DestinationProvinceSelect}" ItemsSource="{Binding ProvinceValues}"/>
-
+            <TextBox Text="{Binding CityDestination}" Height="27" Margin="0,0,-0.2,0"/>
+        </StackPanel>
+        
         <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="2">DH-D</Label>
         <UniformGrid Grid.Row="2" Grid.Column="3" Columns="2">
             <TextBlock Style="{StaticResource SearchTextBlock}" Text="{Binding DHD}"  Grid.Column="2"/>
@@ -83,7 +97,7 @@
                   SelectedItem="{Binding SelectedWeigth}" ItemsSource="{Binding WeigthValues}"/>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="2">F/P</Label>
-        
+
         <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="4" Grid.Column="3"
                   SelectedItem="{Binding SelectedFullOrPartial}" ItemsSource="{Binding FullOrPartialValues}"/>
 
@@ -98,13 +112,6 @@
 
         <Button Command="{Binding CloseWindowCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="4">Close</Button>
 
-        <xctk:CheckComboBox Grid.Row="7" Grid.Column="0" x:Name="_combo" 
-                             HorizontalAlignment="Center" 
-                             VerticalAlignment="Center"    
-                             Width="125"
-                             Height="22"
-                             ItemsSource="{Binding EquipmentTypeValues}"
-                             SelectedItemsOverride="{Binding EquipmentTypeSelected}"
-                             Grid.ColumnSpan="2" Margin="28,16.4,81.4,15.6" />
+
     </Grid>
 </Window>

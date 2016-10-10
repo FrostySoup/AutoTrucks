@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Model.DataFromView;
 using Model.SendData;
 using Model.SearchCRUD;
+using Model.ReceiveData.CreateSearch;
+using System.Collections.ObjectModel;
 
 namespace Service.DataConvertService
 {
@@ -30,7 +32,7 @@ namespace Service.DataConvertService
             }
         }
 
-        private GeoCriteria ToSearchRadius(StateProvince province, int dh)
+        private GeoCriteria ToSearchRadius(StateProvince province, int dh, string cityProvided)
         {
             return new GeoCriteria
             {
@@ -41,7 +43,7 @@ namespace Service.DataConvertService
                         Item = new CityAndState()
                         {
                             stateProvince = province,
-                            city = "mmm"
+                            city = cityProvided
                         }
                     },
                     radius = new Mileage()
@@ -76,11 +78,11 @@ namespace Service.DataConvertService
                 ageLimitMinutes = 90,
                 ageLimitMinutesSpecified = true,
                 assetType = assetType,
-                destination = ToSearchRadius(searchData.destinationProvince, searchData.dhd),
+                destination = ToSearchRadius(searchData.destinationProvince, searchData.dhd, searchData.cityDestination),
                 equipmentClasses = new[] { EquipmentClass.Flatbeds, EquipmentClass.Reefers },
                 includeFulls = searchData.includeFulls,
                 includeLtls = searchData.includeLtls,
-                origin = ToSearchRadius(searchData.originProvince, searchData.dho),
+                origin = ToSearchRadius(searchData.originProvince, searchData.dho, searchData.cityOrigin),
                 limits = createDimension(searchData),
                 availability = ToAvailability(searchData)
             };
@@ -102,6 +104,32 @@ namespace Service.DataConvertService
                 earliest = searchData.availFrom,
                 latest = searchData.availTo
             };
+        }
+
+        public ObservableCollection<SearchCreated> CreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData)
+        {
+            ObservableCollection<SearchCreated> trucks = new ObservableCollection<SearchCreated>();
+            if (searchSuccessData != null && searchSuccessData.matches != null)
+            {                
+                foreach (MatchingAsset match in searchSuccessData.matches)
+                {
+                    Shipment truck = (Shipment)match.asset.Item;
+                    trucks.Add(new SearchCreated()
+                    {
+                        Destination = truck.destination,
+                        Truck = truck.equipmentType,
+                        Origin = truck.origin,
+                        Avail = match.asset.availability,
+                        FP = match.asset.ltl,
+                        DHD = match.destinationDeadhead,
+                        DHO = match.originDeadhead,
+                        Age = match.asset.status.created.date,
+                        InitialO = match.callback.postersStateProvince.ToString()
+                    });
+                }
+            }
+
+            return trucks;
         }
     }
 }

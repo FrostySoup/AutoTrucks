@@ -181,6 +181,26 @@ namespace ViewModels.PopUpWindowViewModels
             }
         }
 
+        public string CityOrigin
+        {
+            get { return searchData.cityOrigin; }
+            set
+            {
+                searchData.cityOrigin = value;
+                this.OnPropertyChanged("CityOrigin");
+            }
+        }
+
+        public string CityDestination
+        {
+            get { return searchData.cityDestination; }
+            set
+            {
+                searchData.cityDestination = value;
+                this.OnPropertyChanged("CityDestination");
+            }
+        }
+
         public FullOrPartial SelectedFullOrPartial
         {
             get { return searchData.fullOrPartial; }

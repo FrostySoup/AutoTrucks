@@ -13,47 +13,47 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    <Border Style="{StaticResource MainBorders}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+        
+                <Rectangle Grid.Row="0" Style="{StaticResource TextBoxBackGround}"/>
+                <TextBlock Grid.Row="0" Style="{StaticResource TitleText}">Post Loads</TextBlock>
+                <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
+                    <Button Style="{StaticResource StartButton}"/>
+                    <Button Style="{StaticResource AddButton}"/>
+                    <Button Style="{StaticResource EditButton}"/>
+                    <Button Style="{StaticResource DeleteButton}"/>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="5*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="5*" />
-        </Grid.RowDefinitions>
+                </StackPanel>
 
-        <Rectangle Grid.Row="0" Style="{StaticResource TextBoxBackGround}"/>
-        <TextBlock Grid.Row="0" Style="{StaticResource TitleText}">Post Loads</TextBlock>
-        <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
-            <Button Style="{StaticResource StartButton}"/>
-            <Button Style="{StaticResource AddButton}"/>
-            <Button Style="{StaticResource EditButton}"/>
-            <Button Style="{StaticResource DeleteButton}"/>
+                <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-        </StackPanel>
+                <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
+                    <TextBlock>Search results Total:0 New:0</TextBlock>
+                    <Button Style="{StaticResource UndoButton}"/>
+                    <Button Style="{StaticResource ClearButton}"/>
+                </StackPanel>
 
-        <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
-            <TextBlock>Search results Total:0 New:0</TextBlock>
-            <Button Style="{StaticResource UndoButton}"/>
-            <Button Style="{StaticResource ClearButton}"/>
-        </StackPanel>
-
-        <DataGrid Grid.Row="4" x:Name="dataGridCallResults" Style="{StaticResource ListResultsDataGrid}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-    </Grid>
-
+                <DataGrid Grid.Row="4" x:Name="dataGridCallResults" Style="{StaticResource ListResultsDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+        
+        </Grid>
+    </Border>
 </UserControl>
 

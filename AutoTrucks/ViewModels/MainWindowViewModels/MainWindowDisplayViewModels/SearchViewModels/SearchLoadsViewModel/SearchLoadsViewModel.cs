@@ -14,13 +14,32 @@ namespace ViewModels.MainWindowViewModels
     public class SearchLoadsViewModel : SearchViewModelAbstract, IMainWindowDisplayViewModel
     {
 
-        public ICommand OpenSearchWindowCommand { get; private set; }
-
-        public SearchLoadsViewModel(IWindowFactory windowFactory)
+        /* private SearchOperationParams SetValuesForSearch()
         {
-            this.windowFactory = windowFactory;
+            var origin = new SearchArea { stateProvinces = new[] { StateProvince.CA } };
 
-            this.OpenSearchWindowCommand = new DelegateCommand(o => this.OpenWindowConnections());
-        }
+            var destination = new SearchArea { stateProvinces = new[] { StateProvince.IL } };
+
+            var searchCriteria = new CreateSearchCriteria
+            {
+                ageLimitMinutes = 90,
+                ageLimitMinutesSpecified = true,
+                assetType = AssetType.Shipment,
+                destination = new GeoCriteria { Item = destination },
+                equipmentClasses = new[] { EquipmentClass.Flatbeds, EquipmentClass.Reefers },
+                includeFulls = true,
+                includeLtls = true,
+                origin = new GeoCriteria { Item = origin }
+            };
+
+            return new SearchOperationParams
+            {
+                criteria = searchCriteria,
+                includeSearch = true,
+                includeSearchSpecified = true,
+                sortOrder = SortOrder.Age,
+                sortOrderSpecified = true
+            };
+        }*/
     }
 }

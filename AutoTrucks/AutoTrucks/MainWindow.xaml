@@ -6,31 +6,22 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:AutoTrucks"       
         mc:Ignorable="d"
+        Height="800"
+        Width="1200"
         Title="MainWindow">
     
     <Grid x:Name="MainGrid">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
-        <Border Style="{StaticResource MainBorders}">
-            <ContentControl Grid.Row="0" Content="{Binding Path = TopButtonsViewModel}" />
-        </Border>
-        <UniformGrid Grid.Row="1" Rows="1">
-            <Border Style="{StaticResource MainBorders}">
-                <ContentControl Grid.Row="0" Content="{Binding Path = PostLoadsViewModel}"/>
-            </Border>
-            <Border Style="{StaticResource MainBorders}">
-                <ContentControl Grid.Row="0" Content="{Binding Path = SearchLoadsViewModel}"/>
-            </Border>
-            <Border Style="{StaticResource MainBorders}">
-                <ContentControl Grid.Row="0" Content="{Binding Path = SearchTrucksViewModel}"/>
-            </Border>
-            <Border Style="{StaticResource MainBorders}">
-                <ContentControl Grid.Row="0" Content="{Binding Path = PostTrucksViewModel}"/>
-            </Border>
-
+        <ContentControl Grid.Row="0" Content="{Binding Path = TopButtonsViewModel}" />
+            <UniformGrid Grid.Row="1" Rows="1">
+            <ContentControl Grid.Row="0" Content="{Binding Path = PostLoadsViewModel}"/>
+            <ContentControl Grid.Row="0" Content="{Binding Path = SearchLoadsViewModel}"/>
+            <ContentControl Grid.Row="0" Content="{Binding Path = SearchTrucksViewModel}"/>
+            <ContentControl Grid.Row="0" Content="{Binding Path = PostTrucksViewModel}"/>
         </UniformGrid>
     </Grid>
     

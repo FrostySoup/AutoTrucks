@@ -16,10 +16,6 @@ namespace ViewModels.MainWindowViewModels
     public class TopButtonsViewModel : ITopButtonsViewModel
     {
 
-        private string token;
-
-        private string date;
-
         private readonly IWindowFactory windowFactory;
 
         private IDataSourceViewModel dataSourceViewModel;
@@ -40,32 +36,6 @@ namespace ViewModels.MainWindowViewModels
         private void OpenWindowConnections()
         {
             windowFactory.CreateNewDataSourceWindow(dataSourceViewModel);      
-        }
-
-        public string Token
-        {
-            get
-            {
-                return token;
-            }
-            set
-            {
-                date = value;
-                OnPropertyChanged("Token");
-            }
-        }
-
-        public string Date
-        {
-            get
-            {
-                return date;
-            }
-            set
-            {
-                date = value;
-                OnPropertyChanged("Date");
-            }
         }
 
         public void AddCommand(ICommand changePostTrucksViewModelCommand, ICommand changePostLoadsViewModelCommand)

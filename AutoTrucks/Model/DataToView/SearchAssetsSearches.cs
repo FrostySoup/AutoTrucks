@@ -3,7 +3,7 @@ using Model.SearchCRUD;
 
 namespace Model.DataToView
 {
-    public class SearchTrucksSearches
+    public class SearchAssetsSearches
     {
         public SearchDataFromView SearchData { get; set; }
         public string EquipmentClasses { get; set; }
@@ -24,11 +24,16 @@ namespace Model.DataToView
 
         public string Weight { get; set; }
 
-        public SearchTrucksSearches() { }
+        public SearchAssetsSearches() { }
 
-        public SearchTrucksSearches(SearchDataFromView searchData)
+        public SearchAssetsSearches(SearchDataFromView searchData)
         {
-            EquipmentClasses = searchData.equipmentType.ToString();
+            string equipment = "";
+            foreach (EquipmentType equipmentType in searchData.equipmentType)
+            {
+                equipment += equipmentType.ToString() + ", ";
+            }
+            EquipmentClasses = equipment;
             Origin = searchData.originProvince.ToString();
             Destination = searchData.destinationProvince.ToString();
             Pickup = "UnknownField";
