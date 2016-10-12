@@ -1,6 +1,5 @@
 ﻿using Model.ReceiveData.Login;
 using Model.SendData;
-using Service.FillDataFactory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,38 +12,21 @@ using Model.SearchCRUD;
 
 namespace Service.ConnexionService
 {
-    public class ConnectConnexionServiceSingleton
+    public class ConnectConnexionService : IConnectConnexionService
     {
         private string URL = "http://www.transcoreservices.com:8000/TfmiRequest";
-
-        private static ConnectConnexionServiceSingleton instance;
-
-        private ConnectConnexionServiceSingleton()
-        {}
-
-        public static ConnectConnexionServiceSingleton Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new ConnectConnexionServiceSingleton();
-                }
-                return instance;
-            }
-        }
 
 
         public bool CheckIfValidLoginToConnexion(string username, string password)
         {
-            SessionFacade session = LoginToConnexion(username, password);
+            ISessionFacade session = LoginToConnexion(username, password);
 
             if (session != null)
                 return true;
             return false;
         }
 
-        public SessionFacade LoginToConnexion(string user, string password)
+        public ISessionFacade LoginToConnexion(string user, string password)
         {
             var remoteAddress = new EndpointAddress(URL);
             var binding = new BasicHttpBinding(BasicHttpSecurityMode.None) { MaxReceivedMessageSize = 2 << 20 };
@@ -83,7 +65,7 @@ namespace Service.ConnexionService
             return new SessionFacade(applicationHeader, correlationHeader, data, client);
         }
 
-        public CreateSearchSuccessData SearchConnexion(SessionFacade session, SearchOperationParams searchDataProvided)
+        public CreateSearchSuccessData SearchConnexion(ISessionFacade session, SearchOperationParams searchDataProvided)
         {
             CreateSearchRequest searchRequest = MapSearchOperationWithCreateSearchOperation(searchDataProvided);
 

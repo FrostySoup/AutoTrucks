@@ -11,13 +11,12 @@ using System.Collections.ObjectModel;
 
 namespace Service.DataConvertService
 {
-    public class DataConvertSingleton
+    public class DataConvertSingleton : IDataConvertSingleton
     {
         private static DataConvertSingleton instance;
 
         private DataConvertSingleton()
         { }
-
 
 
         public static DataConvertSingleton Instance

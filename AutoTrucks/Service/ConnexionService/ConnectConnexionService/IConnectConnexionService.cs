@@ -15,7 +15,7 @@ namespace Service.ConnexionService
     {
         bool CheckIfValidLoginToConnexion(string username, string password);
 
-        SessionFacade LoginToConnexion(string user, string password);
-        CreateSearchSuccessData SearchConnexion(SessionFacade session, SearchOperationParams searchDataProvided);
+        ISessionFacade LoginToConnexion(string user, string password);
+        CreateSearchSuccessData SearchConnexion(ISessionFacade session, SearchOperationParams searchDataProvided);
     }
 }

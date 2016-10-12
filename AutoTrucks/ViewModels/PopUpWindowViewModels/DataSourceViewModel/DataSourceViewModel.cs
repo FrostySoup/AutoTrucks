@@ -15,7 +15,7 @@ using Model.SendData;
 
 namespace ViewModels.PopUpWindowViewModels
 {
-    public class DataSourceViewModel : IDataSourceViewModel
+    public class DataSourceViewModel : NotifyPropertyChangedAbstract, IDataSourceViewModel
     {
         private ObservableCollection<DataSource> dataSourceCollection;
 
@@ -27,12 +27,19 @@ namespace ViewModels.PopUpWindowViewModels
 
         public ICommand DeleteSelectedDataSourcesCommand { get; private set; }
 
-        public DataSourceViewModel(IWindowFactory windowFactory)
+        public ISerializeService serializeService;
+
+        public DataSourceViewModel(IWindowFactory windowFactory, ISerializeService serializeService, ILoginViewModel loginViewModel)
         {
+            dataSourceCollection = new ObservableCollection<DataSource>();
 
-            DataSources = SerializeServiceSingleton.Instance.ReturnDataSource();            
+            DataSources = serializeService.ReturnDataSource();            
 
-            this.windowFactory = windowFactory;           
+            this.windowFactory = windowFactory;
+
+            this.loginViewModel = loginViewModel;
+
+            this.serializeService = serializeService;
 
             this.OpenWindowCommand = new DelegateCommand(o => this.OpenWindowLogin());
 
@@ -43,7 +50,7 @@ namespace ViewModels.PopUpWindowViewModels
         {
             dataSourceCollection = new ObservableCollection<DataSource>(dataSourceCollection
                 .Where(x => x.Selected == false));
-            SerializeServiceSingleton.Instance.SerializeDataSourceList(dataSourceCollection);
+            serializeService.SerializeDataSourceList(dataSourceCollection);
             OnPropertyChanged("DataSources");
         }
 
@@ -63,8 +70,6 @@ namespace ViewModels.PopUpWindowViewModels
 
         private void OpenWindowLogin()
         {
-            //initiating VIEWMODEL
-            loginViewModel = new LoginViewModel();
             windowFactory.CreateNewLoginWindow(loginViewModel);
             SaveLoginCredentials(loginViewModel.loginCredentials);      
         }
@@ -81,7 +86,7 @@ namespace ViewModels.PopUpWindowViewModels
                 };
                 if (loginViewModel.loginCompleted)
                 {
-                    if (SerializeServiceSingleton.Instance.SerializeDataSource(loginToDataSource))
+                    if (serializeService.SerializeDataSource(loginToDataSource))
                     {
                         dataSourceCollection.Add(loginToDataSource);
                         OnPropertyChanged("DataSources");
@@ -89,19 +94,5 @@ namespace ViewModels.PopUpWindowViewModels
                 }
             }
         }
-
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-
-        #endregion
     }
 }

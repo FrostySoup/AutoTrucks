@@ -62,16 +62,19 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnexionService\SessionCacheSingleton\ISessionCacheSingleton.cs" />
+    <Compile Include="ConnexionService\SessionFacade\ISessionFacade.cs" />
     <Compile Include="DataConvertService\DataConvertSingleton.cs" />
+    <Compile Include="DataConvertService\IDataConvertSingleton.cs" />
+    <Compile Include="SerializeServices\ISerializeService.cs" />
+    <Compile Include="SerializeServices\SerializeService.cs" />
     <Compile Include="WindowsFactory\IWindowFactory.cs" />
     <Compile Include="WindowsFactory\WindowFactory.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="ConnexionService\ConnectConnexionServiceSingleton.cs" />
-    <Compile Include="ConnexionService\IConnectConnexionService.cs" />
-    <Compile Include="ConnexionService\SessionCacheSingleton.cs" />
-    <Compile Include="ConnexionService\SessionFacade.cs" />
-    <Compile Include="FillDataFactory\AddUserFactory.cs" />
-    <Compile Include="FillDataFactory\FillDataFactory.cs" />
+    <Compile Include="ConnexionService\ConnectConnexionService\ConnectConnexionService.cs" />
+    <Compile Include="ConnexionService\ConnectConnexionService\IConnectConnexionService.cs" />
+    <Compile Include="ConnexionService\SessionCacheSingleton\SessionCacheSingleton.cs" />
+    <Compile Include="ConnexionService\SessionFacade\SessionFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,7 +88,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SerializeServices\SerializeServiceSingleton.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

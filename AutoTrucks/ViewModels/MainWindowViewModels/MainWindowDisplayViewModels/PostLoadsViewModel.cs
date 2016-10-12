@@ -8,19 +8,8 @@ using ViewModels.MainWindowViewModels;
 
 namespace ViewModels.MainWindowViewModels
 {
-    public class PostLoadsViewModel : IMainWindowDisplayViewModel
+    public class PostLoadsViewModel : NotifyPropertyChangedAbstract, IMainWindowDisplayViewModel
     {
-
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        
     }
 }

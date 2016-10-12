@@ -8,7 +8,6 @@ using Service.AddNewWindowFactory;
 using Service.Commands;
 using Service.ConnexionService;
 using Service.DataConvertService;
-using Service.FillDataFactory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +24,9 @@ namespace ViewModels.MainWindowViewModels
 
         public ICommand SearchForSelectedTruckCommand { get; private set; }
 
-        public SearchTrucksViewModel(IWindowFactory windowFactory)
+        public SearchTrucksViewModel(IWindowFactory windowFactory, IDataConvertSingleton dataConvertSingleton, ISessionCacheSingleton sessionCacheSingleton,
+            ISearchWindowViewModel searchWindowViewModel, IConnectConnexionService connectConnexionService)
+            : base(dataConvertSingleton, sessionCacheSingleton, searchWindowViewModel, connectConnexionService)
         {
             searches = new ObservableCollection<SearchOperationParams>();
 

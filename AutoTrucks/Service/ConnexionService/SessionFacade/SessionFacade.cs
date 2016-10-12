@@ -15,7 +15,7 @@ namespace Service.ConnexionService
 	///  	cref="SessionHeader" /> ) and a client proxy (a <see cref="TfmiFreightMatchingPortTypeClient" /> instance) to the TFMI service. The behavior is simply to wrap the various methods of the TFMI service, simplifying the interface so that the repetitive bookkeeping objects (the session state objects and the servic eclient itself) can be hidden implementation details. For more details on the Facade design pattern, see <seealso
 	///  	cref="http://en.wikipedia.org/wiki/Facade_pattern" /> .
 	/// </remarks>
-	public class SessionFacade
+	public class SessionFacade : ISessionFacade
     {
         private readonly ApplicationHeader _applicationHeader;
         private readonly CorrelationHeader _correlationHeader;

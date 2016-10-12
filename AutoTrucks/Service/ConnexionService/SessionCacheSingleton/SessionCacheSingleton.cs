@@ -9,17 +9,25 @@ using System.Threading.Tasks;
 
 namespace Service.ConnexionService
 {
-    public class SessionCacheSingleton
+    public class SessionCacheSingleton : ISessionCacheSingleton
     {
-        public List<SessionFacade> sessions;
+        public List<ISessionFacade> sessions { get; private set; }
 
         private ObservableCollection<DataSource> dataSources;
 
         private static SessionCacheSingleton instance;
+
+        private ISerializeService serializeService;
+
+        private IConnectConnexionService connectConnexionService;
+
         private SessionCacheSingleton()
         {
-            sessions = new List<SessionFacade>();
-            dataSources = SerializeServiceSingleton.Instance.ReturnDataSource();
+            sessions = new List<ISessionFacade>();
+            //Needs fix later
+            serializeService = new SerializeService();
+            connectConnexionService = new ConnectConnexionService();
+            dataSources = serializeService.ReturnDataSource();
             CreateSessionsForEachData();
         }
 
@@ -27,7 +35,7 @@ namespace Service.ConnexionService
         {
             foreach(DataSource data in dataSources)
             {
-                SessionFacade sessionFacade = ConnectConnexionServiceSingleton.Instance.LoginToConnexion(data.UserName, data.Password);
+                ISessionFacade sessionFacade = connectConnexionService.LoginToConnexion(data.UserName, data.Password);
                 if (sessionFacade != null)
                 {
                     sessions.Add(sessionFacade);
@@ -37,11 +45,11 @@ namespace Service.ConnexionService
 
         public void RenewSessionsForEachData()
         {
-            dataSources = SerializeServiceSingleton.Instance.ReturnDataSource();
-            sessions = new List<SessionFacade>();
+            dataSources = serializeService.ReturnDataSource();
+            sessions = new List<ISessionFacade>();
             foreach (DataSource data in dataSources)
             {
-                SessionFacade sessionFacade = ConnectConnexionServiceSingleton.Instance.LoginToConnexion(data.UserName, data.Password);
+                ISessionFacade sessionFacade = connectConnexionService.LoginToConnexion(data.UserName, data.Password);
                 if (sessionFacade != null)
                 {
                     sessions.Add(sessionFacade);

@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace ViewModels.PopUpWindowViewModels
 {
-    public class LoginViewModel : ILoginViewModel
+    public class LoginViewModel : NotifyPropertyChangedAbstract, ILoginViewModel
     {
         private string username = "TES7";
 
@@ -27,8 +27,11 @@ namespace ViewModels.PopUpWindowViewModels
 
         public ICommand LoginCommand { get; private set; }
 
-        public LoginViewModel()
+        private IConnectConnexionService connectConnexionService;
+
+        public LoginViewModel(IConnectConnexionService connectConnexionService)
         {
+            this.connectConnexionService = connectConnexionService;
             loginCompleted = false;
             this.LoginCommand = new DelegateCommand(o => this.LoginUser());
         }
@@ -41,7 +44,7 @@ namespace ViewModels.PopUpWindowViewModels
             {
                 Task.Run(() =>
                 {
-                    bool correctLogin = ConnectConnexionServiceSingleton.Instance.CheckIfValidLoginToConnexion(username, password);
+                    bool correctLogin = connectConnexionService.CheckIfValidLoginToConnexion(username, password);
 
                     if (correctLogin == false)
                     {
@@ -113,15 +116,5 @@ namespace ViewModels.PopUpWindowViewModels
         }
         #endregion
 
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
     }
 }

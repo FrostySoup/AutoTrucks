@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ViewModels.PopUpWindowViewModels;
+using Service.DataConvertService;
+using Service.ConnexionService;
+using Model.DataFromView;
 
 namespace ViewModels.MainWindowViewModels
 {
@@ -41,5 +44,15 @@ namespace ViewModels.MainWindowViewModels
                 sortOrderSpecified = true
             };
         }*/
+        public SearchLoadsViewModel(IDataConvertSingleton dataConvertSingleton,ISessionCacheSingleton sessionCacheSingleton,
+            ISearchWindowViewModel searchWindowViewModel, IConnectConnexionService connectConnexionService) 
+            : base(dataConvertSingleton, sessionCacheSingleton, searchWindowViewModel, connectConnexionService)
+        {
+        }
+
+        protected override void AddNewSearch(SearchDataFromView searchData)
+        {
+            //
+        }
     }
 }

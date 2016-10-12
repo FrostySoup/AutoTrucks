@@ -1,5 +1,8 @@
 ﻿using Microsoft.Practices.Unity;
 using Service.AddNewWindowFactory;
+using Service.ConnexionService;
+using Service.DataConvertService;
+using Service.SerializeServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +29,13 @@ namespace UnitySingleton
         {
             unity = new UnityContainer();
             unity.RegisterType<IWindowFactory, WindowFactory>();
+            unity.RegisterType<ISerializeService, SerializeService>();
+            unity.RegisterInstance<IDataConvertSingleton>(DataConvertSingleton.Instance);
+            unity.RegisterInstance<ISessionCacheSingleton>(SessionCacheSingleton.Instance);
             unity.RegisterType<ILoginViewModel, LoginViewModel>();
+            unity.RegisterType<IConnectConnexionService, ConnectConnexionService>();
+            unity.RegisterType<IDataSourceViewModel, DataSourceViewModel>();
+            unity.RegisterType<ISearchWindowViewModel, SearchWindowViewModel>();
             unity.RegisterType<IMainWindowDisplayViewModel, PostLoadsViewModel>("PostLoadsViewModel");
             unity.RegisterType<IMainWindowDisplayViewModel, PostTrucksViewModel>("PostTrucksViewModel");
             unity.RegisterType<IMainWindowDisplayViewModel, SearchLoadsViewModel>("SearchLoadsViewModel");
@@ -37,8 +46,6 @@ namespace UnitySingleton
                 new ResolvedParameter<ITopButtonsViewModel>(),
                 new ResolvedParameter<IMainWindowDisplayViewModel>("PostLoadsViewModel"),
                 new ResolvedParameter<IMainWindowDisplayViewModel>("SearchLoadsViewModel"),
-                new ResolvedParameter<ILoginViewModel>(),
-                new ResolvedParameter<IWindowFactory>(),
                 new ResolvedParameter<IMainWindowDisplayViewModel>("SearchTrucksViewModel"),
                 new ResolvedParameter<IMainWindowDisplayViewModel>("PostTrucksViewModel")));
         }

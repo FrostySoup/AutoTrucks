@@ -29,12 +29,26 @@ namespace ViewModels.MainWindowViewModels
 
         protected ObservableCollection<SearchOperationParams> searches;
 
+        protected IDataConvertSingleton dataConvertSingleton;
+
+        protected ISessionCacheSingleton sessionCacheSingleton;
+
+        protected IConnectConnexionService connectConnexionService;
+
+        public SearchViewModelAbstract(IDataConvertSingleton dataConvertSingleton, ISessionCacheSingleton sessionCacheSingleton,
+            ISearchWindowViewModel searchWindowViewModel, IConnectConnexionService connectConnexionService)
+        {
+            this.dataConvertSingleton = dataConvertSingleton;
+            this.sessionCacheSingleton = sessionCacheSingleton;
+            this.searchWindowViewModel = searchWindowViewModel;
+            this.connectConnexionService = connectConnexionService;
+        }
+
+
         protected void OpenWindowConnections()
         {
-            //initiating VIEWMODEL
-            searchWindowViewModel = new SearchWindowViewModel(windowFactory);
-            windowFactory.CreateNewSearchWindow(searchWindowViewModel);
-            if (searchWindowViewModel.saveData == true)
+            windowFactory.CreateNewSearchWindow(searchWindowViewModel);           
+            if (searchWindowViewModel.saveData == true && searchWindowViewModel.searchData != null)
                 AddNewSearch(searchWindowViewModel.searchData);
         }
 
@@ -42,24 +56,24 @@ namespace ViewModels.MainWindowViewModels
         {
             CreateSearchSuccessData searchSuccessData;
 
-            if (SessionCacheSingleton.Instance.sessions.Count > 0 && searchesToDisplay.Count > 0)
+            if (searchesToDisplay.Count > 0 && sessionCacheSingleton.sessions.Count > 0)
             {
                 searches.Add(DataConvertSingleton.Instance
                     .ToSearchOperationParams(searchesToDisplay[0].SearchData, assetType));
 
-                searchSuccessData = ConnectConnexionServiceSingleton
-                    .Instance.SearchConnexion(SessionCacheSingleton.Instance.sessions[0], searches[0]);
-
+                searchSuccessData = connectConnexionService
+                    .SearchConnexion(sessionCacheSingleton.sessions[0], searches[0]);
+                dataConvertSingleton.CreateSearchSuccessDataToSearchCreated(searchSuccessData);
                 assets = DataConvertSingleton.Instance.CreateSearchSuccessDataToSearchCreated(searchSuccessData);               
             }
             else
             {
                 //Temporary solution
-                SessionCacheSingleton.Instance.RenewSessionsForEachData();
+                sessionCacheSingleton.RenewSessionsForEachData();
             }
         }
 
-        protected virtual void AddNewSearch(SearchDataFromView searchData){}
+        protected abstract void AddNewSearch(SearchDataFromView searchData);
 
         #region INotifyPropertyChanged Members
 

@@ -8,20 +8,8 @@ using ViewModels.MainWindowViewModels;
 
 namespace ViewModels.MainWindowViewModels
 {
-    public class PostTrucksViewModel : IMainWindowDisplayViewModel
+    public class PostTrucksViewModel : NotifyPropertyChangedAbstract, IMainWindowDisplayViewModel
     {
-
-
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+        
     }
 }

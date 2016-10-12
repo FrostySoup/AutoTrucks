@@ -2,7 +2,7 @@
 using Service.AddNewWindowFactory;
 using Service.Commands;
 using Service.ConnexionService;
-using Service.FillDataFactory;
+using Service.SerializeServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ using ViewModels.PopUpWindowViewModels;
 
 namespace ViewModels.MainWindowViewModels
 {
-    public class TopButtonsViewModel : ITopButtonsViewModel
+    public class TopButtonsViewModel : NotifyPropertyChangedAbstract, ITopButtonsViewModel
     {
 
         private readonly IWindowFactory windowFactory;
@@ -25,12 +25,11 @@ namespace ViewModels.MainWindowViewModels
         public ICommand ChangePostTrucksViewModelCommand { get; private set; }
         public ICommand ChangePostLoadsViewModelCommand { get; private set; }
 
-        public TopButtonsViewModel(IWindowFactory windowFactory)
+        public TopButtonsViewModel(IWindowFactory windowFactory, IDataSourceViewModel dataSourceViewModel)
         {
             this.windowFactory = windowFactory;
-
             this.OpenWindowCommand = new DelegateCommand(o => this.OpenWindowConnections());
-            dataSourceViewModel = new DataSourceViewModel(windowFactory);
+            this.dataSourceViewModel = dataSourceViewModel;
         }
 
         private void OpenWindowConnections()
@@ -43,18 +42,5 @@ namespace ViewModels.MainWindowViewModels
             ChangePostTrucksViewModelCommand = changePostTrucksViewModelCommand;
             ChangePostLoadsViewModelCommand = changePostLoadsViewModelCommand;
         }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-
-        #endregion
     }
 }

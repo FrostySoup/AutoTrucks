@@ -12,12 +12,8 @@ using ViewModels.PopUpWindowViewModels;
 
 namespace ViewModels
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : NotifyPropertyChangedAbstract, INotifyPropertyChanged
     {
-
-        private ILoginViewModel loginViewModel;
-
-        private readonly IWindowFactory windowFactory;
 
         private ITopButtonsViewModel topButtonsViewModel;
         private IMainWindowDisplayViewModel postLoadsViewModel;
@@ -29,14 +25,13 @@ namespace ViewModels
         public ICommand ChangePostLoadsViewModelCommand { get; private set; }
 
         public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IMainWindowDisplayViewModel postLoadsViewModel,
-             IMainWindowDisplayViewModel searchLoadsViewModel, ILoginViewModel loginViewModel, IWindowFactory windowFactory,
+             IMainWindowDisplayViewModel searchLoadsViewModel,
              IMainWindowDisplayViewModel searchTrucksViewModel, IMainWindowDisplayViewModel postTrucksViewModel)
         {           
-            this.windowFactory = windowFactory;
             this.topButtonsViewModel = topButtonsViewModel;           
 
-            this.ChangePostTrucksViewModelCommand = new DelegateCommand(o => this.ChangeViewModel(MainWindowViewModelsEnum.PostTrucksViewModel));
-            this.ChangePostLoadsViewModelCommand = new DelegateCommand(o => this.ChangeViewModel(MainWindowViewModelsEnum.PostLoadsViewModel));
+            this.ChangePostTrucksViewModelCommand = new DelegateCommand(o => this.ChangeViewModel());
+            this.ChangePostLoadsViewModelCommand = new DelegateCommand(o => this.ChangeViewModel());
 
             this.topButtonsViewModel.AddCommand(ChangePostTrucksViewModelCommand, ChangePostLoadsViewModelCommand);
 
@@ -44,29 +39,11 @@ namespace ViewModels
             this.searchLoadsViewModel = searchLoadsViewModel;
             this.searchTrucksViewModel = searchTrucksViewModel;
             this.postTrucksViewModel = postTrucksViewModel;
-
-            this.loginViewModel = loginViewModel;
         }
 
-        private void ChangeViewModel(MainWindowViewModelsEnum ViewModel)
+        private void ChangeViewModel()
         {
-            //initiating VIEWMODEL
-            switch (ViewModel) {
-                case MainWindowViewModelsEnum.PostLoadsViewModel:
-                    if (postLoadsViewModel != null)
-                        postLoadsViewModel = null;
-                    else
-                        postLoadsViewModel = new PostLoadsViewModel();
-                    this.OnPropertyChanged("PostLoadsViewModel");
-                    break;
-                case MainWindowViewModelsEnum.PostTrucksViewModel:
-                    if (postTrucksViewModel != null)
-                        postTrucksViewModel = null;
-                    else
-                        postTrucksViewModel = new PostTrucksViewModel();
-                    this.OnPropertyChanged("PostTrucksViewModel");
-                    break;
-            }
+          
         }
 
         #region OnPropertyChanged data
@@ -123,20 +100,7 @@ namespace ViewModels
 
         #endregion
 
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            this.OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            this.PropertyChanged?.Invoke(this, e);
-        }
-        #endregion
+        
 
     }
 }

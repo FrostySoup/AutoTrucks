@@ -17,7 +17,7 @@ using System.Windows.Media;
 
 namespace ViewModels.PopUpWindowViewModels
 {
-    public class SearchWindowViewModel : ISearchWindowViewModel
+    public class SearchWindowViewModel : NotifyPropertyChangedAbstract, ISearchWindowViewModel
     {
         //private SearchOperationParams searchData;
 

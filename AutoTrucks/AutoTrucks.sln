@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Views", "Views\Views.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitySingleton", "UnitySingleton\UnitySingleton.csproj", "{3F49F58C-A3B1-449A-A545-1EDB1D79A867}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelsTests", "ViewModelsTests\ViewModelsTests.csproj", "{863C7C17-DB33-4A4F-ADCF-E350A3FA10DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{3F49F58C-A3B1-449A-A545-1EDB1D79A867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F49F58C-A3B1-449A-A545-1EDB1D79A867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F49F58C-A3B1-449A-A545-1EDB1D79A867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{863C7C17-DB33-4A4F-ADCF-E350A3FA10DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{863C7C17-DB33-4A4F-ADCF-E350A3FA10DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{863C7C17-DB33-4A4F-ADCF-E350A3FA10DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{863C7C17-DB33-4A4F-ADCF-E350A3FA10DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
