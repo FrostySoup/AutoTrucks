@@ -62,8 +62,7 @@ namespace Service.DataConvertService
             if (searchData.length != null)
                 if (Int32.TryParse(searchData.length, out parseResults))
                     dimensions.lengthFeet = parseResults;
-
-            if (searchData.length != null)
+            if (searchData.weight != null)
                 if (Int32.TryParse(searchData.weight, out parseResults))
                     dimensions.weightPounds = parseResults;
 
@@ -72,28 +71,32 @@ namespace Service.DataConvertService
 
         public SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType)
         {
-            var searchCriteria = new CreateSearchCriteria
+            if (searchData != null)
             {
-                ageLimitMinutes = 90,
-                ageLimitMinutesSpecified = true,
-                assetType = assetType,
-                destination = ToSearchRadius(searchData.destinationProvince, searchData.dhd, searchData.cityDestination),
-                equipmentClasses = new[] { EquipmentClass.Flatbeds, EquipmentClass.Reefers },
-                includeFulls = searchData.includeFulls,
-                includeLtls = searchData.includeLtls,
-                origin = ToSearchRadius(searchData.originProvince, searchData.dho, searchData.cityOrigin),
-                limits = createDimension(searchData),
-                availability = ToAvailability(searchData)
-            };
+                var searchCriteria = new CreateSearchCriteria
+                {
+                    ageLimitMinutes = 90,
+                    ageLimitMinutesSpecified = true,
+                    assetType = assetType,
+                    destination = ToSearchRadius(searchData.destinationProvince, searchData.dhd, searchData.cityDestination),
+                    equipmentClasses = new[] { EquipmentClass.Flatbeds, EquipmentClass.Reefers },
+                    includeFulls = searchData.includeFulls,
+                    includeLtls = searchData.includeLtls,
+                    origin = ToSearchRadius(searchData.originProvince, searchData.dho, searchData.cityOrigin),
+                    limits = createDimension(searchData),
+                    availability = ToAvailability(searchData)
+                };
 
-            return new SearchOperationParams
-            {
-                criteria = searchCriteria,
-                includeSearch = true,
-                includeSearchSpecified = true,
-                sortOrder = SortOrder.Closest,
-                sortOrderSpecified = true
-            };
+                return new SearchOperationParams
+                {
+                    criteria = searchCriteria,
+                    includeSearch = true,
+                    includeSearchSpecified = true,
+                    sortOrder = SortOrder.Closest,
+                    sortOrderSpecified = true
+                };
+            }
+            return null;
         }
 
         private Availability ToAvailability(SearchDataFromView searchData)
@@ -112,19 +115,31 @@ namespace Service.DataConvertService
             {                
                 foreach (MatchingAsset match in searchSuccessData.matches)
                 {
-                    Shipment truck = (Shipment)match.asset.Item;
-                    trucks.Add(new SearchCreated()
+                    if (match.asset != null)
                     {
-                        Destination = truck.destination,
-                        Truck = truck.equipmentType,
-                        Origin = truck.origin,
-                        Avail = match.asset.availability,
-                        FP = match.asset.ltl,
-                        DHD = match.destinationDeadhead,
-                        DHO = match.originDeadhead,
-                        Age = match.asset.status.created.date,
-                        InitialO = match.callback.postersStateProvince.ToString()
-                    });
+                        Shipment truck = (Shipment)match.asset.Item;
+
+                        DateTime age = DateTime.Now;
+                        if (match.asset.status != null && match.asset.status.created != null)
+                            age = match.asset.status.created.date;
+
+                        string initialO = null;
+                        if (match.callback != null)
+                            initialO = match.callback.postersStateProvince.ToString();
+
+                        trucks.Add(new SearchCreated()
+                        {
+                            Destination = truck.destination,
+                            Truck = truck.equipmentType,
+                            Origin = truck.origin,
+                            Avail = match.asset.availability,
+                            FP = match.asset.ltl,
+                            DHD = match.destinationDeadhead,
+                            DHO = match.originDeadhead,
+                            Age = age,
+                            InitialO = initialO
+                        });
+                    }
                 }
             }
 

@@ -41,7 +41,6 @@ namespace ViewModels.PopUpWindowViewModels
 
         private void CloseSaveDataWindow()
         {
-
             saveData = true;
             windowFactory.CloseSearchWindow();
         }
@@ -51,34 +50,6 @@ namespace ViewModels.PopUpWindowViewModels
             saveData = false;
             searchData = new SearchDataFromView();
             windowFactory.CloseSearchWindow();
-        }
-
-        private SearchOperationParams SetValuesForSearch()
-        {
-            var origin = new SearchArea { stateProvinces = new[] { StateProvince.CA } };
-
-            var destination = new SearchArea { stateProvinces = new[] { StateProvince.IL } };
-
-            var searchCriteria = new CreateSearchCriteria
-            {
-                ageLimitMinutes = 90,
-                ageLimitMinutesSpecified = true,
-                assetType = AssetType.Shipment,
-                destination = new GeoCriteria { Item = destination },
-                equipmentClasses = new[] { EquipmentClass.Flatbeds, EquipmentClass.Reefers },
-                includeFulls = true,
-                includeLtls = true,
-                origin = new GeoCriteria { Item = origin },
-            };
-
-            return new SearchOperationParams
-            {
-                criteria = searchCriteria,
-                includeSearch = true,
-                includeSearchSpecified = true,
-                sortOrder = SortOrder.Age,
-                sortOrderSpecified = true
-            };
         }
 
         #region On property changed Members
@@ -286,26 +257,6 @@ namespace ViewModels.PopUpWindowViewModels
             }
         }
 
-        public string Length
-        {
-            get { return searchData.length; }
-            set
-            {
-                searchData.length = value;
-                this.OnPropertyChanged("Length");
-            }
-        }
-
-        public string Weight
-        {
-            get { return searchData.weight; }
-            set
-            {
-                searchData.weight = value;
-                this.OnPropertyChanged("Weight");
-            }
-        }
-
         public int SearchBack
         {
             get { return searchData.searchBack; }
@@ -314,17 +265,6 @@ namespace ViewModels.PopUpWindowViewModels
                 searchData.searchBack = value;
                 this.OnPropertyChanged("SearchBack");
             }
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

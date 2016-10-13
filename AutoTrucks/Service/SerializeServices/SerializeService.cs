@@ -33,6 +33,8 @@ namespace Service.SerializeServices
 
         public bool SerializeDataSourceList(ObservableCollection<DataSource> dataSourceListReceived)
         {
+            if (dataSourceListReceived == null || dataSourceListReceived.Count < 1)
+                return false;
             DataSourceList dataSourceList = new DataSourceList();
             dataSourceList.DataSourceLis = new List<DataSource>(dataSourceListReceived);
             IFormatter formatter = new BinaryFormatter();

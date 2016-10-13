@@ -42,27 +42,27 @@ namespace ViewModels.PopUpWindowViewModels
             this.OnPropertyChanged("Message");
             if (DataIsValid())
             {
-                Task.Run(() =>
-                {
-                    bool correctLogin = connectConnexionService.CheckIfValidLoginToConnexion(username, password);
+                //Task.Run(() =>
+               // {
+                bool correctLogin = connectConnexionService.CheckIfValidLoginToConnexion(username, password);
 
-                    if (correctLogin == false)
+                if (correctLogin == false)
+                {
+                    message = "Failed to log in";
+                }
+                else
+                {
+                    loginCompleted = true;
+                    message = "Log in succesful";
+                    loginCredentials = new Login
                     {
-                        message = "Failed to log in";
-                    }
-                    else
-                    {
-                        loginCompleted = true;
-                        message = "Log in succesful";
-                        loginCredentials = new Login
-                        {
-                            loginId = username,
-                            password = password,
-                            thirdPartyId = "Connexion"
-                        };
-                    }
-                    this.OnPropertyChanged("Message");
-                });
+                        loginId = username,
+                        password = password,
+                        thirdPartyId = "Connexion"
+                    };
+                }
+                this.OnPropertyChanged("Message");
+                //});
             }
             else
             {
@@ -88,11 +88,6 @@ namespace ViewModels.PopUpWindowViewModels
         public string Message
         {
             get { return message; }
-            set
-            {
-                message = value;
-                this.OnPropertyChanged("Message");
-            }
         }
 
         public string Username

@@ -63,15 +63,8 @@ namespace ViewModels.MainWindowViewModels.Tests
         [TestMethod()]
         public void OpenSearchWindowSaveDataWithNullTest()
         {
-            /* OnNotify
-            int status = 200;
-            searchTrucksViewModel.PropertyChanged += delegate{
-                status = 234;
-            };*/
-
             ICommand ic = searchTrucksViewModel.OpenSearchWindowCommand;
             searchWindowViewModel.Setup(x => x.saveData).Returns(true);
-            //var searchTrucksViewModel = new SearchTrucksViewModel(mockWindowFactory.Object);
             ic.Execute(this);
         }
 

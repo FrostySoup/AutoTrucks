@@ -1,0 +1,20 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Service.ConnexionService;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Service.ConnexionService.Tests
+{
+    [TestClass()]
+    public class SessionCacheSingletonTests
+    {
+        [TestMethod()]
+        public void RenewSessionsForEachDataTest()
+        {
+
+        }
+    }
+}
