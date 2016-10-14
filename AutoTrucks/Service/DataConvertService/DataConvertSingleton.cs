@@ -71,18 +71,24 @@ namespace Service.DataConvertService
 
         public SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType)
         {
-            if (searchData != null)
+            var originGen = new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { StateProvince.CA } } };
+
+            var destinationGen = new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { StateProvince.IL } } };
+
+            if (searchData != null && searchData.equipmentType != null)
             {
                 var searchCriteria = new CreateSearchCriteria
                 {
                     ageLimitMinutes = 90,
                     ageLimitMinutesSpecified = true,
                     assetType = assetType,
-                    destination = ToSearchRadius(searchData.destinationProvince, searchData.dhd, searchData.cityDestination),
-                    equipmentClasses = new[] { EquipmentClass.Flatbeds, EquipmentClass.Reefers },
+                    destination = destinationGen,
+                    equipmentClasses = new EquipmentClass[] {EquipmentClass.Containers, EquipmentClass.Flatbeds, EquipmentClass.Tankers},
+                    equipmentTypes = searchData.equipmentType.ToArray(),
                     includeFulls = searchData.includeFulls,
                     includeLtls = searchData.includeLtls,
-                    origin = ToSearchRadius(searchData.originProvince, searchData.dho, searchData.cityOrigin),
+                    origin = originGen,
+                    //origin = ToSearchRadius(searchData.originProvince, searchData.dho, searchData.cityOrigin),
                     limits = createDimension(searchData),
                     availability = ToAvailability(searchData)
                 };
@@ -108,7 +114,7 @@ namespace Service.DataConvertService
             };
         }
 
-        public ObservableCollection<SearchCreated> CreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData)
+        public ObservableCollection<SearchCreated> TrucksCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData)
         {
             ObservableCollection<SearchCreated> trucks = new ObservableCollection<SearchCreated>();
             if (searchSuccessData != null && searchSuccessData.matches != null)
@@ -132,6 +138,44 @@ namespace Service.DataConvertService
                             Destination = truck.destination,
                             Truck = truck.equipmentType,
                             Origin = truck.origin,
+                            Avail = match.asset.availability,
+                            FP = match.asset.ltl,
+                            DHD = match.destinationDeadhead,
+                            DHO = match.originDeadhead,
+                            Age = age,
+                            InitialO = initialO
+                        });
+                    }
+                }
+            }
+
+            return trucks;
+        }
+
+        public ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData)
+        {
+            ObservableCollection<SearchCreated> trucks = new ObservableCollection<SearchCreated>();
+            if (searchSuccessData != null && searchSuccessData.matches != null)
+            {
+                foreach (MatchingAsset match in searchSuccessData.matches)
+                {
+                    if (match.asset != null)
+                    {
+                        Equipment equipment = (Equipment)match.asset.Item;
+
+                        DateTime age = DateTime.Now;
+                        if (match.asset.status != null && match.asset.status.created != null)
+                            age = match.asset.status.created.date;
+
+                        string initialO = null;
+                        if (match.callback != null)
+                            initialO = match.callback.postersStateProvince.ToString();
+                       
+                        trucks.Add(new SearchCreated()
+                        {
+                            DestinationEquipment = equipment.destination,
+                            Truck = equipment.equipmentType,
+                            Origin = equipment.origin,
                             Avail = match.asset.availability,
                             FP = match.asset.ltl,
                             DHD = match.destinationDeadhead,

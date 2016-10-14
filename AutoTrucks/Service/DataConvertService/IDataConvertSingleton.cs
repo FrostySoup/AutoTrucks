@@ -11,6 +11,8 @@ namespace Service.DataConvertService
 
         SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType);
 
-        ObservableCollection<SearchCreated> CreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData);
+        ObservableCollection<SearchCreated> TrucksCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData);
+
+        ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData);
     }
 }

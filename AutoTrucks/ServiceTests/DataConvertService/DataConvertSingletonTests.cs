@@ -51,7 +51,7 @@ namespace Service.DataConvertService.Tests
         public void CreateSearchSuccessDataToSearchCreatedEmptyTest()
         {
             CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.CreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
             Assert.AreEqual(0, result.Count);
         }
 
@@ -59,7 +59,7 @@ namespace Service.DataConvertService.Tests
         public void CreateSearchSuccessDataToSearchCreatedNullTest()
         {
             CreateSearchSuccessData searchDataFromView = null;
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.CreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
             Assert.AreEqual(0, result.Count);
         }
 
@@ -68,7 +68,7 @@ namespace Service.DataConvertService.Tests
         {
             CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
             searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() };
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.CreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
             Assert.AreEqual(0, result.Count);
         }
 
@@ -130,7 +130,7 @@ namespace Service.DataConvertService.Tests
                     Item = new Shipment()
                 }
             } };
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.CreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
             Assert.IsTrue(0 < result.Count);
         }
 
@@ -156,7 +156,7 @@ namespace Service.DataConvertService.Tests
                     }
                 }
             } };
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.CreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
             Assert.AreEqual(date, result[0].Age);
         }
 
@@ -179,7 +179,7 @@ namespace Service.DataConvertService.Tests
                     postersStateProvince = StateProvince.AB
                 }
             } };
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.CreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
             Assert.AreEqual(StateProvince.AB.ToString(), result[0].InitialO);
         }
     }

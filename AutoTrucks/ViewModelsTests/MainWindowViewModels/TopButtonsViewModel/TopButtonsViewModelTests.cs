@@ -39,6 +39,7 @@ namespace ViewModels.MainWindowViewModels.Tests
         [TestMethod()]
         public void AddCommandNullValuesTest()
         {
+            //sessionCacheSingleton.sessions
             topButtonsViewModel.AddCommand(null, null);
             ICommand ic = topButtonsViewModel.OpenWindowCommand;
             Assert.AreEqual(null, topButtonsViewModel.ChangePostLoadsViewModelCommand);

@@ -1,10 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ViewModels.PopUpWindowViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 using Service.AddNewWindowFactory;
 using Moq;
@@ -40,7 +34,7 @@ namespace ViewModels.PopUpWindowViewModels.Tests
             dataSourceViewModel.DataSources = new ObservableCollection<DataSource>();
             ICommand ic = dataSourceViewModel.DeleteSelectedDataSourcesCommand;
             ic.Execute(this);
-            Assert.AreEqual(0, dataSourceViewModel.DataSources.Count);
+            Assert.IsNull(dataSourceViewModel.DataSources);
         }
 
         [TestMethod()]
@@ -57,6 +51,8 @@ namespace ViewModels.PopUpWindowViewModels.Tests
                 Selected = true
             });
             ICommand ic = dataSourceViewModel.DeleteSelectedDataSourcesCommand;
+            serializeService.Setup(x => x.SerializeDataSourceList(new ObservableCollection<DataSource>() { dataSourceDontRemove }))
+                .Returns(new ObservableCollection<DataSource>() { dataSourceDontRemove });
             ic.Execute(this);
             Assert.AreEqual(dataSourceDontRemove, dataSourceViewModel.DataSources[0]);
         }
@@ -93,7 +89,7 @@ namespace ViewModels.PopUpWindowViewModels.Tests
             ICommand ic = dataSourceViewModel.OpenWindowCommand;
             loginViewModel.Setup(x => x.loginCredentials).Returns(new Login());
             loginViewModel.Setup(x => x.loginCompleted).Returns(true);
-            serializeService.Setup(x => x.SerializeDataSource(It.IsAny<DataSource>())).Returns(true);
+            serializeService.Setup(x => x.SerializeDataSource(It.IsAny<DataSource>())).Returns(new ObservableCollection<DataSource>() { new DataSource()});
             ic.Execute(this);
             Assert.AreEqual(1, dataSourceViewModel.DataSources.Count);
         }

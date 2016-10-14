@@ -5,9 +5,9 @@ namespace Service.SerializeServices
 {
     public interface ISerializeService
     {
-        bool SerializeDataSource(DataSource dataSource);
+        ObservableCollection<DataSource> SerializeDataSource(DataSource dataSource);
 
-        bool SerializeDataSourceList(ObservableCollection<DataSource> dataSourceListReceived);
+        ObservableCollection<DataSource> SerializeDataSourceList(ObservableCollection<DataSource> dataSourceListReceived);
 
         ObservableCollection<DataSource> ReturnDataSource();
     }

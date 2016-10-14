@@ -28,32 +28,32 @@ namespace Service.SerializeServices.Tests
         public void SerializeDataSourceEmptyDataTest()
         {
             DataSource data = new DataSource();
-            bool result = serializeService.SerializeDataSource(data);
-            Assert.AreEqual(true, result);
+            var result = serializeService.SerializeDataSource(data);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void SerializeDataSourceNullDataTest()
         {
             DataSource data = null;
-            bool result = serializeService.SerializeDataSource(data);
-            Assert.AreEqual(false, result);
+            var result = serializeService.SerializeDataSource(data);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void SerializeDataSourceEmptyListTest()
         {
             ObservableCollection<DataSource> dataSourceListReceived = new ObservableCollection<DataSource>();
-            bool result = serializeService.SerializeDataSourceList(dataSourceListReceived);
-            Assert.AreEqual(false, result);
+            var result = serializeService.SerializeDataSourceList(dataSourceListReceived);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void SerializeDataSourceNullListTest()
         {
             ObservableCollection<DataSource> dataSourceListReceived = null;
-            bool result = serializeService.SerializeDataSourceList(dataSourceListReceived);
-            Assert.AreEqual(false, result);
+            var result = serializeService.SerializeDataSourceList(dataSourceListReceived);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
@@ -64,8 +64,8 @@ namespace Service.SerializeServices.Tests
             {
                 UserName = "Babajaga"
             });
-            bool result = serializeService.SerializeDataSourceList(dataSourceListReceived);
-            Assert.AreEqual(true, result);
+            var result = serializeService.SerializeDataSourceList(dataSourceListReceived);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]

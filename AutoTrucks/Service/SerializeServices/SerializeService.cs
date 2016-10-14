@@ -15,11 +15,11 @@ namespace Service.SerializeServices
     {
         private readonly string fileName = "SerializedData.bin";
 
-        public bool SerializeDataSource(DataSource dataSource)
+        public ObservableCollection<DataSource> SerializeDataSource(DataSource dataSource)
         {
             DataSourceList dataSourceList = DeserializeDataSource();
             if (dataSource == null)
-                return false;
+                return new ObservableCollection<DataSource>(dataSourceList.DataSourceLis);
             dataSourceList.DataSourceLis.Add(dataSource);
 
             IFormatter formatter = new BinaryFormatter();
@@ -28,13 +28,16 @@ namespace Service.SerializeServices
                          FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, dataSourceList);
             stream.Close();
-            return true;
+            return new ObservableCollection<DataSource>(dataSourceList.DataSourceLis);
         }
 
-        public bool SerializeDataSourceList(ObservableCollection<DataSource> dataSourceListReceived)
+        public ObservableCollection<DataSource> SerializeDataSourceList(ObservableCollection<DataSource> dataSourceListReceived)
         {
+            string path = "./" + fileName;
+            FileInfo myfileinf = new FileInfo(path);
+            myfileinf.Delete();
             if (dataSourceListReceived == null || dataSourceListReceived.Count < 1)
-                return false;
+                return new ObservableCollection<DataSource>();
             DataSourceList dataSourceList = new DataSourceList();
             dataSourceList.DataSourceLis = new List<DataSource>(dataSourceListReceived);
             IFormatter formatter = new BinaryFormatter();
@@ -43,7 +46,7 @@ namespace Service.SerializeServices
                          FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, dataSourceList);
             stream.Close();
-            return true;
+            return new ObservableCollection<DataSource>(dataSourceList.DataSourceLis);
         }
 
         private DataSourceList DeserializeDataSource()

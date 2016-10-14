@@ -50,7 +50,7 @@ namespace ViewModels.PopUpWindowViewModels
         {
             dataSourceCollection = new ObservableCollection<DataSource>(dataSourceCollection
                 .Where(x => x.Selected == false));
-            serializeService.SerializeDataSourceList(dataSourceCollection);
+            dataSourceCollection = serializeService.SerializeDataSourceList(dataSourceCollection);
             OnPropertyChanged("DataSources");
         }
 
@@ -86,11 +86,8 @@ namespace ViewModels.PopUpWindowViewModels
                 };
                 if (loginViewModel.loginCompleted)
                 {
-                    if (serializeService.SerializeDataSource(loginToDataSource))
-                    {
-                        dataSourceCollection.Add(loginToDataSource);
-                        OnPropertyChanged("DataSources");
-                    }
+                    dataSourceCollection = serializeService.SerializeDataSource(loginToDataSource);
+                    OnPropertyChanged("DataSources");
                 }
             }
         }

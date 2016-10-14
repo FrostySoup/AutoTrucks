@@ -25,46 +25,6 @@ namespace Service.AddNewWindowFactory.Tests
             windowFactory = new WindowFactory();
             dataSourceViewModel = new Mock<IDataSourceViewModel>();
         }
-        [TestMethod()]
-        public void CloseSearchWindowTest()
-        {
-            windowFactory.CloseSearchWindow();
-        }
-
-        [TestMethod()]
-        public void CreateNewDataSourceWindowNullTest()
-        {
-            windowFactory.CreateNewDataSourceWindow(null);
-        }
-
-        [TestMethod()]
-        public void CreateNewLoginWindowNullTest()
-        {
-            windowFactory.CreateNewLoginWindow(null);
-        }
-
-        [TestMethod()]
-        public void CreateNewSearchWindowNullTest()
-        {
-            windowFactory.CreateNewSearchWindow(null);
-        }
-
-        [TestMethod()]
-        public void CreateNewDataSourceWindowEmptyTest()
-        {
-            windowFactory.CreateNewDataSourceWindow(dataSourceViewModel.Object);
-        }
-
-        [TestMethod()]
-        public void CreateNewLoginWindowEmptyTest()
-        {
-            windowFactory.CreateNewLoginWindow(dataSourceViewModel.Object);
-        }
-
-        [TestMethod()]
-        public void CreateNewSearchWindowEmptyTest()
-        {
-            windowFactory.CreateNewSearchWindow(dataSourceViewModel.Object);
-        }
+        
     }
 }

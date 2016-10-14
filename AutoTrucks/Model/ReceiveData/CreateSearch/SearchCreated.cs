@@ -15,6 +15,7 @@ namespace Model.ReceiveData.CreateSearch
         public Place Origin { get; set; }
         public Mileage DHO { get; set; }
         public Place Destination { get; set; }
+        public EquipmentDestination DestinationEquipment { get; set; }
         public Mileage DHD { get; set; }
         public string InitialO { get; set; }
 
@@ -22,7 +23,9 @@ namespace Model.ReceiveData.CreateSearch
         public string AgeToString
         {
             get
-            {              
+            {
+                if(Age == null)
+                    return "-";
                 return ((int)(DateTime.Now - Age).TotalHours).ToString() + "h";
             }
         }
@@ -52,6 +55,8 @@ namespace Model.ReceiveData.CreateSearch
         {
             get
             {
+                if (Avail == null)
+                    return "-";
                 return Avail.latest.ToString("MM/dd");
             }
         }
@@ -66,6 +71,8 @@ namespace Model.ReceiveData.CreateSearch
 
         public string OriginToString { get
             {
+                if (Origin == null)
+                    return "-";
                 NamedLatLon cityAndState = (NamedLatLon)Origin.Item;
                 return cityAndState.city + " " + cityAndState.stateProvince;
             }
@@ -75,6 +82,8 @@ namespace Model.ReceiveData.CreateSearch
         {
             get
             {
+                if (Destination == null)
+                    return "-";
                 NamedLatLon cityAndState = (NamedLatLon)Destination.Item;
                 return cityAndState.city + " " + cityAndState.stateProvince;
             }

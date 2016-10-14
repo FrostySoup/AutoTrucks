@@ -45,6 +45,12 @@ namespace ViewModels.MainWindowViewModels
             OnPropertyChanged("SearchesToDisplay");
         }     
 
+        protected override void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData)
+        {
+            dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchSuccessData);
+            assets = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchSuccessData);
+        }
+
         private void SearchForSelectedTruck()
         {
             PerformAssetSearch(AssetType.Shipment);

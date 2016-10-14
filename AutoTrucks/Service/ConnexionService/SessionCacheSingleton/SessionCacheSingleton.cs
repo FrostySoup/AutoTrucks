@@ -15,18 +15,15 @@ namespace Service.ConnexionService
 
         private ObservableCollection<DataSource> dataSources;
 
-        private static SessionCacheSingleton instance;
-
         private ISerializeService serializeService;
 
         private IConnectConnexionService connectConnexionService;
 
-        private SessionCacheSingleton()
+        public SessionCacheSingleton(ISerializeService serializeService, IConnectConnexionService connectConnexionService)
         {
             sessions = new List<ISessionFacade>();
-            //Needs fix later
-            serializeService = new SerializeService();
-            connectConnexionService = new ConnectConnexionService();
+            this.serializeService = serializeService;
+            this.connectConnexionService = connectConnexionService;
             dataSources = serializeService.ReturnDataSource();
             CreateSessionsForEachData();
         }
@@ -57,16 +54,16 @@ namespace Service.ConnexionService
             }
         }
 
-        public static SessionCacheSingleton Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new SessionCacheSingleton();
-                }
-                return instance;
-            }
-        }
+        //public static SessionCacheSingleton Instance
+        //{
+        //    get
+        //    {
+        //        if (instance == null)
+        //        {
+        //            //SessionCacheSingleton(serializeService, connectConnexionService);
+        //        }
+        //        return instance;
+        //    }
+        //}
     }
 }

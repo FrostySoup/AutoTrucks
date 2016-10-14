@@ -97,8 +97,8 @@ namespace Service.ConnexionService
                         availability = searchDataProvided.criteria.availability,
                         origin = searchDataProvided.criteria.origin,
                         includeFulls = searchDataProvided.criteria.includeFulls,
-                        excludeOpenDestinationEquipmentSpecified = searchDataProvided.criteria.excludeOpenDestinationEquipment,
-                        limits = searchDataProvided.criteria.limits
+                        excludeOpenDestinationEquipmentSpecified = searchDataProvided.criteria.excludeOpenDestinationEquipment
+                        //limits = searchDataProvided.criteria.limits
                     },
                     includeSearch = searchDataProvided.includeSearch,
                     includeSearchSpecified = searchDataProvided.includeSearchSpecified,

@@ -63,8 +63,7 @@ namespace ViewModels.MainWindowViewModels
 
                 searchSuccessData = connectConnexionService
                     .SearchConnexion(sessionCacheSingleton.sessions[0], searches[0]);
-                dataConvertSingleton.CreateSearchSuccessDataToSearchCreated(searchSuccessData);
-                assets = DataConvertSingleton.Instance.CreateSearchSuccessDataToSearchCreated(searchSuccessData);               
+                ConvertIntoDisplayableData(searchSuccessData);
             }
             else
             {
@@ -74,6 +73,8 @@ namespace ViewModels.MainWindowViewModels
         }
 
         protected abstract void AddNewSearch(SearchDataFromView searchData);
+
+        protected abstract void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData);
 
         #region INotifyPropertyChanged Members
 

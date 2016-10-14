@@ -13,6 +13,8 @@ namespace Model.SearchCRUD
 
         public EquipmentClass[] equipmentClasses { get; set; }
 
+        public EquipmentType[] equipmentTypes { get; set; }
+
         public int ageLimitMinutes { get; set; }
 
         public bool ageLimitMinutesSpecified { get; set; }
