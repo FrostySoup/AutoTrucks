@@ -16,8 +16,6 @@ namespace Service.ConnexionService
     {
         private string URL = "http://www.transcoreservices.com:8000/TfmiRequest";
 
-
-
         public bool CheckIfValidLoginToConnexion(string username, string password)
         {
             ISessionFacade session = LoginToConnexion(username, password);
