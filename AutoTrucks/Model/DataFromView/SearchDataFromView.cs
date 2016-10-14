@@ -54,6 +54,7 @@ namespace Model.DataFromView
             backgroundColor = Color.FromRgb(0, 0, 0);
             foregroundColor = Color.FromRgb(0, 0, 0);
             equipmentType = new ObservableCollection<EquipmentType>();
+            equipmentClasses = new ObservableCollection<EquipmentClass>();
         }
     }
 }

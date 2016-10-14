@@ -104,6 +104,25 @@ namespace ViewModels.PopUpWindowViewModels
             }
         }
 
+        public IEnumerable<EquipmentClass> EquipmentClassValues
+        {
+            get
+            {
+                return Enum.GetValues(typeof(EquipmentClass))
+                    .Cast<EquipmentClass>();
+            }
+        }
+
+        public ObservableCollection<EquipmentClass> EquipmentClassSelected
+        {
+            get { return searchData.equipmentClasses; }
+            set
+            {
+                searchData.equipmentClasses = value;
+                OnPropertyChanged("EquipmentClassSelected");
+            }
+        }
+
         public IEnumerable<EquipmentType> EquipmentTypeValues
         {
             get

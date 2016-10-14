@@ -70,21 +70,22 @@ namespace Service.DataConvertService
         }
 
         public SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType)
-        {
-            var originGen = new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { StateProvince.CA } } };
+        {           
 
-            var destinationGen = new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { StateProvince.IL } } };
-
-            if (searchData != null && searchData.equipmentType != null)
+            if (searchData != null && searchData.equipmentClasses != null)
             {
+                var originGen = new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { searchData.originProvince } } };
+
+                var destinationGen = new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { searchData.destinationProvince } } };
+
                 var searchCriteria = new CreateSearchCriteria
                 {
                     ageLimitMinutes = 90,
                     ageLimitMinutesSpecified = true,
                     assetType = assetType,
                     destination = destinationGen,
-                    equipmentClasses = new EquipmentClass[] {EquipmentClass.Containers, EquipmentClass.Flatbeds, EquipmentClass.Tankers},
-                    equipmentTypes = searchData.equipmentType.ToArray(),
+                    equipmentClasses = searchData.equipmentClasses.ToArray(),
+                    //equipmentTypes = searchData.equipmentType.ToArray(),
                     includeFulls = searchData.includeFulls,
                     includeLtls = searchData.includeLtls,
                     origin = originGen,

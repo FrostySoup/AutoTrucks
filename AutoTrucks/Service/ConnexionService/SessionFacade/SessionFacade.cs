@@ -146,6 +146,8 @@ namespace Service.ConnexionService
         /// <param name="searchRequest"> </param>
         public CreateSearchSuccessData Search(CreateSearchRequest searchRequest)
         {
+            if (searchRequest == null || searchRequest.createSearchOperation == null || searchRequest.createSearchOperation.criteria == null)
+                return null;
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 

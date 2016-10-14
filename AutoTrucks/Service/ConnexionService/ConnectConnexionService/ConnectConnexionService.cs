@@ -79,7 +79,7 @@ namespace Service.ConnexionService
         {
             CreateSearchRequest searchRequest = new CreateSearchRequest();
 
-            if (searchDataProvided.criteria == null)
+            if (searchDataProvided == null || searchDataProvided.criteria == null)
                 return null;
 
             searchRequest = new CreateSearchRequest()

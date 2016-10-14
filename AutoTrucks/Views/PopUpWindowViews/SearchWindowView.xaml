@@ -42,8 +42,8 @@
                              VerticalAlignment="Center"    
                              Width="373"
                              Height="22"
-                             ItemsSource="{Binding EquipmentTypeValues}"
-                             SelectedItemsOverride="{Binding EquipmentTypeSelected}"
+                             ItemsSource="{Binding EquipmentClassValues}"
+                             SelectedItemsOverride="{Binding EquipmentClassSelected}"
                              Grid.ColumnSpan="3" Margin="20.4,15,18.6,15" />
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="0">Origin:</Label>
