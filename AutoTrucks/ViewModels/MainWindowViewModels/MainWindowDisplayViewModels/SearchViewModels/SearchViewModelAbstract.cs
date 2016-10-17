@@ -81,7 +81,7 @@ namespace ViewModels.MainWindowViewModels
             }
             else
             {
-                //Temporar solution
+
                 sessionCacheSingleton.RenewSessionsForEachData();
             }
         }
