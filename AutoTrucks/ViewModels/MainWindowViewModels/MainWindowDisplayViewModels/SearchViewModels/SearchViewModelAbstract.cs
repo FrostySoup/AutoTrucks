@@ -74,14 +74,12 @@ namespace ViewModels.MainWindowViewModels
                               .ToSearchOperationParams(asset.SearchData, assetType);
                         searchSuccessData = connectConnexionService
                             .SearchConnexion(sessionCacheSingleton.sessions[0], search);
-
                         ConvertIntoDisplayableData(searchSuccessData, new DataColors() { BackgroundColor = asset.BackgroundColor, ForegroundColor = asset.ForegroundColor });
                     }
                 }                             
             }
             else
             {
-
                 sessionCacheSingleton.RenewSessionsForEachData();
             }
         }
