@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.DataFromView;
+using Model.DataHelpers;
 using Model.ReceiveData.CreateSearch;
 using Model.SearchCRUD;
 using Model.SendData;
@@ -19,10 +20,15 @@ namespace Service.DataConvertService.Tests
     public class DataConvertSingletonTests
     {
         DataConvertSingleton dataConvertSingleton;
+        DataColors dataColors;
 
         [TestInitialize]
         public void SetInitialValues()
         {
+            dataColors = new DataColors()
+            {
+
+            };
             dataConvertSingleton = DataConvertSingleton.Instance;
         }
 
@@ -51,7 +57,7 @@ namespace Service.DataConvertService.Tests
         public void CreateSearchSuccessDataToSearchCreatedEmptyTest()
         {
             CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
             Assert.AreEqual(0, result.Count);
         }
 
@@ -59,7 +65,7 @@ namespace Service.DataConvertService.Tests
         public void CreateSearchSuccessDataToSearchCreatedNullTest()
         {
             CreateSearchSuccessData searchDataFromView = null;
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
             Assert.AreEqual(0, result.Count);
         }
 
@@ -68,7 +74,7 @@ namespace Service.DataConvertService.Tests
         {
             CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
             searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() };
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
             Assert.AreEqual(0, result.Count);
         }
 
@@ -93,7 +99,7 @@ namespace Service.DataConvertService.Tests
                 length = "ss5a0"
             };
             SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
-            Assert.AreEqual(0, result.criteria.limits.lengthFeet);
+            Assert.AreEqual(-1, result.criteria.limits.lengthFeet);
         }
 
         [TestMethod()]
@@ -117,7 +123,7 @@ namespace Service.DataConvertService.Tests
                 weight = "ss5a0"
             };
             SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
-            Assert.AreEqual(0, result.criteria.limits.weightPounds);
+            Assert.AreEqual(-1, result.criteria.limits.weightPounds);
         }
 
         [TestMethod()]
@@ -130,7 +136,7 @@ namespace Service.DataConvertService.Tests
                     Item = new Shipment()
                 }
             } };
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
             Assert.IsTrue(0 < result.Count);
         }
 
@@ -138,7 +144,6 @@ namespace Service.DataConvertService.Tests
         public void CreateSearchSuccessDataToSearchCreatedWithAgeParamsSuccessTest()
         {
             DateTime date = DateTime.Now;
-            string initialO = "test";
             CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
             searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() {
                 asset = new Asset()
@@ -156,15 +161,29 @@ namespace Service.DataConvertService.Tests
                     }
                 }
             } };
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
             Assert.AreEqual(date, result[0].Age);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(System.InvalidCastException))]
+        public void TruckPassingWrongTypeTest()
+        {
+            CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
+            searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() {
+                asset = new Asset()
+                {
+                    Item = new Equipment()
+                }
+            } };
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
+            Assert.IsTrue(0 < result.Count);
         }
 
         [TestMethod()]
         public void CreateSearchSuccessDataToSearchCreatedWithInitialOParamsSuccessTest()
         {
             DateTime date = DateTime.Now;
-            StateProvince initialO = StateProvince.AB;
             CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
             searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() {
                 asset = new Asset()
@@ -179,8 +198,101 @@ namespace Service.DataConvertService.Tests
                     postersStateProvince = StateProvince.AB
                 }
             } };
-            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView);
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
             Assert.AreEqual(StateProvince.AB.ToString(), result[0].InitialO);
+        }
+
+
+        [TestMethod()]
+        public void EquipmentCreateSearchSuccessDataToSearchCreatedTest()
+        {
+            CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
+            searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() {
+                asset = new Asset()
+                {
+                    Item = new Equipment()
+                }
+            } };
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.EquipmentCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
+            Assert.IsTrue(0 < result.Count);
+        }
+        
+        [TestMethod()]
+        [ExpectedException(typeof(System.InvalidCastException))]
+        public void EqipmentPassingWrongTypeTest()
+        {
+            CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
+            searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() {
+                asset = new Asset()
+                {
+                    Item = new Shipment()
+                }
+            } };
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.EquipmentCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
+            Assert.IsTrue(0 < result.Count);
+        }
+
+        [TestMethod()]
+        public void EquipmentCreateSearchSuccessDataToSearchCreatedWithAgeParamsSuccessTest()
+        {
+            DateTime date = DateTime.Now;
+            CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
+            searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() {
+                asset = new Asset()
+                {
+                    Item = new Equipment()
+                    {
+
+                    },
+                    status = new FmeStatus()
+                    {
+                        created = new UserTimeStamp()
+                        {
+                            date = date
+                        }
+                    }
+                }
+            } };
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.EquipmentCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
+            Assert.AreEqual(date, result[0].Age);
+        }
+
+        [TestMethod()]
+        public void EquipmentCreateSearchSuccessDataToSearchCreatedWithInitialOParamsSuccessTest()
+        {
+            DateTime date = DateTime.Now;
+            CreateSearchSuccessData searchDataFromView = new CreateSearchSuccessData();
+            searchDataFromView.matches = new MatchingAsset[] { new MatchingAsset() {
+                asset = new Asset()
+                {
+                    Item = new Equipment()
+                    {
+
+                    }
+                },
+                callback = new PostingCallback()
+                {
+                    postersStateProvince = StateProvince.AB
+                }
+            } };
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.EquipmentCreateSearchSuccessDataToSearchCreated(searchDataFromView, dataColors);
+            Assert.AreEqual(StateProvince.AB.ToString(), result[0].InitialO);
+        }
+
+        [TestMethod()]
+        public void EquipmentPassNullMatchesTest()
+        {
+            CreateSearchSuccessData value = new CreateSearchSuccessData();
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.EquipmentCreateSearchSuccessDataToSearchCreated(value, dataColors);
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod()]
+        public void EquipmentPassNullTest()
+        {
+            CreateSearchSuccessData value = null;
+            ObservableCollection<SearchCreated> result = dataConvertSingleton.EquipmentCreateSearchSuccessDataToSearchCreated(value, dataColors);
+            Assert.AreEqual(0, result.Count);
         }
     }
 }

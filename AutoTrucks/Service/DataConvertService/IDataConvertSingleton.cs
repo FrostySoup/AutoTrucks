@@ -1,6 +1,8 @@
 ﻿using Model.DataFromView;
+using Model.DataHelpers;
 using Model.ReceiveData.CreateSearch;
 using Model.SendData;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Service.DataConvertService
@@ -11,8 +13,8 @@ namespace Service.DataConvertService
 
         SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType);
 
-        ObservableCollection<SearchCreated> TrucksCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData);
+        ObservableCollection<SearchCreated> TrucksCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
 
-        ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData);
+        ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
     }
 }

@@ -37,14 +37,13 @@ namespace Service.ConnexionService
         {
             get { return _client.Endpoint.Address.Uri; }
         }
-
+        /*
         public void DeleteAllAssets()
         {
             var deleteAssetOperation = new DeleteAssetOperation { Item = new DeleteAllMyAssets() };
             var deleteAssetRequest = new DeleteAssetRequest { deleteAssetOperation = deleteAssetOperation };
 
-            /* pass a local variable as a "ref" parameter, rather than passing the field itself, so 
-			 * the service can't modify what the field refers to */
+           
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
@@ -99,16 +98,16 @@ namespace Service.ConnexionService
         {
             LookupCarrierRequest lookupCarrierRequest = BuildLookupCarrierRequest(userId, ItemChoiceType2.userId);
             LookupCarrier(lookupCarrierRequest, MethodBase.GetCurrentMethod().Name);
-        }
+        }*/
 
         /// <summary>
         /// 	Calls <see cref="TfmiFreightMatchingPortTypeClient.PostAsset" /> method and writes result to console.
         /// </summary>
         /// <param name="postAssetRequest"> </param>
+        /*
         public void Post(PostAssetRequest postAssetRequest)
         {
-            /* pass a local variable as a "ref" parameter, rather than passing the field itself, so 
-			 * the service can't modify what the field refers to */
+            
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
@@ -138,7 +137,7 @@ namespace Service.ConnexionService
                     }
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// 	Calls <see cref="TfmiFreightMatchingPortTypeClient.CreateSearch" /> method and writes result to console.
@@ -175,13 +174,12 @@ namespace Service.ConnexionService
             }
             return null;
         }
-
+        /*
         public void UpdateAlarm(string alarmUrl)
         {
             var updateAlarmUrlRequest = new UpdateAlarmUrlRequest
             { updateAlarmUrlOperation = new UpdateAlarmUrlOperation { alarmUrl = alarmUrl } };
-            /* pass a local variable as a "ref" parameter, rather than passing the field itself, so 
-			 * the service can't modify what the field refers to */
+
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
@@ -207,12 +205,11 @@ namespace Service.ConnexionService
 
                 }
             }
-        }
-
+        }*/
+        /*
         private void LookupCarrier(LookupCarrierRequest lookupCarrierRequest, string description)
         {
-            /* pass a local variable as a "ref" parameter, rather than passing the field itself, so 
-			 * the service can't modify what the field refers to */
+
             CorrelationHeader correlationHeader = _correlationHeader;
 
             SessionHeader sessionHeader = _sessionHeader;
@@ -241,12 +238,11 @@ namespace Service.ConnexionService
 
                 }
             }
-        }
-
+        }*/
+        /*
         private void LookupDobCarriers(LookupDobCarriersRequest lookupDobCarriersRequest, string description, int indent)
         {
-            /* pass a local variable as a "ref" parameter, rather than passing the field itself, so 
-			 * the service can't modify what the field refers to */
+
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
@@ -277,11 +273,10 @@ namespace Service.ConnexionService
                 }
             }
         }
-
+        */
+        /*
         private void LookupDobEvents(LookupDobEventsRequest request)
         {
-            /* pass a local variable as a "ref" parameter, rather than passing the field itself, so 
-			 * the service can't modify what the field refers to */
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
@@ -309,12 +304,10 @@ namespace Service.ConnexionService
 
                 }
             }
-        }
-
+        }*/
+        /*
         private void LookupSignedCarriers(LookupDobSignedCarriersRequest request)
         {
-            /* pass a local variable as a "ref" parameter, rather than passing the field itself, so 
-			 * the service can't modify what the field refers to */
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
@@ -374,7 +367,7 @@ namespace Service.ConnexionService
             };
             var lookupCarrierRequest = new LookupCarrierRequest { lookupCarrierOperation = new[] { lookupCarrierOperation } };
             return lookupCarrierRequest;
-        }
+        }*/
 
         /// <summary>
         /// 	Session header needs to be formed from the service's response, not from the ref input parameter of type <see

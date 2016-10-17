@@ -89,7 +89,7 @@ namespace ViewModels.PopUpWindowViewModels.Tests
             ICommand ic = dataSourceViewModel.OpenWindowCommand;
             loginViewModel.Setup(x => x.loginCredentials).Returns(new Login());
             loginViewModel.Setup(x => x.loginCompleted).Returns(true);
-            serializeService.Setup(x => x.SerializeDataSource(It.IsAny<DataSource>())).Returns(new ObservableCollection<DataSource>() { new DataSource()});
+            serializeService.Setup(x => x.SerializeDataSource(It.IsAny<DataSource>())).Returns(new ObservableCollection<DataSource>() { new DataSource() });
             ic.Execute(this);
             Assert.AreEqual(1, dataSourceViewModel.DataSources.Count);
         }

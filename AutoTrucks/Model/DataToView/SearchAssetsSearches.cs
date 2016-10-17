@@ -1,5 +1,6 @@
 ﻿using Model.DataFromView;
 using Model.SearchCRUD;
+using System.Windows.Media;
 
 namespace Model.DataToView
 {
@@ -24,15 +25,24 @@ namespace Model.DataToView
 
         public string Weight { get; set; }
 
+        public Brush BackgroundColor { get; set; }
+
+        public Brush ForegroundColor { get; set; }
+
+        public bool Marked { get; set; }
+
         public SearchAssetsSearches() { }
 
         public SearchAssetsSearches(SearchDataFromView searchData)
         {
+            Marked = false;
             string equipment = "";
-            foreach (EquipmentType equipmentType in searchData.equipmentType)
+            foreach (var item in searchData.equipmentClasses)
             {
-                equipment += equipmentType.ToString() + ", ";
+                equipment += item.ToString() + ", ";
             }
+            BackgroundColor = new SolidColorBrush(searchData.backgroundColor);
+            ForegroundColor = new SolidColorBrush(searchData.foregroundColor);
             EquipmentClasses = equipment;
             Origin = searchData.originProvince.ToString();
             Destination = searchData.destinationProvince.ToString();

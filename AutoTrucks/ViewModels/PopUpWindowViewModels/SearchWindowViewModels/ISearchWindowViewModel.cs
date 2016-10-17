@@ -11,8 +11,8 @@ namespace ViewModels.PopUpWindowViewModels
 {
     public interface ISearchWindowViewModel : INotifyPropertyChanged
     {
-        SearchDataFromView searchData { get; }
+        SearchDataFromView searchData { get; set; }
 
-        bool saveData { get; }
+        bool saveData { get; set; }
     }
 }

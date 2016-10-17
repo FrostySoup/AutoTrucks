@@ -8,6 +8,7 @@ using Model.SendData;
 using Model.SearchCRUD;
 using Model.ReceiveData.CreateSearch;
 using System.Collections.ObjectModel;
+using Model.DataHelpers;
 
 namespace Service.DataConvertService
 {
@@ -30,7 +31,7 @@ namespace Service.DataConvertService
                 return instance;
             }
         }
-
+        /*
         private GeoCriteria ToSearchRadius(StateProvince province, int dh, string cityProvided)
         {
             return new GeoCriteria
@@ -52,11 +53,17 @@ namespace Service.DataConvertService
                     }
                 }
             };
-        }
+        }*/
 
         private Dimensions createDimension(SearchDataFromView searchData)
         {
-            Dimensions dimensions = new Dimensions();
+            Dimensions dimensions = new Dimensions()
+            {
+                heightInches = -1,
+                lengthFeet = -1,
+                volumeCubicFeet = -1,
+                weightPounds = -1
+            };
             int parseResults = 0;
 
             if (searchData.length != null)
@@ -115,11 +122,12 @@ namespace Service.DataConvertService
             };
         }
 
-        public ObservableCollection<SearchCreated> TrucksCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData)
+        public ObservableCollection<SearchCreated> TrucksCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
             ObservableCollection<SearchCreated> trucks = new ObservableCollection<SearchCreated>();
+
             if (searchSuccessData != null && searchSuccessData.matches != null)
-            {                
+            {
                 foreach (MatchingAsset match in searchSuccessData.matches)
                 {
                     if (match.asset != null)
@@ -136,6 +144,8 @@ namespace Service.DataConvertService
 
                         trucks.Add(new SearchCreated()
                         {
+                            BackgroundColor = dataColors.BackgroundColor,
+                            ForegroundColor = dataColors.ForegroundColor,
                             Destination = truck.destination,
                             Truck = truck.equipmentType,
                             Origin = truck.origin,
@@ -149,13 +159,14 @@ namespace Service.DataConvertService
                     }
                 }
             }
-
             return trucks;
         }
 
-        public ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData)
+        public ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
-            ObservableCollection<SearchCreated> trucks = new ObservableCollection<SearchCreated>();
+            ObservableCollection<SearchCreated> searches = new ObservableCollection<SearchCreated>();
+
+
             if (searchSuccessData != null && searchSuccessData.matches != null)
             {
                 foreach (MatchingAsset match in searchSuccessData.matches)
@@ -171,9 +182,11 @@ namespace Service.DataConvertService
                         string initialO = null;
                         if (match.callback != null)
                             initialO = match.callback.postersStateProvince.ToString();
-                       
-                        trucks.Add(new SearchCreated()
+
+                        searches.Add(new SearchCreated()
                         {
+                            BackgroundColor = dataColors.BackgroundColor,
+                            ForegroundColor = dataColors.ForegroundColor,
                             DestinationEquipment = equipment.destination,
                             Truck = equipment.equipmentType,
                             Origin = equipment.origin,
@@ -187,8 +200,7 @@ namespace Service.DataConvertService
                     }
                 }
             }
-
-            return trucks;
+            return searches;
         }
     }
 }

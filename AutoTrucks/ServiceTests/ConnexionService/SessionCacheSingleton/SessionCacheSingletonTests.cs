@@ -21,32 +21,38 @@ namespace Service.ConnexionService.Tests
 
         Mock<ISerializeService> serializeService;
         Mock<IConnectConnexionService> connectConnexionService;
+        Mock<ISessionFacade> sessionFacade;
+        DataSource data;
 
         [TestInitialize]
         public void SetInitialValues()
         {
             serializeService = new Mock<ISerializeService>();
             connectConnexionService = new Mock<IConnectConnexionService>();
-            //sessionCacheSingleton = new SessionCacheSingleton(serializeService.Object, connectConnexionService.Object);
+            sessionFacade = new Mock<ISessionFacade>();
+            data = new DataSource()
+            {
+                UserName = "Hairy",
+                Password = "Potter"
+            };
+            serializeService.Setup(x => x.ReturnDataSource()).Returns(new ObservableCollection<DataSource>() { data });
+
+            connectConnexionService.Setup(x => x.LoginToConnexion(data.UserName, data.Password)).Returns(sessionFacade.Object);
+            sessionCacheSingleton = new SessionCacheSingleton(serializeService.Object, connectConnexionService.Object);            
         }
 
         [TestMethod()]
         public void RenewSessionsForEachDataTest()
         {
-            /*
-            string username = "Hairy";
-            string password = "Potter";
-            DataSource data = new DataSource()
-            {
-                UserName = username,
-                Password = password
-            };
+            var currentSessions = sessionCacheSingleton.sessions;           
+            sessionCacheSingleton.RenewSessionsForEachData();
+            Assert.IsTrue(0 < sessionCacheSingleton.sessions.Count);
+        }
 
-            var currentSessions = sessionCacheSingleton.sessions;
-            serializeService.Setup(x => x.ReturnDataSource()).Returns(new ObservableCollection<DataSource>() { data });
-            sessionCacheSingleton.RenewSessionsForEachData();          
-            */
-                      
+        [TestMethod()]
+        public void CheckIfSessionsCreatedSuccesfullyTest()
+        {
+            Assert.IsTrue(0 < sessionCacheSingleton.sessions.Count);
         }
     }
 }

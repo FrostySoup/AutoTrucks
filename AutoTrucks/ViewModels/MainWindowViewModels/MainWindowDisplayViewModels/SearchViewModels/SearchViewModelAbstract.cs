@@ -1,4 +1,5 @@
 ﻿using Model.DataFromView;
+using Model.DataHelpers;
 using Model.DataToView;
 using Model.ReceiveData.CreateSearch;
 using Model.SendData;
@@ -27,7 +28,7 @@ namespace ViewModels.MainWindowViewModels
 
         protected ObservableCollection<SearchAssetsSearches> searchesToDisplay;
 
-        protected ObservableCollection<SearchOperationParams> searches;
+        protected SearchOperationParams search;
 
         protected IDataConvertSingleton dataConvertSingleton;
 
@@ -47,34 +48,47 @@ namespace ViewModels.MainWindowViewModels
 
         protected void OpenWindowConnections()
         {
-            windowFactory.CreateNewSearchWindow(searchWindowViewModel);           
+            windowFactory.CreateNewSearchWindow(searchWindowViewModel);
             if (searchWindowViewModel.saveData == true && searchWindowViewModel.searchData != null)
+            {
                 AddNewSearch(searchWindowViewModel.searchData);
+                searchWindowViewModel.saveData = false;
+                searchWindowViewModel.searchData = new SearchDataFromView();
+            }
         }
 
         protected void PerformAssetSearch(AssetType assetType)
         {
-            CreateSearchSuccessData searchSuccessData;
+            if (searchesToDisplay.Count < 1)
+                return;
 
-            if (searchesToDisplay.Count > 0 && sessionCacheSingleton.sessions.Count > 0)
+            if (sessionCacheSingleton.sessions.Count > 0)
             {
-                searches.Add(DataConvertSingleton.Instance
-                    .ToSearchOperationParams(searchesToDisplay[0].SearchData, assetType));
+                CreateSearchSuccessData searchSuccessData = new CreateSearchSuccessData();
+                assets = new ObservableCollection<SearchCreated>();
+                foreach (SearchAssetsSearches asset in searchesToDisplay)
+                {
+                    if (asset.Marked)
+                    {
+                        search = DataConvertSingleton.Instance
+                              .ToSearchOperationParams(asset.SearchData, assetType);
+                        searchSuccessData = connectConnexionService
+                            .SearchConnexion(sessionCacheSingleton.sessions[0], search);
 
-                searchSuccessData = connectConnexionService
-                    .SearchConnexion(sessionCacheSingleton.sessions[0], searches[0]);
-                ConvertIntoDisplayableData(searchSuccessData);
+                        ConvertIntoDisplayableData(searchSuccessData, new DataColors() { BackgroundColor = asset.BackgroundColor, ForegroundColor = asset.ForegroundColor });
+                    }
+                }                             
             }
             else
             {
-                //Temporary solution
+                //Temporar solution
                 sessionCacheSingleton.RenewSessionsForEachData();
             }
         }
 
         protected abstract void AddNewSearch(SearchDataFromView searchData);
 
-        protected abstract void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData);
+        protected abstract void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
 
         #region INotifyPropertyChanged Members
 

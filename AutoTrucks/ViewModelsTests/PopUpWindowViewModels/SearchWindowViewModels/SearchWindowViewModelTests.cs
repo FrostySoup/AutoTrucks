@@ -212,5 +212,63 @@ namespace ViewModels.PopUpWindowViewModels.Tests
             Assert.AreEqual(value, searchWindowViewModel.SearchBack);
         }
 
+        [TestMethod()]
+        public void GetEquipmentClassValuesTest()
+        {
+            var enums = searchWindowViewModel.EquipmentClassValues;
+            Assert.IsNotNull(enums);
+        }
+
+        [TestMethod()]
+        public void GetEquipmentTypeValuesTest()
+        {
+            var enums = searchWindowViewModel.EquipmentTypeValues;
+            Assert.IsNotNull(enums);
+        }
+
+        [TestMethod()]
+        public void GetProvinceValuesTest()
+        {
+            var enums = searchWindowViewModel.ProvinceValues;
+            Assert.IsNotNull(enums);
+        }
+
+        [TestMethod()]
+        public void GetFullOrPartialValuesTest()
+        {
+            var enums = searchWindowViewModel.FullOrPartialValues;
+            Assert.IsNotNull(enums);
+        }
+
+        [TestMethod()]
+        public void GetWeigthValuesTest()
+        {
+            var enums = searchWindowViewModel.WeigthValues;
+            Assert.IsNotNull(enums);
+        }
+
+        [TestMethod()]
+        public void GetLengthValuesTest()
+        {
+            var enums = searchWindowViewModel.LengthValues;
+            Assert.IsNotNull(enums);
+        }
+
+        [TestMethod()]
+        public void GetSelectedFullOrPartialTest()
+        {
+            var value = FullOrPartial.Both;
+            searchWindowViewModel.SelectedFullOrPartial = value;
+            Assert.AreEqual(value, searchWindowViewModel.SelectedFullOrPartial);
+        }
+
+        [TestMethod()]
+        public void EquipmentClassSelectedTest()
+        {
+            var value = new ObservableCollection<EquipmentClass>() { EquipmentClass.Conestoga };
+            searchWindowViewModel.EquipmentClassSelected = value;
+            Assert.AreEqual(value, searchWindowViewModel.EquipmentClassSelected);
+        }
+
     }
 }

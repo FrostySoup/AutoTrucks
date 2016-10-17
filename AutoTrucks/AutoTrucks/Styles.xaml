@@ -10,4 +10,10 @@
         <Setter Property="Orientation" Value="Horizontal"/>
     </Style>
 
+    <!--Border-->
+    <Style x:Key="MainBorders" TargetType="Border">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="DeepSkyBlue"/>
+    </Style>
+    
 </ResourceDictionary>

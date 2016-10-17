@@ -6,24 +6,24 @@ namespace Service.ConnexionService
     {
        Uri EndpointUrl { get; }
 
-       void DeleteAllAssets();
+       //void DeleteAllAssets();
 
-       void LookupDobCarriersByCarrierId(string carrierId, int indent = 0);
+      // void LookupDobCarriersByCarrierId(string carrierId, int indent = 0);
 
-       void LookupDobEvents(DateTime since);
+      // void LookupDobEvents(DateTime since);
 
-       void LookupSignedCarriers();
+      // void LookupSignedCarriers();
 
-       void LookupCarrierByDotNumber(int dotNumber);
+      // void LookupCarrierByDotNumber(int dotNumber);
 
-       void LookupCarrierByMcNumber(int mcNumber);
+      // void LookupCarrierByMcNumber(int mcNumber);
 
-       void LookupCarrierByUserId(int userId);
-       void Post(PostAssetRequest postAssetRequest);
+      // void LookupCarrierByUserId(int userId);
+      // void Post(PostAssetRequest postAssetRequest);
 
        CreateSearchSuccessData Search(CreateSearchRequest searchRequest);
 
-       void UpdateAlarm(string alarmUrl);
+      // void UpdateAlarm(string alarmUrl);
       
       
 

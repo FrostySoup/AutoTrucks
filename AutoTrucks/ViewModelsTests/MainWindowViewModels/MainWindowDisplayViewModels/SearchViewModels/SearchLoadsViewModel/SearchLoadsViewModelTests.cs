@@ -16,6 +16,7 @@ using Model.ReceiveData.CreateSearch;
 using System.Windows.Input;
 using Model.DataToView;
 using Model.DataFromView;
+using Model.DataHelpers;
 
 namespace ViewModels.MainWindowViewModels.Tests
 {
@@ -82,6 +83,24 @@ namespace ViewModels.MainWindowViewModels.Tests
             searchWindowViewModel.Setup(x => x.searchData).Returns(new SearchDataFromView());
             ic.Execute(this);
             Assert.AreEqual(1, searchLoadsViewModel.SearchesToDisplay.Count);
+        }
+
+        [TestMethod()]
+        public void SearchSuccessEuipmentTest()
+        {
+            List<ISessionFacade> sessions = new List<ISessionFacade>();
+            sessions.Add(null);
+            ICommand ic = searchLoadsViewModel.SearchForSelectedTruckCommand;
+            dataConvertSingleton.Setup(x => x.EquipmentCreateSearchSuccessDataToSearchCreated(It.IsAny<CreateSearchSuccessData>(), It.IsAny<DataColors>()))
+                .Returns(new ObservableCollection<SearchCreated>() { new SearchCreated() });
+            sessionCacheSingleton.Setup(x => x.sessions).Returns(sessions);
+            searchLoadsViewModel.SearchesToDisplay.Add(new SearchAssetsSearches()
+            {
+                Marked = true
+            });
+            searchLoadsViewModel.SearchesToDisplay[0].SearchData = new SearchDataFromView();
+            ic.Execute(this);
+            Assert.IsTrue(searchLoadsViewModel.Loads.Count > 0);
         }
 
         [TestMethod()]

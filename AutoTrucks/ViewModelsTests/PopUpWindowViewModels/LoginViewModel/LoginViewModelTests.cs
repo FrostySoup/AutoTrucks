@@ -84,11 +84,21 @@ namespace ViewModels.PopUpWindowViewModels.Tests
         }
 
         [TestMethod()]
-        public void LoginWithNullTest()
+        public void LoginWithNullUsernameTest()
         {
             ICommand ic = loginViewModel.LoginCommand;
             loginViewModel.Password = "Password";
             loginViewModel.Username = null;
+            ic.Execute(this);
+            Assert.AreEqual("Username lenght (4-16) Password lenght (4-30)", loginViewModel.Message);
+        }
+
+        [TestMethod()]
+        public void LoginWithNullPasswordTest()
+        {
+            ICommand ic = loginViewModel.LoginCommand;
+            loginViewModel.Password = null;
+            loginViewModel.Username = "User";
             ic.Execute(this);
             Assert.AreEqual("Username lenght (4-16) Password lenght (4-30)", loginViewModel.Message);
         }

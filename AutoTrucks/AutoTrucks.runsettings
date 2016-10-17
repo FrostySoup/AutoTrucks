@@ -21,6 +21,15 @@
               </Exclude>
             </ModulePaths>
 
+            <Functions>
+              <Exclude>
+                <Function>.*\.AddNewWindowFactory\..*</Function>
+                <Function>.*\.Properties\..*</Function>
+                <Function>.*\.Commands\..*</Function>
+                <Function>.*\.ConnexionService.SessionFacade\..*</Function>
+              </Exclude>
+            </Functions>
+            
             <!-- We recommend you do not change the following values: -->
             <UseVerifiableInstrumentation>True</UseVerifiableInstrumentation>
             <AllowLowIntegrityProcesses>True</AllowLowIntegrityProcesses>

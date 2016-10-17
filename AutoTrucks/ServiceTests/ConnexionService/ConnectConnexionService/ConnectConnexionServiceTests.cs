@@ -64,9 +64,19 @@ namespace Service.ConnexionService.Tests
         }
 
         [TestMethod()]
-        public void SearchConnexionWithNullDataTest()
+        public void SearchConnexionWithCriteriaNullDataTest()
         {
             SearchOperationParams searchOperationParams = new SearchOperationParams();
+            CreateSearchSuccessData results = connectConnexionService.SearchConnexion(session.Object, searchOperationParams);
+
+            Assert.IsNull(results);
+        }
+
+        [TestMethod()]
+        public void SearchConnexionWithNullDataTest()
+        {
+            SearchOperationParams searchOperationParams = null;
+
             CreateSearchSuccessData results = connectConnexionService.SearchConnexion(session.Object, searchOperationParams);
 
             Assert.IsNull(results);

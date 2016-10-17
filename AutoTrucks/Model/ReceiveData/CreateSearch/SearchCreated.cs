@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Model.ReceiveData.CreateSearch
 {
@@ -11,12 +12,16 @@ namespace Model.ReceiveData.CreateSearch
         public DateTime Age { get; set; }
         public Availability Avail { get; set; }
         public EquipmentType Truck { get; set; }
+
+        public EquipmentClass[] Assets { get; set; }
         public bool FP { get; set; }
         public Place Origin { get; set; }
         public Mileage DHO { get; set; }
         public Place Destination { get; set; }
         public EquipmentDestination DestinationEquipment { get; set; }
         public Mileage DHD { get; set; }
+        public Brush BackgroundColor { get; set; }
+        public Brush ForegroundColor { get; set; }
         public string InitialO { get; set; }
 
 
@@ -29,6 +34,22 @@ namespace Model.ReceiveData.CreateSearch
                 return ((int)(DateTime.Now - Age).TotalHours).ToString() + "h";
             }
         }
+
+        public string AssetsToString
+        {
+            get
+            {
+                if (Assets == null)
+                    return "-";
+                string formString = "";
+                foreach (var asset in Assets)
+                {
+                    formString += asset.ToString();
+                }
+                return ((int)(DateTime.Now - Age).TotalHours).ToString() + "h";
+            }
+        }
+
 
         public string DHOToString
         {

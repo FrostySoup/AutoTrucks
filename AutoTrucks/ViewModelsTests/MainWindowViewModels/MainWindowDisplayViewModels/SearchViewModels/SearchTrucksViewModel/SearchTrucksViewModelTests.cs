@@ -17,6 +17,8 @@ using ViewModels.PopUpWindowViewModels;
 using Model.ReceiveData.CreateSearch;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.ComponentModel;
+using Model.DataHelpers;
 
 namespace ViewModels.MainWindowViewModels.Tests
 {
@@ -112,11 +114,31 @@ namespace ViewModels.MainWindowViewModels.Tests
             List<ISessionFacade> sessions = new List<ISessionFacade>();
             sessions.Add(null);
             ICommand ic = searchTrucksViewModel.SearchForSelectedTruckCommand;
-
+            dataConvertSingleton.Setup(x => x.TrucksCreateSearchSuccessDataToSearchCreated(It.IsAny<CreateSearchSuccessData>(), It.IsAny<DataColors>()))
+                .Returns(new ObservableCollection<SearchCreated>() { new SearchCreated() });
             sessionCacheSingleton.Setup(x => x.sessions).Returns(sessions);
-            searchTrucksViewModel.SearchesToDisplay.Add(new SearchAssetsSearches());
+            searchTrucksViewModel.SearchesToDisplay.Add(new SearchAssetsSearches()
+            {
+                Marked = true
+            });
             searchTrucksViewModel.SearchesToDisplay[0].SearchData = new SearchDataFromView();
-            ic.Execute(this);          
+            ic.Execute(this);
+            Assert.IsTrue(searchTrucksViewModel.Trucks.Count > 0);       
+        }
+
+        [TestMethod()]
+        public void OnTrucksChangeTest()
+        {
+            var receivedEvents = new List<string>();
+            searchTrucksViewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
+            {
+                receivedEvents.Add(e.PropertyName);
+            };
+            var value = new ObservableCollection<SearchCreated>();
+            searchTrucksViewModel.Trucks = value;
+            Assert.AreEqual(1, receivedEvents.Count);
+            Assert.AreEqual("Trucks", receivedEvents[0]);
+            Assert.AreEqual(value, searchTrucksViewModel.Trucks);
         }
 
     }

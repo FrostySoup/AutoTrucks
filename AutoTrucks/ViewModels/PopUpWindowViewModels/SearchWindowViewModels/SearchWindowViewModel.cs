@@ -21,11 +21,11 @@ namespace ViewModels.PopUpWindowViewModels
     {
         //private SearchOperationParams searchData;
 
-        public SearchDataFromView searchData { get; private set; }
+        public SearchDataFromView searchData { get; set; }
 
         private IWindowFactory windowFactory;     
 
-        public bool saveData { get; private set; }
+        public bool saveData { get; set; }
 
         public ICommand CloseWindowSaveDataCommand { get; private set; }
 
@@ -54,7 +54,7 @@ namespace ViewModels.PopUpWindowViewModels
 
         #region On property changed Members
 
-        public Color? BackgroundColor
+        public Color BackgroundColor
         {
             get { return searchData.backgroundColor; }
             set
@@ -64,7 +64,7 @@ namespace ViewModels.PopUpWindowViewModels
             }
         }
 
-        public Color? ForegroundColor
+        public Color ForegroundColor
         {
             get { return searchData.foregroundColor; }
             set

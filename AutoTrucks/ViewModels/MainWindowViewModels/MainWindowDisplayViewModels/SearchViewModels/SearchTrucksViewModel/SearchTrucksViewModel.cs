@@ -1,5 +1,6 @@
 ﻿using Model;
 using Model.DataFromView;
+using Model.DataHelpers;
 using Model.DataToView;
 using Model.ReceiveData.CreateSearch;
 using Model.SearchCRUD;
@@ -28,8 +29,6 @@ namespace ViewModels.MainWindowViewModels
             ISearchWindowViewModel searchWindowViewModel, IConnectConnexionService connectConnexionService)
             : base(dataConvertSingleton, sessionCacheSingleton, searchWindowViewModel, connectConnexionService)
         {
-            searches = new ObservableCollection<SearchOperationParams>();
-
             searchesToDisplay = new ObservableCollection<SearchAssetsSearches>();
 
             this.windowFactory = windowFactory;
@@ -45,10 +44,13 @@ namespace ViewModels.MainWindowViewModels
             OnPropertyChanged("SearchesToDisplay");
         }     
 
-        protected override void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData)
+        protected override void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
-            dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchSuccessData);
-            assets = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchSuccessData);
+            var foundList = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchSuccessData, dataColors);
+            foreach(var item in foundList)
+            {
+                assets.Add(item);
+            }
         }
 
         private void SearchForSelectedTruck()

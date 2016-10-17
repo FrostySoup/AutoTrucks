@@ -108,6 +108,13 @@
         <Setter Property="CanUserAddRows" Value="False"/>
     </Style>
 
+    <Style x:Key="UserCreatedDataGrid" TargetType="DataGrid">
+        <Setter Property="MinHeight" Value="200"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+    </Style>
+   
+    
     <!--Text block-->
 
     <Style x:Key="TitleText" TargetType="TextBlock">
@@ -147,7 +154,7 @@
     </Style>
 
     <!--Slider-->
-    <Style x:Key="SearchSlider" TargetType="Slider">
+    <Style x:Key="SearchSlider" TargetType="Slider" BasedOn="{StaticResource MetroSlider}">
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Maximum" Value="150"/>
     </Style>

@@ -9,20 +9,30 @@
         Height="800"
         Width="1200"
         Title="MainWindow">
-    
-    <Grid x:Name="MainGrid">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="6*"/>
-        </Grid.RowDefinitions>
-        <ContentControl Grid.Row="0" Content="{Binding Path = TopButtonsViewModel}" />
-            <UniformGrid Grid.Row="1" Rows="1">
-            <ContentControl Grid.Row="0" Content="{Binding Path = PostLoadsViewModel}"/>
-            <ContentControl Grid.Row="0" Content="{Binding Path = SearchLoadsViewModel}"/>
-            <ContentControl Grid.Row="0" Content="{Binding Path = SearchTrucksViewModel}"/>
-            <ContentControl Grid.Row="0" Content="{Binding Path = PostTrucksViewModel}"/>
-        </UniformGrid>
-    </Grid>
-    
+    <Border Style="{StaticResource MainBorders}">
+        <Grid x:Name="MainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <ContentControl Grid.Row="0" Content="{Binding Path = TopButtonsViewModel}" />
+            <Controls:MetroContentControl Grid.Row="1">
+                <TabControl>
+                    <TabItem Header="Post Loads">
+                        <ContentControl Content="{Binding Path = PostLoadsViewModel}"/>
+                    </TabItem>
+                    <TabItem Header="Search Loads">
+                        <ContentControl Content="{Binding Path = SearchLoadsViewModel}"/>
+                    </TabItem>
+                    <TabItem Header="Search Trucks">
+                        <ContentControl Content="{Binding Path = SearchTrucksViewModel}"/>
+                    </TabItem>
+                    <TabItem Header="Post Trucks">
+                        <ContentControl Content="{Binding Path = PostTrucksViewModel}"/>
+                    </TabItem>
+                </TabControl>
+            </Controls:MetroContentControl>
+        </Grid>
+    </Border>
 </Controls:MetroWindow>

@@ -41,17 +41,17 @@ namespace Model.DataFromView
 
         public StateProvince destinationProvince { get; set; }
 
-        public Color? backgroundColor { get; set; }
+        public Color backgroundColor { get; set; }
 
-        public Color? foregroundColor { get; set; }
+        public Color foregroundColor { get; set; }
 
-        public FullOrPartial fullOrPartial { get; set; }
+        public FullOrPartial fullOrPartial { get; set; }      
 
         public SearchDataFromView()
         {
             availFrom = DateTime.Now;
             availTo = DateTime.Now;
-            backgroundColor = Color.FromRgb(0, 0, 0);
+            backgroundColor = Color.FromRgb(255, 255, 255);
             foregroundColor = Color.FromRgb(0, 0, 0);
             equipmentType = new ObservableCollection<EquipmentType>();
             equipmentClasses = new ObservableCollection<EquipmentClass>();

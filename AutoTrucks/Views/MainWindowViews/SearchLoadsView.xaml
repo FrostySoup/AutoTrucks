@@ -14,60 +14,70 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border Style="{StaticResource MainBorders}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="5*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="5*" />
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
 
-            <Rectangle Grid.Row="0" Style="{StaticResource TextBoxBackGround}"/>
-            <TextBlock Grid.Row="0" Style="{StaticResource TitleText}">Search Loads</TextBlock>
-            <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
-                <Button Command="{Binding SearchForSelectedTruckCommand, Mode=OneWay}" Style="{StaticResource StartButton}"/>
-                <Button Command="{Binding OpenSearchWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
-                <Button Style="{StaticResource EditButton}"/>
-                <Button Style="{StaticResource DeleteButton}"/>
-            </StackPanel>
+        <Rectangle Grid.Row="0" Style="{StaticResource TextBoxBackGround}"/>
+        <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
+            <Button Command="{Binding SearchForSelectedTruckCommand, Mode=OneWay}" Style="{StaticResource StartButton}"/>
+            <Button Command="{Binding OpenSearchWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
+            <Button Style="{StaticResource EditButton}"/>
+            <Button Style="{StaticResource DeleteButton}"/>
+        </StackPanel>
 
-            <DataGrid Grid.Row="2" x:Name="dataGridSearchOptions" ItemsSource="{Binding SearchesToDisplay}" Style="{StaticResource ListResultsDataGrid}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Truck" Binding="{Binding EquipmentClasses}"/>
-                    <DataGridTextColumn Header="Origin" Binding="{Binding Origin}"/>
-                    <DataGridTextColumn Header="Destination" Binding="{Binding Destination}"/>
-                    <DataGridTextColumn Header="Pickup" Binding="{Binding Pickup}"/>
-                    <DataGridTextColumn Header="DH-O" Binding="{Binding DHO}"/>
-                    <DataGridTextColumn Header="DH-D" Binding="{Binding DHD}"/>
-                    <DataGridTextColumn Header="F/P" Binding="{Binding FP}"/>
-                    <DataGridTextColumn Header="Lenght" Binding="{Binding Lenght}"/>
-                    <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
-                <TextBlock>Search results Total:0 New:0</TextBlock>
-                <Button Style="{StaticResource UndoButton}"/>
-                <Button Style="{StaticResource ClearButton}"/>
-            </StackPanel>
+        <DataGrid Grid.Row="2" x:Name="dataGridSearchOptions" ItemsSource="{Binding SearchesToDisplay}" Style="{StaticResource UserCreatedDataGrid}">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="{Binding BackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{Binding ForegroundColor}"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Search" Binding="{Binding Marked}"/>
+                <DataGridTextColumn Header="Truck" Binding="{Binding EquipmentClasses}"/>
+                <DataGridTextColumn Header="Origin" Binding="{Binding Origin}"/>
+                <DataGridTextColumn Header="Destination" Binding="{Binding Destination}"/>
+                <DataGridTextColumn Header="Pickup" Binding="{Binding Pickup}"/>
+                <DataGridTextColumn Header="DH-O" Binding="{Binding DHO}"/>
+                <DataGridTextColumn Header="DH-D" Binding="{Binding DHD}"/>
+                <DataGridTextColumn Header="F/P" Binding="{Binding FP}"/>
+                <DataGridTextColumn Header="Lenght" Binding="{Binding Lenght}"/>
+                <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
+            <TextBlock>Search results Total:0 New:0</TextBlock>
+            <Button Style="{StaticResource UndoButton}"/>
+            <Button Style="{StaticResource ClearButton}"/>
+        </StackPanel>
 
-            <DataGrid Grid.Row="4" x:Name="dataGridCallResults" ItemsSource="{Binding Loads}" Style="{StaticResource ListResultsDataGrid}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Avail" Binding="{Binding AvailabilityToString}"/>
-                    <DataGridTextColumn Header="Age" Binding="{Binding AgeToString}"/>
-                    <DataGridTextColumn Header="Truck" Binding="{Binding Truck}"/>
-                    <DataGridTextColumn Header="F/P" Binding="{Binding FullORPartial}"/>
-                    <DataGridTextColumn Header="Origin" Binding="{Binding OriginToString}"/>
-                    <DataGridTextColumn Header="DH-O" Binding="{Binding DHOToString}"/>
-                    <DataGridTextColumn Header="Destination" Binding="{Binding DestinationToString}"/>
-                    <DataGridTextColumn Header="DH-D" Binding="{Binding DHDToString}"/>
-                    <DataGridTextColumn Header="InitialO" Binding="{Binding InitialO}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+        <DataGrid Grid.Row="4" x:Name="dataGridCallResults" ItemsSource="{Binding Loads}" Style="{StaticResource UserCreatedDataGrid}">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="{Binding BackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{Binding ForegroundColor}"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Avail" Binding="{Binding AvailabilityToString}"/>
+                <DataGridTextColumn Header="Age" Binding="{Binding AgeToString}"/>
+                <DataGridTextColumn Header="Truck" Binding="{Binding Truck}"/>
+                <DataGridTextColumn Header="F/P" Binding="{Binding FullORPartial}"/>
+                <DataGridTextColumn Header="Origin" Binding="{Binding OriginToString}"/>
+                <DataGridTextColumn Header="DH-O" Binding="{Binding DHOToString}"/>
+                <DataGridTextColumn Header="Destination" Binding="{Binding DestinationToString}"/>
+                <DataGridTextColumn Header="DH-D" Binding="{Binding DHDToString}"/>
+                <DataGridTextColumn Header="InitialO" Binding="{Binding InitialO}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
-        </Grid>
-    </Border>
+    </Grid>
 
 </UserControl>
 
