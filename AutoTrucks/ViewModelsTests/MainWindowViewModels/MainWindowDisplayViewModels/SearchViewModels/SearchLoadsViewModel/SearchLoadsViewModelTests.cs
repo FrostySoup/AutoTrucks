@@ -65,6 +65,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             searchLoadsViewModel.SearchesToDisplay.Add(new SearchAssetsSearches());
             searchLoadsViewModel.SearchesToDisplay[0].SearchData = new SearchDataFromView();
             ic.Execute(this);
+            Assert.AreEqual(1, searchLoadsViewModel.SearchesToDisplay.Count);
         }
 
         [TestMethod()]
@@ -73,6 +74,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             ICommand ic = searchLoadsViewModel.OpenSearchWindowCommand;
             searchWindowViewModel.Setup(x => x.saveData).Returns(true);
             ic.Execute(this);
+            Assert.AreEqual(0, searchLoadsViewModel.SearchesToDisplay.Count);
         }
 
         [TestMethod()]
@@ -114,6 +116,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             searchLoadsViewModel.SearchesToDisplay.Add(new SearchAssetsSearches());
             searchLoadsViewModel.SearchesToDisplay[0].SearchData = new SearchDataFromView();
             ic.Execute(this);
+            Assert.IsTrue(searchLoadsViewModel.Loads.Count == 0);
         }
     }
 }

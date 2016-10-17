@@ -68,6 +68,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             ICommand ic = searchTrucksViewModel.OpenSearchWindowCommand;
             searchWindowViewModel.Setup(x => x.saveData).Returns(true);
             ic.Execute(this);
+            Assert.AreEqual(0, searchTrucksViewModel.SearchesToDisplay.Count);
         }
 
         [TestMethod()]
@@ -77,6 +78,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             searchWindowViewModel.Setup(x => x.saveData).Returns(false);
             searchWindowViewModel.Setup(x => x.searchData).Returns(new SearchDataFromView());
             ic.Execute(this);
+            Assert.AreEqual(0, searchTrucksViewModel.SearchesToDisplay.Count);
         }
 
         [TestMethod()]
@@ -96,6 +98,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             sessionCacheSingleton.Setup(x => x.sessions).Returns(new List<ISessionFacade>());
             searchTrucksViewModel.SearchesToDisplay.Add(new SearchAssetsSearches());
             ic.Execute(this);
+            Assert.IsNull(searchTrucksViewModel.Trucks);
         }
 
         [TestMethod()]
@@ -106,6 +109,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             ICommand ic = searchTrucksViewModel.SearchForSelectedTruckCommand;
             sessionCacheSingleton.Setup(x => x.sessions).Returns(sessions);
             ic.Execute(this);
+            Assert.IsNull(searchTrucksViewModel.Trucks);
         }
 
         [TestMethod()]
