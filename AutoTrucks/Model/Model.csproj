@@ -49,6 +49,7 @@
     <Compile Include="Enums\EnumExtensionForDescription.cs" />
     <Compile Include="Enums\FullOrPartial.cs" />
     <Compile Include="Enums\Length.cs" />
+    <Compile Include="Enums\StatesAndProvincesExtend.cs" />
     <Compile Include="Enums\Weigth.cs" />
     <Compile Include="ReceiveData\CreateSearch\SearchCreated.cs" />
     <Compile Include="SendData\SearchCRUD\CreateSearchCriteria.cs" />

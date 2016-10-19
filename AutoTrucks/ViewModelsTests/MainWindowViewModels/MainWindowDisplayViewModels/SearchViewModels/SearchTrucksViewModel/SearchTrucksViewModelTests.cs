@@ -118,7 +118,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             List<ISessionFacade> sessions = new List<ISessionFacade>();
             sessions.Add(null);
             ICommand ic = searchTrucksViewModel.SearchForSelectedTruckCommand;
-            dataConvertSingleton.Setup(x => x.TrucksCreateSearchSuccessDataToSearchCreated(It.IsAny<CreateSearchSuccessData>(), It.IsAny<DataColors>()))
+            dataConvertSingleton.Setup(x => x.EquipmentCreateSearchSuccessDataToSearchCreated(It.IsAny<CreateSearchSuccessData>(), It.IsAny<DataColors>()))
                 .Returns(new ObservableCollection<SearchCreated>() { new SearchCreated() });
             sessionCacheSingleton.Setup(x => x.sessions).Returns(sessions);
             searchTrucksViewModel.SearchesToDisplay.Add(new SearchAssetsSearches()

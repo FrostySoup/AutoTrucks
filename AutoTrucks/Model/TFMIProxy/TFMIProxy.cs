@@ -3125,6 +3125,8 @@ public partial class Location
 [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.tcore.com/TcoreTypes.xsd")]
 public enum StateProvince
 {
+    /// <remarks/>
+    Any,
 
     /// <remarks/>
     AB,

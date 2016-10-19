@@ -159,6 +159,11 @@
         <Setter Property="Maximum" Value="150"/>
     </Style>
 
+    <Style x:Key="SearchBackSlider" TargetType="Slider" BasedOn="{StaticResource MetroSlider}">
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="99"/>
+    </Style>
+    
     <!--Border-->
     <Style x:Key="MainBorders" TargetType="Border">
         <Setter Property="BorderThickness" Value="2"/>

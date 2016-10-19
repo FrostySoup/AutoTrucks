@@ -13,7 +13,7 @@ namespace Service.DataConvertService
 
         SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType);
 
-        ObservableCollection<SearchCreated> TrucksCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
+        ObservableCollection<SearchCreated> ShipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
 
         ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
     }

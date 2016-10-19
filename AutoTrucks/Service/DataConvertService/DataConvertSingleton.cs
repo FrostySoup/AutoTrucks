@@ -76,18 +76,28 @@ namespace Service.DataConvertService
             return dimensions;
         }
 
+
+
         public SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType)
         {           
 
             if (searchData != null && searchData.equipmentClasses != null)
             {
-                var originGen = new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { searchData.originProvince } } };
 
-                var destinationGen = new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { searchData.destinationProvince } } };
+                GeoCriteria originGen = CheckIfOpen(searchData.originProvince);
+
+                GeoCriteria destinationGen = CheckIfOpen(searchData.destinationProvince);
+
+                bool openDestiantion = true;
+
+                if (searchData.destinationProvince == StateProvince.Any)
+                {
+                    openDestiantion = false;
+                }            
 
                 var searchCriteria = new CreateSearchCriteria
-                {
-                    ageLimitMinutes = 90,
+                {                   
+                    ageLimitMinutes = 60 * searchData.searchBack,
                     ageLimitMinutesSpecified = true,
                     assetType = assetType,
                     destination = destinationGen,
@@ -98,7 +108,8 @@ namespace Service.DataConvertService
                     origin = originGen,
                     //origin = ToSearchRadius(searchData.originProvince, searchData.dho, searchData.cityOrigin),
                     limits = createDimension(searchData),
-                    availability = ToAvailability(searchData)
+                    availability = ToAvailability(searchData),
+                    excludeOpenDestinationEquipment = openDestiantion
                 };
 
                 return new SearchOperationParams
@@ -113,6 +124,18 @@ namespace Service.DataConvertService
             return null;
         }
 
+        private GeoCriteria CheckIfOpen(StateProvince province)
+        {
+            if (province == StateProvince.Any)
+            {
+                return new GeoCriteria() { Item = new SearchOpen() };
+            }
+            else
+            {
+                return new GeoCriteria() { Item = new SearchArea { stateProvinces = new[] { province } } };
+            }
+        }
+
         private Availability ToAvailability(SearchDataFromView searchData)
         {
             return new Availability()
@@ -122,9 +145,9 @@ namespace Service.DataConvertService
             };
         }
 
-        public ObservableCollection<SearchCreated> TrucksCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
+        public ObservableCollection<SearchCreated> ShipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
-            ObservableCollection<SearchCreated> trucks = new ObservableCollection<SearchCreated>();
+            ObservableCollection<SearchCreated> shipments = new ObservableCollection<SearchCreated>();
 
             if (searchSuccessData != null && searchSuccessData.matches != null)
             {
@@ -132,8 +155,9 @@ namespace Service.DataConvertService
                 {
                     if (match.asset != null)
                     {
-                        Shipment truck = (Shipment)match.asset.Item;
-
+                        Shipment truck = match.asset.Item as Shipment;
+                        if (truck == null)
+                            return null;
                         DateTime age = DateTime.Now;
                         if (match.asset.status != null && match.asset.status.created != null)
                             age = match.asset.status.created.date;
@@ -142,24 +166,28 @@ namespace Service.DataConvertService
                         if (match.callback != null)
                             initialO = match.callback.postersStateProvince.ToString();
 
-                        trucks.Add(new SearchCreated()
+                        shipments.Add(new SearchCreated()
                         {
                             BackgroundColor = dataColors.BackgroundColor,
                             ForegroundColor = dataColors.ForegroundColor,
-                            Destination = truck.destination,
                             Truck = truck.equipmentType,
                             Origin = truck.origin,
                             Avail = match.asset.availability,
                             FP = match.asset.ltl,
                             DHD = match.destinationDeadhead,
                             DHO = match.originDeadhead,
+                            Destination = truck.destination,
+                            CompanyName = ShowCompanyName(match.callback),
+                            ContactPhone = PhoneNumber(match.callback),
+                            Length = SetDimensionLength(match.asset),
+                            Weigth = SetDimensionWeigth(match.asset),
                             Age = age,
                             InitialO = initialO
                         });
-                    }
+                    }                   
                 }
             }
-            return trucks;
+            return shipments;
         }
 
         public ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
@@ -173,8 +201,9 @@ namespace Service.DataConvertService
                 {
                     if (match.asset != null)
                     {
-                        Equipment equipment = (Equipment)match.asset.Item;
-
+                        Equipment equipment = match.asset.Item as Equipment;
+                        if (equipment == null)
+                            return null;
                         DateTime age = DateTime.Now;
                         if (match.asset.status != null && match.asset.status.created != null)
                             age = match.asset.status.created.date;
@@ -195,12 +224,49 @@ namespace Service.DataConvertService
                             DHD = match.destinationDeadhead,
                             DHO = match.originDeadhead,
                             Age = age,
+                            CompanyName = ShowCompanyName(match.callback),
+                            ContactPhone = PhoneNumber(match.callback), 
+                            Length = SetDimensionLength(match.asset),
+                            Weigth = SetDimensionWeigth(match.asset),
                             InitialO = initialO
                         });
                     }
                 }
             }
             return searches;
+        }
+
+        private string ShowCompanyName(PostingCallback callback)
+        {
+            if (callback == null)
+                return "-";
+            else
+                return callback.displayCompany;
+        }
+
+        private string SetDimensionWeigth(Asset asset)
+        {
+            if (asset.dimensions != null && asset.dimensions.weightPounds > 0)
+                return asset.dimensions.weightPounds.ToString();
+            return "-";
+        }
+
+        private string SetDimensionLength(Asset asset)
+        {
+            if (asset.dimensions != null && asset.dimensions.lengthFeet > 0)
+                return asset.dimensions.lengthFeet.ToString();
+            return "-";
+        }
+
+        private string PhoneNumber(PostingCallback item)
+        {
+            if (item == null)
+                return "-";
+
+            CallbackPhoneNumber phone = item.Item as CallbackPhoneNumber;
+            if (phone != null)
+                return phone.phone.number;
+            return "-";
         }
     }
 }

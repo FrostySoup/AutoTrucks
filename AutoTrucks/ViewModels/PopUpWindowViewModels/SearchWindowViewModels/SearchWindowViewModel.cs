@@ -41,7 +41,8 @@ namespace ViewModels.PopUpWindowViewModels
 
         private void CloseSaveDataWindow()
         {
-            saveData = true;
+            if (searchData.originProvince != StateProvince.Any || searchData.destinationProvince != StateProvince.Any)
+                saveData = true;
             windowFactory.CloseSearchWindow();
         }
 

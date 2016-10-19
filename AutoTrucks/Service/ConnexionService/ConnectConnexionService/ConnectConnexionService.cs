@@ -92,10 +92,13 @@ namespace Service.ConnexionService
                         destination = searchDataProvided.criteria.destination,
                         equipmentClasses = searchDataProvided.criteria.equipmentClasses,
                         excludeOpenDestinationEquipment = searchDataProvided.criteria.excludeOpenDestinationEquipment,
+                        excludeOpenDestinationEquipmentSpecified = searchDataProvided.criteria.excludeOpenDestinationEquipment,
                         availability = searchDataProvided.criteria.availability,
                         origin = searchDataProvided.criteria.origin,
                         includeFulls = searchDataProvided.criteria.includeFulls,
-                        excludeOpenDestinationEquipmentSpecified = searchDataProvided.criteria.excludeOpenDestinationEquipment
+                        includeFullsSpecified = true,
+                        includeLtlsSpecified = true,
+                        includeLtls = searchDataProvided.criteria.includeLtls
                         //limits = searchDataProvided.criteria.limits
                     },
                     includeSearch = searchDataProvided.includeSearch,

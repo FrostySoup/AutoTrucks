@@ -1,5 +1,8 @@
 ﻿using Model.DataFromView;
 using Model.SearchCRUD;
+using System;
+using System.Globalization;
+using System.Threading;
 using System.Windows.Media;
 
 namespace Model.DataToView
@@ -31,6 +34,8 @@ namespace Model.DataToView
 
         public bool Marked { get; set; }
 
+        public string SearchBack { get; set; }
+
         public SearchAssetsSearches() { }
 
         public SearchAssetsSearches(SearchDataFromView searchData)
@@ -46,12 +51,14 @@ namespace Model.DataToView
             EquipmentClasses = equipment;
             Origin = searchData.originProvince.ToString();
             Destination = searchData.destinationProvince.ToString();
-            Pickup = "UnknownField";
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Pickup = String.Format("{0:MM/dd}-{1:MM/dd}", searchData.availFrom, searchData.availTo);
             DHO = searchData.dho.ToString();
             DHD = searchData.dhd.ToString();
             FP = searchData.fullOrPartial.ToString();
             Lenght = searchData.length;
             Weight = searchData.weight;
+            SearchBack = searchData.searchBack.ToString() + " hr";
             this.SearchData = searchData;
         }
     }

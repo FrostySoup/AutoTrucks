@@ -67,7 +67,7 @@
         <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="0">Search Back</Label>
         <UniformGrid Grid.Row="4" Grid.Column="1" Columns="2">
             <TextBlock Style="{StaticResource SearchTextBlock}" Text="{Binding SearchBack}" Grid.Column="0"></TextBlock>
-            <Slider Style="{StaticResource SearchSlider}" Value="{Binding SearchBack}" Grid.Column="0"></Slider>
+            <Slider Style="{StaticResource SearchBackSlider}" Value="{Binding SearchBack}" Grid.Column="0"></Slider>
         </UniformGrid>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="5" Grid.Column="0">Avail From</Label>

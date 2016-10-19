@@ -46,7 +46,7 @@ namespace ViewModels.MainWindowViewModels
 
         protected override void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
-            var foundList = dataConvertSingleton.TrucksCreateSearchSuccessDataToSearchCreated(searchSuccessData, dataColors);
+            var foundList = dataConvertSingleton.EquipmentCreateSearchSuccessDataToSearchCreated(searchSuccessData, dataColors);
             foreach(var item in foundList)
             {
                 assets.Add(item);
@@ -55,7 +55,7 @@ namespace ViewModels.MainWindowViewModels
 
         private void SearchForSelectedTruck()
         {
-            PerformAssetSearch(AssetType.Shipment);
+            PerformAssetSearch(AssetType.Equipment);
             OnPropertyChanged("Trucks");
         }
 

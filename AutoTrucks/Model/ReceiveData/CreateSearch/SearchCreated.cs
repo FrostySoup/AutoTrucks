@@ -22,6 +22,10 @@ namespace Model.ReceiveData.CreateSearch
         public Mileage DHD { get; set; }
         public Brush BackgroundColor { get; set; }
         public Brush ForegroundColor { get; set; }
+        public string CompanyName { get; set; }
+        public string ContactPhone { get; set; }
+        public string Length { get; set; }
+        public string Weigth { get; set; }
         public string InitialO { get; set; }
 
 
@@ -31,7 +35,9 @@ namespace Model.ReceiveData.CreateSearch
             {
                 if(Age == null)
                     return "-";
-                return ((int)(DateTime.Now - Age).TotalHours).ToString() + "h";
+                int hours = (int)(DateTime.Now - Age).TotalHours;
+                int minutes = (int)(DateTime.Now - Age).Minutes;
+                return string.Format("{0}:{1:00}", hours, minutes);
             }
         }
 
@@ -94,7 +100,9 @@ namespace Model.ReceiveData.CreateSearch
             {
                 if (Origin == null)
                     return "-";
-                NamedLatLon cityAndState = (NamedLatLon)Origin.Item;
+                NamedLatLon cityAndState = Origin.Item as NamedLatLon;
+                if (cityAndState == null)
+                    return "-";
                 return cityAndState.city + " " + cityAndState.stateProvince;
             }
         }
@@ -103,10 +111,30 @@ namespace Model.ReceiveData.CreateSearch
         {
             get
             {
-                if (Destination == null)
-                    return "-";
-                NamedLatLon cityAndState = (NamedLatLon)Destination.Item;
-                return cityAndState.city + " " + cityAndState.stateProvince;
+                if (Destination != null)
+                {
+                    NamedLatLon cityAndState = Destination.Item as NamedLatLon;
+                    if (cityAndState == null)
+                        return "-";
+                    return cityAndState.city + " " + cityAndState.stateProvince;
+                }else if (DestinationEquipment != null)
+                {
+                    var destinationPlace = DestinationEquipment.Item as Place;
+                    if (destinationPlace != null) {
+                        var cityAndState = destinationPlace.Item as NamedLatLon;
+                        if (cityAndState == null)
+                            return "-";
+                        return cityAndState.city + " " + cityAndState.stateProvince;
+                    }else
+                    {
+                        var destinationArea = DestinationEquipment.Item as Area;
+                        if (destinationArea != null)
+                        {
+                            return "-";
+                        }
+                    }
+                }
+                return "Anywhere";
             }
         }
     }

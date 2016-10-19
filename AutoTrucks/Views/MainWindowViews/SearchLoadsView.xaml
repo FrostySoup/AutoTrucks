@@ -49,6 +49,7 @@
                 <DataGridTextColumn Header="F/P" Binding="{Binding FP}"/>
                 <DataGridTextColumn Header="Lenght" Binding="{Binding Lenght}"/>
                 <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
+                <DataGridTextColumn Header="Search back" Binding="{Binding SearchBack}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
@@ -73,6 +74,10 @@
                 <DataGridTextColumn Header="DH-O" Binding="{Binding DHOToString}"/>
                 <DataGridTextColumn Header="Destination" Binding="{Binding DestinationToString}"/>
                 <DataGridTextColumn Header="DH-D" Binding="{Binding DHDToString}"/>
+                <DataGridTextColumn Header="Company name" Binding="{Binding CompanyName}"/>
+                <DataGridTextColumn Header="Phone number" Binding="{Binding ContactPhone}"/>
+                <DataGridTextColumn Header="Length" Binding="{Binding Length}"/>
+                <DataGridTextColumn Header="Weigth" Binding="{Binding Weigth}"/>
                 <DataGridTextColumn Header="InitialO" Binding="{Binding InitialO}"/>
             </DataGrid.Columns>
         </DataGrid>
