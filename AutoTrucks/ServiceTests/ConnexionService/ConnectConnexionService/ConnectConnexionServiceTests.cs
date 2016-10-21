@@ -66,7 +66,7 @@ namespace Service.ConnexionService.Tests
         [TestMethod()]
         public void SearchConnexionWithCriteriaNullDataTest()
         {
-            SearchOperationParams searchOperationParams = new SearchOperationParams();
+            CreateSearchOperation searchOperationParams = new CreateSearchOperation();
             CreateSearchSuccessData results = connectConnexionService.SearchConnexion(session.Object, searchOperationParams);
 
             Assert.IsNull(results);
@@ -75,7 +75,7 @@ namespace Service.ConnexionService.Tests
         [TestMethod()]
         public void SearchConnexionWithNullDataTest()
         {
-            SearchOperationParams searchOperationParams = null;
+            CreateSearchOperation searchOperationParams = null;
 
             CreateSearchSuccessData results = connectConnexionService.SearchConnexion(session.Object, searchOperationParams);
 
@@ -85,8 +85,8 @@ namespace Service.ConnexionService.Tests
         [TestMethod()]
         public void SearchConnexionWithSomeDataTest()
         {
-            SearchOperationParams searchOperationParams = new SearchOperationParams();
-            searchOperationParams.criteria = new Model.SearchCRUD.CreateSearchCriteria();
+            CreateSearchOperation searchOperationParams = new CreateSearchOperation();
+            searchOperationParams.criteria = new SearchCriteria();
             session.Setup(x => x.Search(It.IsAny<CreateSearchRequest>())).Returns(new CreateSearchSuccessData());
             CreateSearchSuccessData results = connectConnexionService.SearchConnexion(session.Object, searchOperationParams);
             Assert.IsNotNull(results);

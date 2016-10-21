@@ -8,7 +8,6 @@ using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Model.SearchCRUD;
 
 namespace Service.ConnexionService
 {
@@ -66,14 +65,14 @@ namespace Service.ConnexionService
             return new SessionFacade(applicationHeader, correlationHeader, data, client);
         }
 
-        public CreateSearchSuccessData SearchConnexion(ISessionFacade session, SearchOperationParams searchDataProvided)
+        public CreateSearchSuccessData SearchConnexion(ISessionFacade session, CreateSearchOperation searchDataProvided)
         {
             CreateSearchRequest searchRequest = MapSearchOperationWithCreateSearchOperation(searchDataProvided);
 
             return session.Search(searchRequest);
         }
 
-        private CreateSearchRequest MapSearchOperationWithCreateSearchOperation(SearchOperationParams searchDataProvided)
+        private CreateSearchRequest MapSearchOperationWithCreateSearchOperation(CreateSearchOperation searchDataProvided)
         {
             CreateSearchRequest searchRequest = new CreateSearchRequest();
 
@@ -82,30 +81,7 @@ namespace Service.ConnexionService
 
             searchRequest = new CreateSearchRequest()
             {
-                createSearchOperation = new CreateSearchOperation()
-                {
-                    criteria = new SearchCriteria()
-                    {
-                        ageLimitMinutes = searchDataProvided.criteria.ageLimitMinutes,
-                        ageLimitMinutesSpecified = searchDataProvided.criteria.ageLimitMinutesSpecified,
-                        assetType = searchDataProvided.criteria.assetType,
-                        destination = searchDataProvided.criteria.destination,
-                        equipmentClasses = searchDataProvided.criteria.equipmentClasses,
-                        excludeOpenDestinationEquipment = searchDataProvided.criteria.excludeOpenDestinationEquipment,
-                        excludeOpenDestinationEquipmentSpecified = searchDataProvided.criteria.excludeOpenDestinationEquipment,
-                        availability = searchDataProvided.criteria.availability,
-                        origin = searchDataProvided.criteria.origin,
-                        includeFulls = searchDataProvided.criteria.includeFulls,
-                        includeFullsSpecified = true,
-                        includeLtlsSpecified = true,
-                        includeLtls = searchDataProvided.criteria.includeLtls,
-                        limits = searchDataProvided.criteria.limits
-                    },
-                    includeSearch = searchDataProvided.includeSearch,
-                    includeSearchSpecified = searchDataProvided.includeSearchSpecified,
-                    sortOrder = searchDataProvided.sortOrder,
-                    sortOrderSpecified = searchDataProvided.sortOrderSpecified
-                }
+                createSearchOperation = searchDataProvided
             };
 
             return searchRequest;

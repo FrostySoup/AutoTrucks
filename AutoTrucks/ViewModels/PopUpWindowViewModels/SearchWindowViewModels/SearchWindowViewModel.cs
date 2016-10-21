@@ -1,8 +1,6 @@
 ﻿using Model.DataFromView;
 using Model.DataToView;
 using Model.Enums;
-using Model.SearchCRUD;
-using Model.SendData;
 using Service.AddNewWindowFactory;
 using Service.Commands;
 using System;

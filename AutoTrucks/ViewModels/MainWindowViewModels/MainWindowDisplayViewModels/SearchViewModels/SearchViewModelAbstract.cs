@@ -28,13 +28,15 @@ namespace ViewModels.MainWindowViewModels
 
         protected ObservableCollection<SearchAssetsSearches> searchesToDisplay;
 
-        protected SearchOperationParams search;
+        protected CreateSearchOperation search;
 
         protected IDataConvertService dataConvertService;
 
         protected ISessionCacheSingleton sessionCacheSingleton;
 
         protected IConnectConnexionService connectConnexionService;
+
+        private bool isActive;
 
         private readonly string totalAssetsFoundString = "Search results Total : ";
 
@@ -66,6 +68,8 @@ namespace ViewModels.MainWindowViewModels
 
             if (sessionCacheSingleton.sessions.Count > 0)
             {
+                isActive = true;
+                OnPropertyChanged("ActivateLoad");
                 CreateSearchSuccessData searchSuccessData = new CreateSearchSuccessData();
                 assets = new ObservableCollection<SearchAssetsReceived>();
                 foreach (SearchAssetsSearches asset in searchesToDisplay)
@@ -80,7 +84,8 @@ namespace ViewModels.MainWindowViewModels
                     }
                 }
                 OnPropertyChanged("SearchResults");
-                                            
+                isActive = false;
+                OnPropertyChanged("ActivateLoad");
             }
             else
             {
@@ -99,6 +104,19 @@ namespace ViewModels.MainWindowViewModels
                 if (assets != null)
                     return totalAssetsFoundString + assets.Count.ToString();
                 return totalAssetsFoundString + "0";
+            }
+        }
+
+        public bool ActivateLoad
+        {
+            get
+            {
+                return isActive;
+            }
+            set
+            {
+                isActive = value;
+                OnPropertyChanged("ActivateLoad");
             }
         }
 

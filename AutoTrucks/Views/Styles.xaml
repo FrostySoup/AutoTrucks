@@ -11,6 +11,8 @@
         <Setter Property="Height" Value="40"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Margin" Value="10,10,10,10"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="2"/>
     </Style>
 
     <Style x:Key="DataSourceButtons" TargetType="Button" BasedOn="{StaticResource AccentedSquareButtonStyle}">
@@ -39,6 +41,8 @@
         <Setter Property="Height" Value="40"/>
         <Setter Property="Margin" Value="5,5,5,5"/>
         <Setter Property="Background" Value="Azure"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="2"/>
     </Style>
 
     <Style x:Key="StartButton" TargetType="Button" BasedOn="{StaticResource BaseButtonImageStyle}">
@@ -97,10 +101,16 @@
     <!--Stack panels-->
 
     <Style x:Key="CRUDStackPanel" TargetType="StackPanel">
-        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="Background" Value="LightSlateGray"/>
         <Setter Property="Orientation" Value="Horizontal"/>
     </Style>
 
+    <!--Row definition-->
+
+    <Style x:Key="GridRowForButtons" TargetType="RowDefinition">
+        <Setter Property="Height" Value="50"/>
+    </Style>
+    
     <!--CheckComboBox-->
     <Style x:Key="MultipleSelectComboBox" TargetType="xctk:CheckComboBox">
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -115,6 +125,20 @@
         <Setter Property="MinHeight" Value="200"/>
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="Grid.IsEnabled" Value="True"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="GridLinesVisibility" Value="All"/>
+    </Style>
+
+    <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Foreground" Value="Black" />
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="UserCreatedDataGrid" TargetType="DataGrid">

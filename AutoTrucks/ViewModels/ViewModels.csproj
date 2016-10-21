@@ -54,11 +54,9 @@
     <Compile Include="NotifyPropertyChangedAbstract.cs" />
     <Compile Include="PopUpWindowViewModels\LoginViewModel\LoginViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\LoginViewModel\ILoginViewModel.cs" />
-    <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchTrucksViewModel\ISearchTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\ITopButtonsViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostLoadsViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostTrucksViewModel.cs" />
-    <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchLoadsViewModel\ISearchLoadsViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchLoadsViewModel\SearchLoadsViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchTrucksViewModel\SearchTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\TopButtonsViewModel.cs" />

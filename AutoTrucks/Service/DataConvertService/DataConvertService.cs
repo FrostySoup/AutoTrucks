@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model.DataFromView;
-using Model.SendData;
-using Model.SearchCRUD;
 using Model.ReceiveData.CreateSearch;
 using System.Collections.ObjectModel;
 using Model.DataHelpers;
@@ -68,7 +66,7 @@ namespace Service.DataConvertService
 
 
 
-        public SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType)
+        public CreateSearchOperation ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType)
         {           
 
             if (searchData != null && searchData.equipmentClasses != null)
@@ -85,7 +83,7 @@ namespace Service.DataConvertService
                     openDestiantion = false;
                 }            
 
-                var searchCriteria = new CreateSearchCriteria
+                var searchCriteria = new SearchCriteria
                 {                   
                     ageLimitMinutes = 60 * searchData.searchBack,
                     ageLimitMinutesSpecified = true,
@@ -102,7 +100,7 @@ namespace Service.DataConvertService
                     excludeOpenDestinationEquipment = openDestiantion
                 };
 
-                return new SearchOperationParams
+                return new CreateSearchOperation
                 {
                     criteria = searchCriteria,
                     includeSearch = true,

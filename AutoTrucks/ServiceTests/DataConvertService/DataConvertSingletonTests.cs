@@ -2,16 +2,9 @@
 using Model.DataFromView;
 using Model.DataHelpers;
 using Model.ReceiveData.CreateSearch;
-using Model.SearchCRUD;
-using Model.SendData;
-using Service.DataConvertService;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.DataConvertService.Tests
 {
@@ -37,7 +30,7 @@ namespace Service.DataConvertService.Tests
         {
             AssetType assetType = AssetType.Shipment;
             SearchDataFromView searchDataFromView = new SearchDataFromView();
-            SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
+            CreateSearchOperation result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
             Assert.IsNotNull(result.criteria.assetType);
             Assert.IsNotNull(result.criteria.origin);
             Assert.IsNotNull(result.criteria.destination);
@@ -49,7 +42,7 @@ namespace Service.DataConvertService.Tests
         {
             AssetType assetType = AssetType.Equipment;
             SearchDataFromView searchDataFromView = null;
-            SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
+            CreateSearchOperation result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
             Assert.IsNull(result);
         }
 
@@ -102,7 +95,7 @@ namespace Service.DataConvertService.Tests
             {
                 length = "50"
             };
-            SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
+            CreateSearchOperation result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
             Assert.AreEqual(50, result.criteria.limits.lengthFeet);
         }
 
@@ -114,7 +107,7 @@ namespace Service.DataConvertService.Tests
             {
                 length = "ss5a0"
             };
-            SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
+            CreateSearchOperation result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
             Assert.AreEqual(-1, result.criteria.limits.lengthFeet);
         }
 
@@ -126,7 +119,7 @@ namespace Service.DataConvertService.Tests
             {
                 weight = "50"
             };
-            SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
+            CreateSearchOperation result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
             Assert.AreEqual(50, result.criteria.limits.weightPounds);
         }
 
@@ -138,7 +131,7 @@ namespace Service.DataConvertService.Tests
             {
                 weight = "ss5a0"
             };
-            SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
+            CreateSearchOperation result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
             Assert.AreEqual(-1, result.criteria.limits.weightPounds);
         }
 
@@ -214,7 +207,7 @@ namespace Service.DataConvertService.Tests
             {
                 originProvince = StateProvince.AB
             };
-            SearchOperationParams result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
+            CreateSearchOperation result = dataConvertSingleton.ToSearchOperationParams(searchDataFromView, assetType);
             var destination = result.criteria.destination.Item as SearchOpen;
             Assert.IsNotNull(destination);
         }

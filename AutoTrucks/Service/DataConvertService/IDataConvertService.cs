@@ -11,7 +11,7 @@ namespace Service.DataConvertService
     {
         //DataConvertSingleton Instance { get; }
 
-        SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType);
+        CreateSearchOperation ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType);
 
         ObservableCollection<SearchAssetsReceived> ShipmentCreateSearchSuccessDataToSearchAssetsReceived(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
 

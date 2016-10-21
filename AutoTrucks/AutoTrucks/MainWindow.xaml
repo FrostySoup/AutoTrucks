@@ -8,32 +8,35 @@
         mc:Ignorable="d"
         Height="800"
         Width="1200"
-        WindowStartupLocation="CenterScreen"        
-        Title="MainWindow">
+        WindowStartupLocation="CenterScreen"
+        BorderThickness="0" 
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        ResizeMode="CanResizeWithGrip"  
+        ShowIconOnTitleBar="True"
+        Icon=".\Images\Car.png"
+        Title="Auto Trucks">
 
-    <Border Style="{StaticResource MainBorders}">
-        <Grid x:Name="MainGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="6*"/>
-            </Grid.RowDefinitions>
-            <ContentControl Grid.Row="0" Content="{Binding Path = TopButtonsViewModel}" />
-            <Controls:MetroContentControl Grid.Row="1">
-                <TabControl>
-                    <TabItem Header="Post Loads">
-                        <ContentControl Content="{Binding Path = PostLoadsViewModel}"/>
-                    </TabItem>
-                    <TabItem Header="Search Loads">
-                        <ContentControl Content="{Binding Path = SearchLoadsViewModel}"/>
-                    </TabItem>
-                    <TabItem Header="Search Trucks">
-                        <ContentControl Content="{Binding Path = SearchTrucksViewModel}"/>
-                    </TabItem>
-                    <TabItem Header="Post Trucks">
-                        <ContentControl Content="{Binding Path = PostTrucksViewModel}"/>
-                    </TabItem>
-                </TabControl>
-            </Controls:MetroContentControl>
-        </Grid>
-    </Border>
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Content="{Binding Path = TopButtonsViewModel}" />
+        <Controls:MetroContentControl Grid.Row="1">
+            <TabControl>
+                <TabItem Header="Post Loads">
+                    <ContentControl Content="{Binding Path = PostLoadsViewModel}"/>
+                </TabItem>
+                <TabItem Header="Search Loads">
+                    <ContentControl Content="{Binding Path = SearchLoadsViewModel}"/>
+                </TabItem>
+                <TabItem Header="Search Trucks">
+                    <ContentControl Content="{Binding Path = SearchTrucksViewModel}"/>
+                </TabItem>
+                <TabItem Header="Post Trucks">
+                    <ContentControl Content="{Binding Path = PostTrucksViewModel}"/>
+                </TabItem>
+            </TabControl>
+        </Controls:MetroContentControl>
+    </Grid>
 </Controls:MetroWindow>

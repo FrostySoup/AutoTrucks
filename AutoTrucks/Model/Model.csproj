@@ -49,16 +49,12 @@
     <Compile Include="Enums\EnumExtensionForDescription.cs" />
     <Compile Include="Enums\FullOrPartial.cs" />
     <Compile Include="Enums\Length.cs" />
-    <Compile Include="Enums\StatesAndProvincesExtend.cs" />
     <Compile Include="Enums\Weigth.cs" />
     <Compile Include="DataToView\SearchAssetsReceived.cs" />
-    <Compile Include="SendData\SearchCRUD\CreateSearchCriteria.cs" />
     <Compile Include="ReceiveData\Login\ReceivedLogin.cs" />
     <Compile Include="ReceiveData\Login\Token.cs" />
     <Compile Include="SendData\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendData\SearchCRUD\SearchOperationParams.cs" />
-    <Compile Include="SendData\SearchCRUD\DeleteSearch.cs" />
     <Compile Include="TFMIProxy\TFMIProxy.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Views.MainWindowViews"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d">
     
     <UserControl.Resources>
@@ -13,12 +14,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Style="{StaticResource GridRowForButtons}" />
             <RowDefinition Height="5*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition Style="{StaticResource GridRowForButtons}" />
+            <RowDefinition Height="8*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Style="{StaticResource CRUDStackPanel}">
@@ -28,7 +31,7 @@
             <Button Style="{StaticResource DeleteButton}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" x:Name="dataGridSearchOptions" ItemsSource="{Binding SearchesToDisplay}" Style="{StaticResource UserCreatedDataGrid}">
+        <DataGrid SelectionMode="Extended" Grid.Row="1" x:Name="dataGridSearchOptions" ItemsSource="{Binding SearchesToDisplay}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Background" Value="{Binding BackgroundColor}"/>
@@ -37,25 +40,27 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="Search" Binding="{Binding Marked}"/>
-                <DataGridTextColumn Header="Truck" Binding="{Binding EquipmentClasses}"/>
-                <DataGridTextColumn Header="Origin" Binding="{Binding Origin}"/>
-                <DataGridTextColumn Header="Destination" Binding="{Binding Destination}"/>
-                <DataGridTextColumn Header="Pickup" Binding="{Binding Pickup}"/>
-                <DataGridTextColumn Header="DH-O" Binding="{Binding DHO}"/>
-                <DataGridTextColumn Header="DH-D" Binding="{Binding DHD}"/>
-                <DataGridTextColumn Header="F/P" Binding="{Binding FP}"/>
-                <DataGridTextColumn Header="Lenght" Binding="{Binding Lenght}"/>
-                <DataGridTextColumn Header="Weight" Binding="{Binding Weight}"/>
-                <DataGridTextColumn Header="Search back" Binding="{Binding SearchBack}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Truck" Binding="{Binding EquipmentClasses}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Origin" Binding="{Binding Origin}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Destination" Binding="{Binding Destination}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Pickup" Binding="{Binding Pickup}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-O" Binding="{Binding DHO}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-D" Binding="{Binding DHD}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="F/P" Binding="{Binding FP}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Lenght" Binding="{Binding Lenght}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weight" Binding="{Binding Weight}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Search back" Binding="{Binding SearchBack}"/>
             </DataGrid.Columns>
         </DataGrid>
+
         <StackPanel Grid.Row="2" Style="{StaticResource CRUDStackPanel}">
             <TextBlock Text="{Binding SearchResults}"/>
             <Button Style="{StaticResource UndoButton}"/>
             <Button Style="{StaticResource ClearButton}"/>
+            <Controls:ProgressRing IsActive="{Binding ActivateLoad}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="3" x:Name="dataGridCallResults" ItemsSource="{Binding Assets}" Style="{StaticResource UserCreatedDataGrid}">
+        <DataGrid Grid.Row="3" x:Name="dataGridCallResults" ItemsSource="{Binding Assets}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Background" Value="{Binding BackgroundColor}"/>
@@ -63,19 +68,19 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Avail" Binding="{Binding AvailabilityToString}"/>
-                <DataGridTextColumn Header="Age" Binding="{Binding AgeToString}"/>
-                <DataGridTextColumn Header="Truck" Binding="{Binding Truck}"/>
-                <DataGridTextColumn Header="F/P" Binding="{Binding FullORPartial}"/>
-                <DataGridTextColumn Header="Origin" Binding="{Binding OriginToString}"/>
-                <DataGridTextColumn Header="DH-O" Binding="{Binding DHOToString}"/>
-                <DataGridTextColumn Header="Destination" Binding="{Binding DestinationToString}"/>
-                <DataGridTextColumn Header="DH-D" Binding="{Binding DHDToString}"/>
-                <DataGridTextColumn Header="Company name" Binding="{Binding CompanyName}"/>
-                <DataGridTextColumn Header="Phone number" Binding="{Binding ContactPhone}"/>
-                <DataGridTextColumn Header="Length" Binding="{Binding Length}"/>
-                <DataGridTextColumn Header="Weigth" Binding="{Binding Weigth}"/>
-                <DataGridTextColumn Header="InitialO" Binding="{Binding InitialO}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Avail" Binding="{Binding AvailabilityToString}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Age" Binding="{Binding AgeToString}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Truck" Binding="{Binding Truck}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="F/P" Binding="{Binding FullORPartial}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Origin" Binding="{Binding OriginToString}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-O" Binding="{Binding DHOToString}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Destination" Binding="{Binding DestinationToString}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-D" Binding="{Binding DHDToString}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Company name" Binding="{Binding CompanyName}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Phone number" Binding="{Binding ContactPhone}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Length" Binding="{Binding Length}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weigth" Binding="{Binding Weigth}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="InitialO" Binding="{Binding InitialO}"/>
             </DataGrid.Columns>
         </DataGrid>
 
