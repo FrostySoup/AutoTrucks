@@ -235,6 +235,26 @@ namespace ViewModels.PopUpWindowViewModels
             }
         }
 
+        public string WeigthNumber
+        {
+            get { return searchData.weight; }
+            set
+            {
+                searchData.weight = value;
+                OnPropertyChanged("WeigthNumber");
+            }
+        }
+
+        public string LengthNumber
+        {
+            get { return searchData.length; }
+            set
+            {
+                searchData.length = value;
+                OnPropertyChanged("LengthNumber");
+            }
+        }
+
         public IEnumerable<string> WeigthValues
         {
             get

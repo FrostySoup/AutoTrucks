@@ -25,7 +25,7 @@ namespace ViewModels.MainWindowViewModels.Tests
     public class SearchLoadsViewModelTests
     {
 
-        Mock<IDataConvertSingleton> dataConvertSingleton;
+        Mock<IDataConvertService> dataConvertSingleton;
         Mock<ISessionCacheSingleton> sessionCacheSingleton;
         Mock<ISearchWindowViewModel> searchWindowViewModel;
         Mock<IConnectConnexionService> connectConnexionService;
@@ -35,7 +35,7 @@ namespace ViewModels.MainWindowViewModels.Tests
         [TestInitialize]
         public void SetInitialValues()
         {
-            dataConvertSingleton = new Mock<IDataConvertSingleton>();
+            dataConvertSingleton = new Mock<IDataConvertService>();
             sessionCacheSingleton = new Mock<ISessionCacheSingleton>();
             searchWindowViewModel = new Mock<ISearchWindowViewModel>();
             connectConnexionService = new Mock<IConnectConnexionService>();
@@ -46,12 +46,12 @@ namespace ViewModels.MainWindowViewModels.Tests
         [TestMethod()]
         public void LoadsPropertyChangeTest()
         {
-            var value = new ObservableCollection<SearchCreated>()
+            var value = new ObservableCollection<SearchAssetsReceived>()
             {
-                new SearchCreated()
+                new SearchAssetsReceived()
             };
-            searchLoadsViewModel.Loads = value;
-            Assert.AreEqual(value, searchLoadsViewModel.Loads);
+            searchLoadsViewModel.Assets = value;
+            Assert.AreEqual(value, searchLoadsViewModel.Assets);
         }
 
         [TestMethod()]
@@ -93,8 +93,8 @@ namespace ViewModels.MainWindowViewModels.Tests
             List<ISessionFacade> sessions = new List<ISessionFacade>();
             sessions.Add(null);
             ICommand ic = searchLoadsViewModel.SearchForSelectedTruckCommand;
-            dataConvertSingleton.Setup(x => x.ShipmentCreateSearchSuccessDataToSearchCreated(It.IsAny<CreateSearchSuccessData>(), It.IsAny<DataColors>()))
-                .Returns(new ObservableCollection<SearchCreated>() { new SearchCreated() });
+            dataConvertSingleton.Setup(x => x.ShipmentCreateSearchSuccessDataToSearchAssetsReceived(It.IsAny<CreateSearchSuccessData>(), It.IsAny<DataColors>()))
+                .Returns(new ObservableCollection<SearchAssetsReceived>() { new SearchAssetsReceived() });
             sessionCacheSingleton.Setup(x => x.sessions).Returns(sessions);
             searchLoadsViewModel.SearchesToDisplay.Add(new SearchAssetsSearches()
             {
@@ -102,7 +102,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             });
             searchLoadsViewModel.SearchesToDisplay[0].SearchData = new SearchDataFromView();
             ic.Execute(this);
-            Assert.IsTrue(searchLoadsViewModel.Loads.Count > 0);
+            Assert.IsTrue(searchLoadsViewModel.Assets.Count > 0);
         }
 
         [TestMethod()]
@@ -116,7 +116,7 @@ namespace ViewModels.MainWindowViewModels.Tests
             searchLoadsViewModel.SearchesToDisplay.Add(new SearchAssetsSearches());
             searchLoadsViewModel.SearchesToDisplay[0].SearchData = new SearchDataFromView();
             ic.Execute(this);
-            Assert.IsTrue(searchLoadsViewModel.Loads.Count == 0);
+            Assert.IsTrue(searchLoadsViewModel.Assets.Count == 0);
         }
     }
 }

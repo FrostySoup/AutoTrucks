@@ -12955,10 +12955,7 @@ public enum EquipmentClass
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Hazardous Materials")]
-    HazardousMaterials,
-
-    /// <remarks/>
-    Conestoga,
+    HazardousMaterials
 }
 
 /// <remarks/>

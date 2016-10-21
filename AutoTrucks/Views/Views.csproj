@@ -90,11 +90,8 @@
     <Compile Include="MainWindowViews\PostTrucksView.xaml.cs">
       <DependentUpon>PostTrucksView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindowViews\SearchLoadsView.xaml.cs">
-      <DependentUpon>SearchLoadsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindowViews\SearchTrucksView.xaml.cs">
-      <DependentUpon>SearchTrucksView.xaml</DependentUpon>
+    <Compile Include="MainWindowViews\SearchAssetView.xaml.cs">
+      <DependentUpon>SearchAssetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindowViews\TopButtonsView.xaml.cs">
       <DependentUpon>TopButtonsView.xaml</DependentUpon>
@@ -142,11 +139,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindowViews\SearchLoadsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindowViews\SearchTrucksView.xaml">
+    <Page Include="MainWindowViews\SearchAssetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

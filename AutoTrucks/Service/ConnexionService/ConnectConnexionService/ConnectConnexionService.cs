@@ -98,8 +98,8 @@ namespace Service.ConnexionService
                         includeFulls = searchDataProvided.criteria.includeFulls,
                         includeFullsSpecified = true,
                         includeLtlsSpecified = true,
-                        includeLtls = searchDataProvided.criteria.includeLtls
-                        //limits = searchDataProvided.criteria.limits
+                        includeLtls = searchDataProvided.criteria.includeLtls,
+                        limits = searchDataProvided.criteria.limits
                     },
                     includeSearch = searchDataProvided.includeSearch,
                     includeSearchSpecified = searchDataProvided.includeSearchSpecified,

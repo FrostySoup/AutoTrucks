@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Views.MainWindowViews
 {
     /// <summary>
-    /// Interaction logic for SearchTrucksView.xaml
+    /// Interaction logic for SearchAssetView.xaml
     /// </summary>
-    public partial class SearchTrucksView : UserControl
+    public partial class SearchAssetView : UserControl
     {
-        public SearchTrucksView()
+        public SearchAssetView()
         {
             InitializeComponent();
         }

@@ -25,7 +25,7 @@ namespace ViewModels.MainWindowViewModels
 
         public ICommand SearchForSelectedTruckCommand { get; private set; }
 
-        public SearchTrucksViewModel(IWindowFactory windowFactory, IDataConvertSingleton dataConvertSingleton, ISessionCacheSingleton sessionCacheSingleton,
+        public SearchTrucksViewModel(IWindowFactory windowFactory, IDataConvertService dataConvertSingleton, ISessionCacheSingleton sessionCacheSingleton,
             ISearchWindowViewModel searchWindowViewModel, IConnectConnexionService connectConnexionService)
             : base(dataConvertSingleton, sessionCacheSingleton, searchWindowViewModel, connectConnexionService)
         {
@@ -46,7 +46,7 @@ namespace ViewModels.MainWindowViewModels
 
         protected override void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
-            var foundList = dataConvertSingleton.EquipmentCreateSearchSuccessDataToSearchCreated(searchSuccessData, dataColors);
+            var foundList = dataConvertService.EquipmentCreateSearchSuccessDataToSearchAssetsReceived(searchSuccessData, dataColors);
             foreach(var item in foundList)
             {
                 assets.Add(item);
@@ -56,21 +56,8 @@ namespace ViewModels.MainWindowViewModels
         private void SearchForSelectedTruck()
         {
             PerformAssetSearch(AssetType.Equipment);
-            OnPropertyChanged("Trucks");
-        }
-
-        public ObservableCollection<SearchCreated> Trucks
-        {
-            get
-            {
-                return assets;
-            }
-            set
-            {
-                assets = value;
-                OnPropertyChanged("Trucks");
-            }
-        }
+            OnPropertyChanged("Assets");
+        }      
 
         public ObservableCollection<SearchAssetsSearches> SearchesToDisplay
         {

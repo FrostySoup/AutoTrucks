@@ -12,25 +12,9 @@ using Model.DataHelpers;
 
 namespace Service.DataConvertService
 {
-    public class DataConvertSingleton : IDataConvertSingleton
+    public class DataConvertService : IDataConvertService
     {
-        private static DataConvertSingleton instance;
 
-        private DataConvertSingleton()
-        { }
-
-
-        public static DataConvertSingleton Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new DataConvertSingleton();
-                }
-                return instance;
-            }
-        }
         /*
         private GeoCriteria ToSearchRadius(StateProvince province, int dh, string cityProvided)
         {
@@ -68,10 +52,16 @@ namespace Service.DataConvertService
 
             if (searchData.length != null)
                 if (Int32.TryParse(searchData.length, out parseResults))
+                {
                     dimensions.lengthFeet = parseResults;
+                    dimensions.lengthFeetSpecified = true;
+                }
             if (searchData.weight != null)
                 if (Int32.TryParse(searchData.weight, out parseResults))
+                {
                     dimensions.weightPounds = parseResults;
+                    dimensions.weightPoundsSpecified = true;
+                }
 
             return dimensions;
         }
@@ -145,9 +135,9 @@ namespace Service.DataConvertService
             };
         }
 
-        public ObservableCollection<SearchCreated> ShipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
+        public ObservableCollection<SearchAssetsReceived> ShipmentCreateSearchSuccessDataToSearchAssetsReceived(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
-            ObservableCollection<SearchCreated> shipments = new ObservableCollection<SearchCreated>();
+            ObservableCollection<SearchAssetsReceived> shipments = new ObservableCollection<SearchAssetsReceived>();
 
             if (searchSuccessData != null && searchSuccessData.matches != null)
             {
@@ -166,7 +156,7 @@ namespace Service.DataConvertService
                         if (match.callback != null)
                             initialO = match.callback.postersStateProvince.ToString();
 
-                        shipments.Add(new SearchCreated()
+                        shipments.Add(new SearchAssetsReceived()
                         {
                             BackgroundColor = dataColors.BackgroundColor,
                             ForegroundColor = dataColors.ForegroundColor,
@@ -190,9 +180,9 @@ namespace Service.DataConvertService
             return shipments;
         }
 
-        public ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
+        public ObservableCollection<SearchAssetsReceived> EquipmentCreateSearchSuccessDataToSearchAssetsReceived(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
-            ObservableCollection<SearchCreated> searches = new ObservableCollection<SearchCreated>();
+            ObservableCollection<SearchAssetsReceived> searches = new ObservableCollection<SearchAssetsReceived>();
 
 
             if (searchSuccessData != null && searchSuccessData.matches != null)
@@ -212,7 +202,7 @@ namespace Service.DataConvertService
                         if (match.callback != null)
                             initialO = match.callback.postersStateProvince.ToString();
 
-                        searches.Add(new SearchCreated()
+                        searches.Add(new SearchAssetsReceived()
                         {
                             BackgroundColor = dataColors.BackgroundColor,
                             ForegroundColor = dataColors.ForegroundColor,

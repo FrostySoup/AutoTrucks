@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace Model.ReceiveData.CreateSearch
 {
-    public class SearchCreated
+    public class SearchAssetsReceived
     {
         public DateTime Age { get; set; }
         public Availability Avail { get; set; }

@@ -51,7 +51,7 @@
     <Compile Include="Enums\Length.cs" />
     <Compile Include="Enums\StatesAndProvincesExtend.cs" />
     <Compile Include="Enums\Weigth.cs" />
-    <Compile Include="ReceiveData\CreateSearch\SearchCreated.cs" />
+    <Compile Include="DataToView\SearchAssetsReceived.cs" />
     <Compile Include="SendData\SearchCRUD\CreateSearchCriteria.cs" />
     <Compile Include="ReceiveData\Login\ReceivedLogin.cs" />
     <Compile Include="ReceiveData\Login\Token.cs" />
@@ -61,7 +61,9 @@
     <Compile Include="SendData\SearchCRUD\DeleteSearch.cs" />
     <Compile Include="TFMIProxy\TFMIProxy.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ReceiveData\CreateSearch\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

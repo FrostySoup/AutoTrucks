@@ -30,7 +30,7 @@ namespace UnitySingleton
             unity = new UnityContainer();
             unity.RegisterType<IWindowFactory, WindowFactory>();
             unity.RegisterType<ISerializeService, SerializeService>();
-            unity.RegisterInstance<IDataConvertSingleton>(DataConvertSingleton.Instance);
+            unity.RegisterType<IDataConvertService, DataConvertService>();
             unity.RegisterType<ISessionCacheSingleton, SessionCacheSingleton>(new ContainerControlledLifetimeManager());
             unity.RegisterType<ILoginViewModel, LoginViewModel>();
             unity.RegisterType<IConnectConnexionService, ConnectConnexionService>();

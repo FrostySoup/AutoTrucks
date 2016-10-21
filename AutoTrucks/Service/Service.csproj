@@ -64,8 +64,8 @@
   <ItemGroup>
     <Compile Include="ConnexionService\SessionCacheSingleton\ISessionCacheSingleton.cs" />
     <Compile Include="ConnexionService\SessionFacade\ISessionFacade.cs" />
-    <Compile Include="DataConvertService\DataConvertSingleton.cs" />
-    <Compile Include="DataConvertService\IDataConvertSingleton.cs" />
+    <Compile Include="DataConvertService\DataConvertService.cs" />
+    <Compile Include="DataConvertService\IDataConvertService.cs" />
     <Compile Include="SerializeServices\ISerializeService.cs" />
     <Compile Include="SerializeServices\SerializeService.cs" />
     <Compile Include="WindowsFactory\IWindowFactory.cs" />

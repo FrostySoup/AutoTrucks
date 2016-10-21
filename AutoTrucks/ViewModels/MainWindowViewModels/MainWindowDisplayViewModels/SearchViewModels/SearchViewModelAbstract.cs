@@ -24,22 +24,24 @@ namespace ViewModels.MainWindowViewModels
 
         protected IWindowFactory windowFactory;
 
-        protected ObservableCollection<SearchCreated> assets;
+        protected ObservableCollection<SearchAssetsReceived> assets;
 
         protected ObservableCollection<SearchAssetsSearches> searchesToDisplay;
 
         protected SearchOperationParams search;
 
-        protected IDataConvertSingleton dataConvertSingleton;
+        protected IDataConvertService dataConvertService;
 
         protected ISessionCacheSingleton sessionCacheSingleton;
 
         protected IConnectConnexionService connectConnexionService;
 
-        public SearchViewModelAbstract(IDataConvertSingleton dataConvertSingleton, ISessionCacheSingleton sessionCacheSingleton,
+        private readonly string totalAssetsFoundString = "Search results Total : ";
+
+        public SearchViewModelAbstract(IDataConvertService dataConvertService, ISessionCacheSingleton sessionCacheSingleton,
             ISearchWindowViewModel searchWindowViewModel, IConnectConnexionService connectConnexionService)
         {
-            this.dataConvertSingleton = dataConvertSingleton;
+            this.dataConvertService = dataConvertService;
             this.sessionCacheSingleton = sessionCacheSingleton;
             this.searchWindowViewModel = searchWindowViewModel;
             this.connectConnexionService = connectConnexionService;
@@ -65,18 +67,20 @@ namespace ViewModels.MainWindowViewModels
             if (sessionCacheSingleton.sessions.Count > 0)
             {
                 CreateSearchSuccessData searchSuccessData = new CreateSearchSuccessData();
-                assets = new ObservableCollection<SearchCreated>();
+                assets = new ObservableCollection<SearchAssetsReceived>();
                 foreach (SearchAssetsSearches asset in searchesToDisplay)
                 {
                     if (asset.Marked)
                     {
-                        search = DataConvertSingleton.Instance
+                        search = dataConvertService
                               .ToSearchOperationParams(asset.SearchData, assetType);
                         searchSuccessData = connectConnexionService
                             .SearchConnexion(sessionCacheSingleton.sessions[0], search);
                         ConvertIntoDisplayableData(searchSuccessData, new DataColors() { BackgroundColor = asset.BackgroundColor, ForegroundColor = asset.ForegroundColor });
                     }
-                }                             
+                }
+                OnPropertyChanged("SearchResults");
+                                            
             }
             else
             {
@@ -87,6 +91,29 @@ namespace ViewModels.MainWindowViewModels
         protected abstract void AddNewSearch(SearchDataFromView searchData);
 
         protected abstract void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
+
+        public string SearchResults
+        {
+            get
+            {
+                if (assets != null)
+                    return totalAssetsFoundString + assets.Count.ToString();
+                return totalAssetsFoundString + "0";
+            }
+        }
+
+        public ObservableCollection<SearchAssetsReceived> Assets
+        {
+            get
+            {
+                return assets;
+            }
+            set
+            {
+                assets = value;
+                OnPropertyChanged("Assets");
+            }
+        }
 
         #region INotifyPropertyChanged Members
 

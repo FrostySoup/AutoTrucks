@@ -16,11 +16,11 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type mainWindowViewModel:SearchLoadsViewModel}">
-        <mainWindowViews:SearchLoadsView/>
+        <mainWindowViews:SearchAssetView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type mainWindowViewModel:SearchTrucksViewModel}">
-        <mainWindowViews:SearchTrucksView/>
+        <mainWindowViews:SearchAssetView/>
     </DataTemplate>
 
 

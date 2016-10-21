@@ -21,7 +21,7 @@ namespace Views.PopUpWindowViews
     {
         public SearchWindowView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
     }
 }

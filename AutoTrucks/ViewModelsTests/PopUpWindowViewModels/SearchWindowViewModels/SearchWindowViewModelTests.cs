@@ -265,10 +265,39 @@ namespace ViewModels.PopUpWindowViewModels.Tests
         [TestMethod()]
         public void EquipmentClassSelectedTest()
         {
-            var value = new ObservableCollection<EquipmentClass>() { EquipmentClass.Conestoga };
+            var value = new ObservableCollection<EquipmentClass>() { EquipmentClass.DryBulk };
             searchWindowViewModel.EquipmentClassSelected = value;
             Assert.AreEqual(value, searchWindowViewModel.EquipmentClassSelected);
         }
 
+        [TestMethod()]
+        public void SaveDataFalseWhenBothProvinceAnyTest()
+        {
+            ICommand ic = searchWindowViewModel.CloseWindowSaveDataCommand;
+            searchWindowViewModel.OriginProvinceSelect = StateProvince.Any;
+            searchWindowViewModel.DestinationProvinceSelect = StateProvince.Any;
+            ic.Execute(this);
+            Assert.AreEqual(false, searchWindowViewModel.saveData);
+        }
+
+        [TestMethod()]
+        public void SaveDataTrueWhenOriginProvinceAnyTest()
+        {
+            ICommand ic = searchWindowViewModel.CloseWindowSaveDataCommand;
+            searchWindowViewModel.OriginProvinceSelect = StateProvince.Any;
+            searchWindowViewModel.DestinationProvinceSelect = StateProvince.AR;
+            ic.Execute(this);
+            Assert.AreEqual(true, searchWindowViewModel.saveData);
+        }
+
+        [TestMethod()]
+        public void SaveDataTrueWhenDestinationProvinceAnyTest()
+        {
+            ICommand ic = searchWindowViewModel.CloseWindowSaveDataCommand;
+            searchWindowViewModel.OriginProvinceSelect = StateProvince.AR;
+            searchWindowViewModel.DestinationProvinceSelect = StateProvince.Any;
+            ic.Execute(this);
+            Assert.AreEqual(true, searchWindowViewModel.saveData);
+        }
     }
 }

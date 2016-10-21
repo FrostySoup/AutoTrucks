@@ -7,14 +7,14 @@ using System.Collections.ObjectModel;
 
 namespace Service.DataConvertService
 {
-    public interface IDataConvertSingleton
+    public interface IDataConvertService
     {
         //DataConvertSingleton Instance { get; }
 
         SearchOperationParams ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType);
 
-        ObservableCollection<SearchCreated> ShipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
+        ObservableCollection<SearchAssetsReceived> ShipmentCreateSearchSuccessDataToSearchAssetsReceived(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
 
-        ObservableCollection<SearchCreated> EquipmentCreateSearchSuccessDataToSearchCreated(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
+        ObservableCollection<SearchAssetsReceived> EquipmentCreateSearchSuccessDataToSearchAssetsReceived(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
     }
 }

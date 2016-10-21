@@ -17,21 +17,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="5*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
 
-        <Rectangle Grid.Row="0" Style="{StaticResource TextBoxBackGround}"/>
-        <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
+        <StackPanel Grid.Row="0" Style="{StaticResource CRUDStackPanel}">
             <Button Command="{Binding SearchForSelectedTruckCommand, Mode=OneWay}" Style="{StaticResource StartButton}"/>
             <Button Command="{Binding OpenSearchWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
             <Button Style="{StaticResource EditButton}"/>
             <Button Style="{StaticResource DeleteButton}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="2" x:Name="dataGridSearchOptions" ItemsSource="{Binding SearchesToDisplay}" Style="{StaticResource UserCreatedDataGrid}">
+        <DataGrid Grid.Row="1" x:Name="dataGridSearchOptions" ItemsSource="{Binding SearchesToDisplay}" Style="{StaticResource UserCreatedDataGrid}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Background" Value="{Binding BackgroundColor}"/>
@@ -52,13 +50,13 @@
                 <DataGridTextColumn Header="Search back" Binding="{Binding SearchBack}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
-            <TextBlock>Search results Total:0 New:0</TextBlock>
+        <StackPanel Grid.Row="2" Style="{StaticResource CRUDStackPanel}">
+            <TextBlock Text="{Binding SearchResults}"/>
             <Button Style="{StaticResource UndoButton}"/>
             <Button Style="{StaticResource ClearButton}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="4" x:Name="dataGridCallResults" ItemsSource="{Binding Loads}" Style="{StaticResource UserCreatedDataGrid}">
+        <DataGrid Grid.Row="3" x:Name="dataGridCallResults" ItemsSource="{Binding Loads}" Style="{StaticResource UserCreatedDataGrid}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Background" Value="{Binding BackgroundColor}"/>

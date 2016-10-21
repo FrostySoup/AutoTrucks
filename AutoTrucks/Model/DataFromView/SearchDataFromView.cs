@@ -53,6 +53,7 @@ namespace Model.DataFromView
             availTo = DateTime.Now;
             includeFulls = true;
             includeLtls = false;
+            searchBack = 1;
             backgroundColor = Color.FromRgb(255, 255, 255);
             foregroundColor = Color.FromRgb(0, 0, 0);
             equipmentType = new ObservableCollection<EquipmentType>();

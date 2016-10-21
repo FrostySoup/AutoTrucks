@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views.PopUpWindowViews"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" 
         Title="DataSourcesView" Height="300" Width="300">
 
     <Window.Resources>

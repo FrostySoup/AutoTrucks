@@ -16,34 +16,32 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="5*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
 
-        <Rectangle Grid.Row="0" Style="{StaticResource TextBoxBackGround}"/>
-        <StackPanel Grid.Row="1" Style="{StaticResource CRUDStackPanel}">
+        <StackPanel Grid.Row="0" Style="{StaticResource CRUDStackPanel}">
             <Button Style="{StaticResource StartButton}"/>
             <Button Style="{StaticResource AddButton}"/>
             <Button Style="{StaticResource EditButton}"/>
             <Button Style="{StaticResource DeleteButton}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="2" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="1" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="3" Style="{StaticResource CRUDStackPanel}">
+        <StackPanel Grid.Row="2" Style="{StaticResource CRUDStackPanel}">
             <TextBlock>Search results Total:0 New:0</TextBlock>
             <Button Style="{StaticResource UndoButton}"/>
             <Button Style="{StaticResource ClearButton}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="4" x:Name="dataGridCallResults" Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="3" x:Name="dataGridCallResults" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>

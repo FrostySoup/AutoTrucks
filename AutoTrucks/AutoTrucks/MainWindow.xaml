@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Height="800"
         Width="1200"
+        WindowStartupLocation="CenterScreen"        
         Title="MainWindow">
 
     <Border Style="{StaticResource MainBorders}">

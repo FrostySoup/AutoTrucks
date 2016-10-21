@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Views.PopUpWindowViews"
         mc:Ignorable="d"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        WindowStartupLocation="CenterScreen" 
         Title="Search Window" Height="500" Width="500">
 
     <Window.Resources>
@@ -36,22 +37,20 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
+
+        <!--Column 1-->        
         <Label Style="{StaticResource SearchLabel}" Grid.Row="0" Grid.Column="0">Truck:</Label>
-        <xctk:CheckComboBox Grid.Row="0" Grid.Column="1" x:Name="_combo" 
-                             HorizontalAlignment="Center" 
-                             VerticalAlignment="Center"    
-                             Width="373"
-                             Height="22"
-                             ItemsSource="{Binding EquipmentClassValues}"
-                             SelectedItemsOverride="{Binding EquipmentClassSelected}"
-                             Grid.ColumnSpan="3" Margin="20.4,15,18.6,15" />
+        <xctk:CheckComboBox Grid.Row="0" Grid.Column="1" Style="{StaticResource MultipleSelectComboBox}"
+                            Grid.ColumnSpan="3"
+                            ItemsSource="{Binding EquipmentClassValues}"
+                            SelectedItemsOverride="{Binding EquipmentClassSelected}"/>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="0">Origin:</Label>
 
         <StackPanel Grid.Row="1" Grid.Column="1">
             <ComboBox Style="{StaticResource SearchComboBox}" SelectedItem="{Binding OriginProvinceSelect}" 
                   ItemsSource="{Binding ProvinceValues}"/>
-            <TextBox Text="{Binding CityOrigin}" Height="27" Margin="0,0,-0.2,0"/>
+            <TextBox Text="{Binding CityOrigin}" Height="27"/>
         </StackPanel>
         
         <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="0">DH-O</Label>
@@ -61,8 +60,7 @@
         </UniformGrid>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="3" Grid.Column="0">Length:</Label>
-        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="3" Grid.Column="1"
-                  SelectedItem="{Binding SelectedLength}" ItemsSource="{Binding LengthValues}"/>
+        <TextBox Style="{StaticResource SearchTextBox}" Text="{Binding LengthNumber}" Grid.Row="3" Grid.Column="1"/>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="0">Search Back</Label>
         <UniformGrid Grid.Row="4" Grid.Column="1" Columns="2">
@@ -76,14 +74,15 @@
         <Label Style="{StaticResource SearchLabel}" Grid.Row="6" Grid.Column="0">Foreground</Label>
 
         <xctk:ColorPicker SelectedColor="{Binding ForegroundColor}" Grid.Row="6" Grid.Column="1" Name="ClrPcker_Background"></xctk:ColorPicker>
-
-
+        <!---->
+        
+        <!--Column 2-->
         <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="2">Destination:</Label>
         
         <StackPanel Grid.Row="1" Grid.Column="3">
         <ComboBox Style="{StaticResource SearchComboBox}"
                   SelectedItem="{Binding DestinationProvinceSelect}" ItemsSource="{Binding ProvinceValues}"/>
-            <TextBox Text="{Binding CityDestination}" Height="27" Margin="0,0,-0.2,0"/>
+            <TextBox Text="{Binding CityDestination}" Height="27"/>
         </StackPanel>
         
         <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="2">DH-D</Label>
@@ -93,8 +92,7 @@
         </UniformGrid>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="3" Grid.Column="2">Weight:</Label>
-        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="3" Grid.Column="3"
-                  SelectedItem="{Binding SelectedWeigth}" ItemsSource="{Binding WeigthValues}"/>
+        <TextBox Style="{StaticResource SearchTextBox}" Text="{Binding WeigthNumber}" Grid.Row="3" Grid.Column="3"/>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="2">F/P</Label>
 
@@ -111,7 +109,6 @@
         <Button Command="{Binding CloseWindowSaveDataCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="0">Ok</Button>
 
         <Button Command="{Binding CloseWindowCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="4">Close</Button>
-
-
+        <!---->
     </Grid>
 </Window>
