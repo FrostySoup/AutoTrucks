@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Views.PopUpWindowViews"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"
         Title="DataSourcesView" Height="300" Width="300">
 
     <Window.Resources>

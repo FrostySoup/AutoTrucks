@@ -1,5 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using Service.AddNewWindowFactory;
+using Service.ColorListHolder;
 using Service.ConnexionService;
 using Service.DataConvertService;
 using Service.SerializeServices;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 using ViewModels;
 using ViewModels.MainWindowViewModels;
 using ViewModels.PopUpWindowViewModels;
+using ViewModels.PopUpWindowViewModels.PostWindowViewModel;
 
 namespace UnitySingleton
 {
@@ -31,11 +33,13 @@ namespace UnitySingleton
             unity.RegisterType<IWindowFactory, WindowFactory>();
             unity.RegisterType<ISerializeService, SerializeService>();
             unity.RegisterType<IDataConvertService, DataConvertService>();
+            unity.RegisterType<IColorListHolder, ColorListHolder>(new ContainerControlledLifetimeManager());
             unity.RegisterType<ISessionCacheSingleton, SessionCacheSingleton>(new ContainerControlledLifetimeManager());
             unity.RegisterType<ILoginViewModel, LoginViewModel>();
             unity.RegisterType<IConnectConnexionService, ConnectConnexionService>();
             unity.RegisterType<IDataSourceViewModel, DataSourceViewModel>();
             unity.RegisterType<ISearchWindowViewModel, SearchWindowViewModel>();
+            unity.RegisterType<IPostWindowViewModel, PostWindowViewModel>();
             unity.RegisterType<IMainWindowDisplayViewModel, PostLoadsViewModel>("PostLoadsViewModel");
             unity.RegisterType<IMainWindowDisplayViewModel, PostTrucksViewModel>("PostTrucksViewModel");
             unity.RegisterType<IMainWindowDisplayViewModel, SearchLoadsViewModel>("SearchLoadsViewModel");

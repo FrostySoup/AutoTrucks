@@ -1,15 +1,16 @@
-﻿<Window x:Class="Views.PopUpWindowViews.SearchWindowView"
+﻿<Window x:Class="Views.PopUpWindowViews.PostAssetWindowView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views.PopUpWindowViews"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        WindowStartupLocation="CenterScreen" 
+        WindowStartupLocation="CenterScreen"  
         ResizeMode="NoResize"
         Background="WhiteSmoke"
-        Title="Search Window" Height="500" Width="500">
+        Title="Post Window" Height="500" Width="600">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -40,53 +41,55 @@
         </Grid.ColumnDefinitions>
 
 
-        <!--Column 1-->        
-        <Label Style="{StaticResource SearchLabel}" Grid.Row="0" Grid.Column="0">Truck:</Label>
-        <xctk:CheckComboBox Grid.Row="0" Grid.Column="1" Style="{StaticResource MultipleSelectComboBox}"
-                            Grid.ColumnSpan="3"
-                            ItemsSource="{Binding EquipmentClassValues}"
-                            SelectedItemsOverride="{Binding EquipmentClassSelected}"/>
-
+        <!--Column 1-->
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="0" Grid.Column="0">Trip:</Label>
+        <DockPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
+            <TextBox Style="{StaticResource SmallTextBox}" Text="{Binding Path=CurrentMinValue}"/>
+            <Controls:RangeSlider
+                Style="{StaticResource BasicRangeSlider}"           
+                LowerValue="{Binding Path=CurrentMinValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                UpperValue="{Binding Path=CurrentMaxValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </Controls:RangeSlider>
+            <TextBox Style="{StaticResource SmallTextBox}" Text="{Binding Path=CurrentMaxValue}"/>
+        </DockPanel>
         <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="0">Origin:</Label>
 
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <ComboBox Style="{StaticResource SearchComboBox}" SelectedItem="{Binding OriginProvinceSelect}" 
-                  ItemsSource="{Binding ProvinceValues}"/>
-            <TextBox Text="{Binding CityOrigin}" Height="27"/>
+            <ComboBox Style="{StaticResource SearchComboBox}" SelectedItem="{Binding OriginStateProvinceSelected}" 
+                  ItemsSource="{Binding StateProvinceValues}"/>
         </StackPanel>
-        
+
         <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="0">DH-O</Label>
         <UniformGrid Grid.Row="2" Grid.Column="1" Columns="2">
             <TextBlock Style="{StaticResource SearchTextBlock}" Text="{Binding DHO}" Grid.Column="0"/>
             <Slider Style="{StaticResource SearchSlider}" Value="{Binding DHO}" Grid.Column="0"></Slider>
         </UniformGrid>
 
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="0">Truck:</Label>
+        <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="4" Grid.Column="1"
+                  SelectedItem="{Binding EquipmentTypeSelected}" ItemsSource="{Binding EquipmentTypeValues}"/>
+        
         <Label Style="{StaticResource SearchLabel}" Grid.Row="3" Grid.Column="0">Length:</Label>
-        <TextBox Style="{StaticResource MediumTextBox}" Text="{Binding LengthNumber}" Grid.Row="3" Grid.Column="1"/>
-
-        <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="0">Search Back</Label>
-        <UniformGrid Grid.Row="4" Grid.Column="1" Columns="2">
-            <TextBlock Style="{StaticResource SearchTextBlock}" Text="{Binding SearchBack}" Grid.Column="0"></TextBlock>
-            <Slider Style="{StaticResource SearchBackSlider}" Value="{Binding SearchBack}" Grid.Column="0"></Slider>
-        </UniformGrid>
+        <TextBox Style="{StaticResource MediumTextBox}" Text="{Binding Length}" Grid.Row="3" Grid.Column="1"/>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="5" Grid.Column="0">Avail From</Label>
         <DatePicker Grid.Row="5" Grid.Column="1" SelectedDate="{Binding AvailFrom}"/>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="6" Grid.Column="0">Foreground</Label>
-
         <xctk:ColorPicker Style="{StaticResource StandartColorPicker}" SelectedColor="{Binding ForegroundColor}" Grid.Row="6" Grid.Column="1" Name="ClrPcker_Background"></xctk:ColorPicker>
+
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="7" Grid.Column="0">Comment 1</Label>
+        <TextBox Text="{Binding CommentOne}" Grid.Row="7" Grid.Column="1"></TextBox>
         <!---->
         
         <!--Column 2-->
         <Label Style="{StaticResource SearchLabel}" Grid.Row="1" Grid.Column="2">Destination:</Label>
-        
+
         <StackPanel Grid.Row="1" Grid.Column="3">
-        <ComboBox Style="{StaticResource SearchComboBox}"
-                  SelectedItem="{Binding DestinationProvinceSelect}" ItemsSource="{Binding ProvinceValues}"/>
-            <TextBox Text="{Binding CityDestination}" Height="27"/>
+            <ComboBox Style="{StaticResource SearchComboBox}"
+                  SelectedItem="{Binding DestinationStateProvinceSelected}" ItemsSource="{Binding StateProvinceValues}"/>
         </StackPanel>
-        
+
         <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="2">DH-D</Label>
         <UniformGrid Grid.Row="2" Grid.Column="3" Columns="2">
             <TextBlock Style="{StaticResource SearchTextBlock}" Text="{Binding DHD}"  Grid.Column="2"/>
@@ -94,12 +97,12 @@
         </UniformGrid>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="3" Grid.Column="2">Weight:</Label>
-        <TextBox Style="{StaticResource MediumTextBox}" Text="{Binding WeigthNumber}" Grid.Row="3" Grid.Column="3"/>
+        <TextBox Style="{StaticResource MediumTextBox}" Text="{Binding Weight}" Grid.Row="3" Grid.Column="3"/>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="4" Grid.Column="2">F/P</Label>
 
         <ComboBox Style="{StaticResource SearchComboBox}" Grid.Row="4" Grid.Column="3"
-                  SelectedItem="{Binding SelectedFullOrPartial}" ItemsSource="{Binding FullOrPartialValues}"/>
+                  SelectedItem="{Binding FullOrPartial}" ItemsSource="{Binding FullOrPartialValues}"/>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="5" Grid.Column="2">Avail To</Label>
         <DatePicker Grid.Row="5" Grid.Column="3" SelectedDate="{Binding AvailTo}"/>
@@ -108,9 +111,13 @@
 
         <xctk:ColorPicker Style="{StaticResource StandartColorPicker}" SelectedColor="{Binding BackgroundColor}" Grid.Row="6" Grid.Column="3"></xctk:ColorPicker>
 
+        <Label Style="{StaticResource SearchLabel}" Grid.Row="7" Grid.Column="2">Comment 2</Label>
+        <TextBox Text="{Binding CommentTwo}" Grid.Row="7" Grid.Column="3"></TextBox>
+
+        <!---->
+        
         <Button Command="{Binding CloseWindowSaveDataCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="0">Ok</Button>
 
         <Button Command="{Binding CloseWindowCommand, Mode=OneWay}" Style="{StaticResource LoginButton}" Grid.Row="8" Grid.Column="4">Close</Button>
-        <!---->
     </Grid>
 </Window>

@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 using Model.Enums;
+using Service.ColorListHolder;
 
 namespace ViewModels.PopUpWindowViewModels.Tests
 {
@@ -22,6 +23,7 @@ namespace ViewModels.PopUpWindowViewModels.Tests
     public class SearchWindowViewModelTests
     {
         Mock<IWindowFactory> windowFactory;
+        Mock<IColorListHolder> colorListHolder;
         SearchWindowViewModel searchWindowViewModel;
         List<string> receivedEvents;
 
@@ -29,7 +31,8 @@ namespace ViewModels.PopUpWindowViewModels.Tests
         public void SetInitialValues()
         {
             windowFactory = new Mock<IWindowFactory>();
-            searchWindowViewModel = new SearchWindowViewModel(windowFactory.Object);
+            colorListHolder = new Mock<IColorListHolder>();
+            searchWindowViewModel = new SearchWindowViewModel(windowFactory.Object, colorListHolder.Object);
             receivedEvents = new List<string>();
             searchWindowViewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {

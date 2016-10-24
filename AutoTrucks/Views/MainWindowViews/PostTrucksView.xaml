@@ -23,15 +23,31 @@
 
         <StackPanel Grid.Row="0" Style="{StaticResource CRUDStackPanel}">
             <Button Style="{StaticResource StartButton}"/>
-            <Button Style="{StaticResource AddButton}"/>
+            <Button Command="{Binding OpenPostAssetWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
             <Button Style="{StaticResource EditButton}"/>
             <Button Style="{StaticResource DeleteButton}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding Trucks}" Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="1" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding PostToDisplay}" Style="{StaticResource ListResultsDataGrid}">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="{Binding BackgroundColor, Mode=OneWay}"/>
+                    <Setter Property="Foreground" Value="{Binding ForegroundColor, Mode=OneWay}"/>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
+                <DataGridCheckBoxColumn Header="Search" Binding="{Binding Marked}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Truck" Binding="{Binding EquipmentType, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Origin" Binding="{Binding Origin, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Destination" Binding="{Binding Destination, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Pickup" Binding="{Binding Pickup, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-O" Binding="{Binding DHOToString, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-D" Binding="{Binding DHDToString, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="F/P" Binding="{Binding FullOrPartial, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Length" Binding="{Binding Length, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weigth" Binding="{Binding Weight, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Trip" Binding="{Binding Trip, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Alarm State" Binding="{Binding AlarmState, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
 

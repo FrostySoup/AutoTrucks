@@ -2,7 +2,17 @@
                     xmlns:mui="http://firstfloorsoftware.com/ModernUI"
                     xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
                     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--ColorPicker-->
+
+    <Style x:Key="StandartColorPicker" TargetType="xctk:ColorPicker">
+        <Setter Property="DisplayColorAndName" Value="True"/>
+        <Setter Property="ShowAdvancedButton" Value="False"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="AvailableColors" Value="{Binding AvailableColors}"/>
+    </Style>
 
     <!--BUTTONS-->
 
@@ -98,6 +108,18 @@
         <Setter Property="Height" Value="30"/>
     </Style>
 
+    <!--RangeSlider-->
+
+    <Style x:Key="BasicRangeSlider" TargetType="Controls:RangeSlider">
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="2500"/>
+        <Setter Property="AutoToolTipPlacement" Value="TopLeft"/>
+        <Setter Property="IsMoveToPointEnabled" Value="False"/>
+        <Setter Property="MoveWholeRange" Value="True"/>
+        <Setter Property="MinRangeWidth" Value="0"/>
+        <Setter Property="Width" Value="400"/>
+    </Style>
+
     <!--Stack panels-->
 
     <Style x:Key="CRUDStackPanel" TargetType="StackPanel">
@@ -131,6 +153,14 @@
         <Setter Property="GridLinesVisibility" Value="All"/>
     </Style>
 
+    <Style x:Key="UserCreatedDataGrid" TargetType="DataGrid">
+        <Setter Property="MinHeight" Value="200"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+    </Style>
+   
+    <!--Data grid cell-->
+
     <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
         <Setter Property="Foreground" Value="Black" />
         <Style.Triggers>
@@ -141,12 +171,17 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="UserCreatedDataGrid" TargetType="DataGrid">
-        <Setter Property="MinHeight" Value="200"/>
-        <Setter Property="AutoGenerateColumns" Value="False"/>
-        <Setter Property="CanUserAddRows" Value="False"/>
+    <Style x:Key="CheckBoxCellStyle" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Foreground" Value="Black" />
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{x:Null}" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+                <Setter Property="Focusable" Value="True"/>
+                <Setter Property="IsEnabled" Value="True"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-   
     
     <!--Text block-->
 
@@ -170,6 +205,22 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="SmallTextBox" TargetType="TextBox">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="3"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="20"/>
+    </Style>
+
+    <Style x:Key="MediumTextBox" TargetType="TextBox">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="3"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="20"/>
     </Style>
     
     <!--Rectangle--> 

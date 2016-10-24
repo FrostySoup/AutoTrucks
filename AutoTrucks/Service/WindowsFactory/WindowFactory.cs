@@ -12,6 +12,17 @@ namespace Service.AddNewWindowFactory
 {
     public class WindowFactory : IWindowFactory
     {
+        public void ClosePostWindow()
+        {
+            if (Application.Current != null)
+                if (Application.Current.Windows != null)
+                {
+                    Window win = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == "Post Window");
+                    if (win != null)
+                        win.Close();
+                }
+        }
+
         public void CloseSearchWindow()
         {
             if (Application.Current != null)
@@ -38,6 +49,16 @@ namespace Service.AddNewWindowFactory
             if (dataContext != null)
             {
                 LoginView view = new LoginView();
+                view.DataContext = dataContext;
+                view.ShowDialog();
+            }
+        }
+
+        public void CreateNewPostAssetWindow(object dataContext)
+        {
+            if (dataContext != null)
+            {
+                PostAssetWindowView view = new PostAssetWindowView();
                 view.DataContext = dataContext;
                 view.ShowDialog();
             }

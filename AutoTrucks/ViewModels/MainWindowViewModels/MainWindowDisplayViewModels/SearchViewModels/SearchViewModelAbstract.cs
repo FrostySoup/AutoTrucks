@@ -40,7 +40,7 @@ namespace ViewModels.MainWindowViewModels
 
         private readonly string totalAssetsFoundString = "Search results Total : ";
 
-        public SearchViewModelAbstract(IDataConvertService dataConvertService, ISessionCacheSingleton sessionCacheSingleton,
+        protected SearchViewModelAbstract(IDataConvertService dataConvertService, ISessionCacheSingleton sessionCacheSingleton,
             ISearchWindowViewModel searchWindowViewModel, IConnectConnexionService connectConnexionService)
         {
             this.dataConvertService = dataConvertService;

@@ -2,6 +2,7 @@
 using Model.DataToView;
 using Model.Enums;
 using Service.AddNewWindowFactory;
+using Service.ColorListHolder;
 using Service.Commands;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
+using Xceed.Wpf.Toolkit;
 
 namespace ViewModels.PopUpWindowViewModels
 {
@@ -19,9 +21,12 @@ namespace ViewModels.PopUpWindowViewModels
     {
         //private SearchOperationParams searchData;
 
+
         public SearchDataFromView searchData { get; set; }
 
-        private IWindowFactory windowFactory;     
+        private IWindowFactory windowFactory;
+
+        private IColorListHolder colorListHolder;
 
         public bool saveData { get; set; }
 
@@ -29,8 +34,9 @@ namespace ViewModels.PopUpWindowViewModels
 
         public ICommand CloseWindowCommand { get; private set; }
 
-        public SearchWindowViewModel(IWindowFactory windowFactory)
+        public SearchWindowViewModel(IWindowFactory windowFactory, IColorListHolder colorListHolder)
         {
+            this.colorListHolder = colorListHolder;
             this.windowFactory = windowFactory;
             searchData = new SearchDataFromView();
             this.CloseWindowSaveDataCommand = new DelegateCommand(o => this.CloseSaveDataWindow());
@@ -52,6 +58,14 @@ namespace ViewModels.PopUpWindowViewModels
         }
 
         #region On property changed Members
+
+        public ObservableCollection<ColorItem> AvailableColors
+        {
+            get
+            {
+                return colorListHolder.GetColors();
+            }
+        }
 
         public Color BackgroundColor
         {

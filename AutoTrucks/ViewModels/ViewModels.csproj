@@ -46,22 +46,49 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\IMainWindowDisplayViewModel.cs" />
+    <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostAssetsViewModels\AssetsAbstractViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchViewModelAbstract.cs" />
     <Compile Include="NotifyPropertyChangedAbstract.cs" />
     <Compile Include="PopUpWindowViewModels\LoginViewModel\LoginViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\LoginViewModel\ILoginViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\ITopButtonsViewModel.cs" />
-    <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostLoadsViewModel.cs" />
-    <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostTrucksViewModel.cs" />
+    <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostAssetsViewModels\PostLoadsViewModel\PostLoadsViewModel.cs" />
+    <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostAssetsViewModels\PostTrucksViewModel\PostTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchLoadsViewModel\SearchLoadsViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchTrucksViewModel\SearchTrucksViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\TopButtonsViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\DataSourceViewModel\DataSourceViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\DataSourceViewModel\IDataSourceViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\PostWindowViewModel\IPostWindowViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\PostWindowViewModel\PostWindowViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\SearchWindowViewModels\ISearchWindowViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\SearchWindowViewModels\SearchWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -81,6 +108,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
