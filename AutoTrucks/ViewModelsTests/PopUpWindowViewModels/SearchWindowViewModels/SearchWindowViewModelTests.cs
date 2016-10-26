@@ -144,6 +144,26 @@ namespace ViewModels.PopUpWindowViewModels.Tests
         }
 
         [TestMethod()]
+        public void OnWeigthNumberTest()
+        {
+            string value = "100";
+            searchWindowViewModel.WeigthNumber = value;
+            Assert.AreEqual(1, receivedEvents.Count);
+            Assert.AreEqual("WeigthNumber", receivedEvents[0]);
+            Assert.AreEqual(value, searchWindowViewModel.WeigthNumber);
+        }
+
+        [TestMethod()]
+        public void OnLengthNumberTest()
+        {
+            string value = "100";
+            searchWindowViewModel.LengthNumber = value;
+            Assert.AreEqual(1, receivedEvents.Count);
+            Assert.AreEqual("LengthNumber", receivedEvents[0]);
+            Assert.AreEqual(value, searchWindowViewModel.LengthNumber);
+        }
+
+        [TestMethod()]
         public void OnCityOriginChangeTest()
         {
             string value = "peep";

@@ -72,6 +72,42 @@ namespace Service.ConnexionService
             return session.Search(searchRequest);
         }
 
+        public LookupAssetSuccessData QueryAllMyAssets(ISessionFacade session)
+        {
+            LookupAssetRequest lookupAssetRequest = new LookupAssetRequest()
+            {
+                lookupAssetOperation = new LookupAssetOperation()
+                {
+                    Item = new QueryAllMyAssets()
+                }
+            };
+            return session.QueryAllMyAssets(lookupAssetRequest);
+        }
+
+        public Data DeleteAssetsById(ISessionFacade session, string[] Ids)
+        {
+            DeleteAssetRequest deleteAssetRequest = new DeleteAssetRequest()
+            {
+                deleteAssetOperation = new DeleteAssetOperation()
+                {
+                    Item = new DeleteAssetsByAssetIds()
+                    {
+                        assetIds = Ids
+                    }
+                }
+            };
+            return session.DeleteAssetsById(deleteAssetRequest);
+        }
+
+        public string PostNewAsset(ISessionFacade session, PostAssetOperation item)
+        {
+            PostAssetRequest postAssetRequest = new PostAssetRequest()
+            {
+                postAssetOperations = new PostAssetOperation[] { item }
+            };
+            return session.PostNewAsset(postAssetRequest);
+        }
+
         private CreateSearchRequest MapSearchOperationWithCreateSearchOperation(CreateSearchOperation searchDataProvided)
         {
             CreateSearchRequest searchRequest = new CreateSearchRequest();
@@ -86,7 +122,6 @@ namespace Service.ConnexionService
 
             return searchRequest;
         }
-
-
+       
     }
 }

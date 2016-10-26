@@ -10,6 +10,7 @@ namespace Model.DataFromView
 {
     public class PostDataFromView
     {
+        public string ID { get; set; }
         public bool Marked { get; set; }
         public int TripMinValue { get; set; }
 
@@ -26,6 +27,10 @@ namespace Model.DataFromView
         public int DHO { get; set; }
 
         public int DHD { get; set; }
+
+        public string cityDestination { get; set; }
+    
+        public string cityOrigin { get; set; }
 
         public EquipmentType equipmentType { get; set; }
 

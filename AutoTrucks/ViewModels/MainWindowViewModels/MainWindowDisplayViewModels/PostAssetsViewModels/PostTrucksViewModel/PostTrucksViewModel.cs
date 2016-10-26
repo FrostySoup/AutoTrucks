@@ -6,18 +6,22 @@ using Service.AddNewWindowFactory;
 using ViewModels.PopUpWindowViewModels.PostWindowViewModel;
 using Model.DataFromView;
 using System.Collections.ObjectModel;
+using Service.ConnexionService;
+using Service.DataExtractService;
+using Service.DataConvertService;
 
 namespace ViewModels.MainWindowViewModels
 {
     public class PostTrucksViewModel : AssetsAbstractViewModel, IMainWindowDisplayViewModel
     {
-        public ICommand OpenPostAssetWindowCommand { get; private set; }
-        public ICommand PostTruckCommand { get; private set; }
-
-        public PostTrucksViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel) : base(windowFactory, postWindowViewModel)
+        public PostTrucksViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService,
+            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService) 
+            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService)
         {
+            this.dataExtractService = dataExtractService;
             this.OpenPostAssetWindowCommand = new DelegateCommand(o => this.OpenPostAssetWindow());
             this.PostTruckCommand = new DelegateCommand(o => this.PostTruck());
+            GetExistingAssets();
         }
 
         private void PostTruck()
@@ -25,17 +29,14 @@ namespace ViewModels.MainWindowViewModels
             throw new NotImplementedException();
         }
 
-        protected override void AddNewPost(PostDataFromView postDataFromView)
+        protected override void convertData(LookupAssetSuccessData lookupAssetSuccessData)
         {
-            postAssets.Add(postDataFromView);
+            postAssets = dataExtractService.ExtractEquipmentFromData(lookupAssetSuccessData);
         }
 
-        public ObservableCollection<PostDataFromView> PostToDisplay
+        protected override PostAssetOperation convertAssetIntoBaseType(PostDataFromView postData)
         {
-            get
-            {
-                return postAssets;
-            }
+            return dataConvertService.PostDataFromViewEquipmentToBaseAsset(postData);
         }
     }
 }

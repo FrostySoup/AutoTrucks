@@ -11,7 +11,6 @@ namespace Service.ColorListHolder
 {
     public class ColorListHolder : IColorListHolder
     {
-
         private ObservableCollection<ColorItem> ColorList;
         public ColorListHolder()
         {

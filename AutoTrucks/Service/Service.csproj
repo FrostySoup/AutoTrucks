@@ -90,8 +90,12 @@
     <Compile Include="ColorListHolder\IColorListHolder.cs" />
     <Compile Include="ConnexionService\SessionCacheSingleton\ISessionCacheSingleton.cs" />
     <Compile Include="ConnexionService\SessionFacade\ISessionFacade.cs" />
+    <Compile Include="DataConvertService\DataConvertPostAssetService.cs" />
     <Compile Include="DataConvertService\DataConvertService.cs" />
+    <Compile Include="DataConvertService\IDataConvertPostAssetService.cs" />
     <Compile Include="DataConvertService\IDataConvertService.cs" />
+    <Compile Include="DataExtractService\DataExtractService.cs" />
+    <Compile Include="DataExtractService\IDataExtractService.cs" />
     <Compile Include="SerializeServices\ISerializeService.cs" />
     <Compile Include="SerializeServices\SerializeService.cs" />
     <Compile Include="WindowsFactory\IWindowFactory.cs" />

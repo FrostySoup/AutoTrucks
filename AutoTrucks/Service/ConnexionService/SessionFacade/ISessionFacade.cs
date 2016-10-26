@@ -23,9 +23,13 @@ namespace Service.ConnexionService
 
        CreateSearchSuccessData Search(CreateSearchRequest searchRequest);
 
-      // void UpdateAlarm(string alarmUrl);
-      
-      
+        LookupAssetSuccessData QueryAllMyAssets(LookupAssetRequest lookupRequest);
+        Data DeleteAssetsById(DeleteAssetRequest deleteAssetRequest);
+        string PostNewAsset(PostAssetRequest postAssetRequest);
+
+        // void UpdateAlarm(string alarmUrl);
+
+
 
     }
 }

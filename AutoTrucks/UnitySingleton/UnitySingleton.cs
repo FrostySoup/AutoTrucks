@@ -3,6 +3,7 @@ using Service.AddNewWindowFactory;
 using Service.ColorListHolder;
 using Service.ConnexionService;
 using Service.DataConvertService;
+using Service.DataExtractService;
 using Service.SerializeServices;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,10 @@ namespace UnitySingleton
             unity.RegisterType<IColorListHolder, ColorListHolder>(new ContainerControlledLifetimeManager());
             unity.RegisterType<ISessionCacheSingleton, SessionCacheSingleton>(new ContainerControlledLifetimeManager());
             unity.RegisterType<ILoginViewModel, LoginViewModel>();
+            unity.RegisterType<IDataExtractService, DataExtractService>();
             unity.RegisterType<IConnectConnexionService, ConnectConnexionService>();
             unity.RegisterType<IDataSourceViewModel, DataSourceViewModel>();
+            unity.RegisterType<IDataConvertPostAssetService, DataConvertPostAssetService>();
             unity.RegisterType<ISearchWindowViewModel, SearchWindowViewModel>();
             unity.RegisterType<IPostWindowViewModel, PostWindowViewModel>();
             unity.RegisterType<IMainWindowDisplayViewModel, PostLoadsViewModel>("PostLoadsViewModel");

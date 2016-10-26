@@ -145,5 +145,19 @@ namespace ViewModels.MainWindowViewModels.Tests
             Assert.AreEqual(value, searchTrucksViewModel.Assets);
         }
 
+        [TestMethod()]
+        public void GetSearchResultsAssetsNullTest()
+        {
+            searchTrucksViewModel.Assets = null;
+            Assert.AreEqual("Search results Total : 0", searchTrucksViewModel.SearchResults);
+        }
+
+        [TestMethod()]
+        public void GetSearchResultsAssetsOneObjectTest()
+        {
+            searchTrucksViewModel.Assets = new ObservableCollection<SearchAssetsReceived>() { new SearchAssetsReceived() };
+            Assert.AreEqual("Search results Total : 1", searchTrucksViewModel.SearchResults);
+        }
+
     }
 }

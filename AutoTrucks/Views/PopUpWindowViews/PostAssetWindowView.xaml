@@ -57,8 +57,9 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <ComboBox Style="{StaticResource SearchComboBox}" SelectedItem="{Binding OriginStateProvinceSelected}" 
                   ItemsSource="{Binding StateProvinceValues}"/>
+            <TextBox Text="{Binding CityOrigin}" Height="27"/>
         </StackPanel>
-
+        
         <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="0">DH-O</Label>
         <UniformGrid Grid.Row="2" Grid.Column="1" Columns="2">
             <TextBlock Style="{StaticResource SearchTextBlock}" Text="{Binding DHO}" Grid.Column="0"/>
@@ -88,6 +89,7 @@
         <StackPanel Grid.Row="1" Grid.Column="3">
             <ComboBox Style="{StaticResource SearchComboBox}"
                   SelectedItem="{Binding DestinationStateProvinceSelected}" ItemsSource="{Binding StateProvinceValues}"/>
+            <TextBox Text="{Binding CityDestination}" Height="27"/>
         </StackPanel>
 
         <Label Style="{StaticResource SearchLabel}" Grid.Row="2" Grid.Column="2">DH-D</Label>

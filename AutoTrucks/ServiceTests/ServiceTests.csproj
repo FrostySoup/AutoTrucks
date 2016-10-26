@@ -60,6 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ColorListHolder\ColorListHolderTests.cs" />
     <Compile Include="ConnexionService\ConnectConnexionService\ConnectConnexionServiceTests.cs" />
     <Compile Include="ConnexionService\SessionCacheSingleton\SessionCacheSingletonTests.cs" />
     <Compile Include="ConnexionService\SessionFacade\SessionFacadeTests.cs" />

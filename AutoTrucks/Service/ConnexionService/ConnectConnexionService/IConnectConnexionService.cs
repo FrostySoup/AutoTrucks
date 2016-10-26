@@ -10,5 +10,8 @@ namespace Service.ConnexionService
 
         ISessionFacade LoginToConnexion(string user, string password);
         CreateSearchSuccessData SearchConnexion(ISessionFacade session, CreateSearchOperation searchDataProvided);
+        LookupAssetSuccessData QueryAllMyAssets(ISessionFacade session);
+        Data DeleteAssetsById(ISessionFacade session, string[] Ids);
+        string PostNewAsset(ISessionFacade session, PostAssetOperation item);
     }
 }

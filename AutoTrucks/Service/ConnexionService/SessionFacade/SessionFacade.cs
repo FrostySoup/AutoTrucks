@@ -37,77 +37,9 @@ namespace Service.ConnexionService
         {
             get { return _client.Endpoint.Address.Uri; }
         }
-        /*
-        public void DeleteAllAssets()
+
+        public string PostNewAsset(PostAssetRequest postAssetRequest)
         {
-            var deleteAssetOperation = new DeleteAssetOperation { Item = new DeleteAllMyAssets() };
-            var deleteAssetRequest = new DeleteAssetRequest { deleteAssetOperation = deleteAssetOperation };
-
-           
-            CorrelationHeader correlationHeader = _correlationHeader;
-            SessionHeader sessionHeader = _sessionHeader;
-
-            WarningHeader warningHeader;
-            DeleteAssetResponse deleteAssetResponse;
-            _client.DeleteAsset(_applicationHeader,
-                ref correlationHeader,
-                ref sessionHeader,
-                deleteAssetRequest,
-                out warningHeader,
-                out deleteAssetResponse);
-
-            Console.WriteLine("[deleting any previous assets]");
-        }
-
-        public void LookupDobCarriersByCarrierId(string carrierId, int indent = 0)
-        {
-            var operation = new LookupDobCarriersOperation { carrierId = carrierId };
-            var request = new LookupDobCarriersRequest { lookupDobCarriersOperations = operation };
-            LookupDobCarriers(request, MethodBase.GetCurrentMethod().Name, indent);
-        }
-
-        public void LookupDobEvents(DateTime since)
-        {
-            var operation = new LookupDobEventsOperation { sinceDate = since };
-            var request = new LookupDobEventsRequest { lookupDobEventsOperations = operation };
-
-            LookupDobEvents(request);
-        }
-
-        public void LookupSignedCarriers()
-        {
-            var operation = new LookupDobSignedCarriersOperation();
-            var request = new LookupDobSignedCarriersRequest { lookupDobSignedCarriersOperations = operation };
-
-            LookupSignedCarriers(request);
-        }
-
-        public void LookupCarrierByDotNumber(int dotNumber)
-        {
-            LookupCarrierRequest lookupCarrierRequest = BuildLookupCarrierRequest(dotNumber, ItemChoiceType2.dotNumber);
-            LookupCarrier(lookupCarrierRequest, MethodBase.GetCurrentMethod().Name);
-        }
-
-        public void LookupCarrierByMcNumber(int mcNumber)
-        {
-            LookupCarrierRequest lookupCarrierRequest = BuildLookupCarrierRequest(mcNumber, ItemChoiceType2.mcNumber);
-            LookupCarrier(lookupCarrierRequest, MethodBase.GetCurrentMethod().Name);
-        }
-
-        public void LookupCarrierByUserId(int userId)
-        {
-            LookupCarrierRequest lookupCarrierRequest = BuildLookupCarrierRequest(userId, ItemChoiceType2.userId);
-            LookupCarrier(lookupCarrierRequest, MethodBase.GetCurrentMethod().Name);
-        }*/
-
-        /// <summary>
-        /// 	Calls <see cref="TfmiFreightMatchingPortTypeClient.PostAsset" /> method and writes result to console.
-        /// </summary>
-        /// <param name="postAssetRequest"> </param>
-        /*
-        public void Post(PostAssetRequest postAssetRequest)
-        {
-            
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
@@ -120,24 +52,56 @@ namespace Service.ConnexionService
                 out warningHeader,
                 out postAssetResponse);
 
-            Console.WriteLine("===============Post Results===============");
 
             if (postAssetResponse != null)
             {
-                foreach (PostAssetResult postAssetResult in postAssetResponse.postAssetResults)
+                var data = postAssetResponse.postAssetResults;
+                if (data == null)
                 {
-                    var postAssetSuccessData = postAssetResult.Item as PostAssetSuccessData;
-                    if (postAssetSuccessData == null)
-                    {
-                        var serviceError = postAssetResult.Item as ServiceError;
-                    }
-                    else
-                    {
-
-                    }
+                    var serviceError = postAssetResponse.postAssetResults[0].Item as ServiceError;
+                }
+                else
+                {
+                    var item = data[0].Item as PostAssetSuccessData;
+                    if (item == null)
+                        return null;
+                    return item.assetId;
                 }
             }
-        }*/
+            return null;
+        }
+
+        public Data DeleteAssetsById(DeleteAssetRequest deleteAssetRequest)
+        {
+            CorrelationHeader correlationHeader = _correlationHeader;
+            SessionHeader sessionHeader = _sessionHeader;
+
+            WarningHeader warningHeader;
+            DeleteAssetResponse deleteAssetResponse;
+            _client.DeleteAsset(_applicationHeader,
+                ref correlationHeader,
+                ref sessionHeader,
+                deleteAssetRequest,
+                out warningHeader,
+                out deleteAssetResponse);
+
+
+            if (deleteAssetResponse != null)
+            {
+                var data = deleteAssetResponse.deleteAssetResult.Item;
+                if (data == null)
+                {
+                    var serviceError = deleteAssetResponse.deleteAssetResult.Item as ServiceError;
+                }
+                else
+                {
+                    return data;
+                }
+            }
+            return null;
+        }
+
+
 
         /// <summary>
         /// 	Calls <see cref="TfmiFreightMatchingPortTypeClient.CreateSearch" /> method and writes result to console.
@@ -174,200 +138,38 @@ namespace Service.ConnexionService
             }
             return null;
         }
-        /*
-        public void UpdateAlarm(string alarmUrl)
-        {
-            var updateAlarmUrlRequest = new UpdateAlarmUrlRequest
-            { updateAlarmUrlOperation = new UpdateAlarmUrlOperation { alarmUrl = alarmUrl } };
 
-            CorrelationHeader correlationHeader = _correlationHeader;
-            SessionHeader sessionHeader = _sessionHeader;
-
-            WarningHeader warningHeader;
-            UpdateAlarmUrlResponse updateAlarmUrlResponse;
-            _client.UpdateAlarmUrl(_applicationHeader,
-                ref correlationHeader,
-                ref sessionHeader,
-                updateAlarmUrlRequest,
-                out warningHeader,
-                out updateAlarmUrlResponse);
-
-            if (updateAlarmUrlResponse != null)
-            {
-                Data item = updateAlarmUrlResponse.updateAlarmUrlResult.Item;
-                var data = item as UpdateAlarmUrlSuccessData;
-                if (data == null)
-                {
-                    var serviceError = item as ServiceError;
-                }
-                else
-                {
-
-                }
-            }
-        }*/
-        /*
-        private void LookupCarrier(LookupCarrierRequest lookupCarrierRequest, string description)
-        {
-
-            CorrelationHeader correlationHeader = _correlationHeader;
-
-            SessionHeader sessionHeader = _sessionHeader;
-            WarningHeader warningHeader;
-            LookupCarrierResponse lookupCarrierResponse;
-            _client.LookupCarrier(_applicationHeader,
-                ref correlationHeader,
-                ref sessionHeader,
-                lookupCarrierRequest,
-                out warningHeader,
-                out lookupCarrierResponse);
-
-            Console.WriteLine(description + ":");
-
-            if (lookupCarrierResponse != null)
-            {
-                LookupCarrierResult lookupCarrierResult = lookupCarrierResponse.lookupCarrierResult[0];
-                var data = lookupCarrierResult.Item as LookupCarrierSuccessData;
-                if (data == null)
-                {
-                    var serviceError = lookupCarrierResult.Item as ServiceError;
-
-                }
-                else
-                {
-
-                }
-            }
-        }*/
-        /*
-        private void LookupDobCarriers(LookupDobCarriersRequest lookupDobCarriersRequest, string description, int indent)
-        {
-
-            CorrelationHeader correlationHeader = _correlationHeader;
-            SessionHeader sessionHeader = _sessionHeader;
-
-            WarningHeader warningHeader;
-            LookupDobCarriersResponse lookupDobCarriersResponse;
-            _client.LookupDobCarriers(_applicationHeader,
-                ref correlationHeader,
-                ref sessionHeader,
-                lookupDobCarriersRequest,
-                out warningHeader,
-                out lookupDobCarriersResponse);
-
-            if (indent == 0)
-            {
-                Console.WriteLine(description + ":");
-            }
-            if (lookupDobCarriersResponse != null)
-            {
-                LookupDobCarriersResult result = lookupDobCarriersResponse.lookupDobCarriersResults;
-                var data = result.Item as LookupDobCarriersSuccessData;
-                if (data == null)
-                {
-                    var serviceError = result.Item as ServiceError;
-                }
-                else
-                {
-
-                }
-            }
-        }
-        */
-        /*
-        private void LookupDobEvents(LookupDobEventsRequest request)
+        public LookupAssetSuccessData QueryAllMyAssets(LookupAssetRequest lookupRequest)
         {
             CorrelationHeader correlationHeader = _correlationHeader;
             SessionHeader sessionHeader = _sessionHeader;
 
             WarningHeader warningHeader;
-            LookupDobEventsResponse lookupDobEventsResponse;
-            _client.lookupDobEvents(_applicationHeader,
+            LookupAssetResponse createLookupResponse;
+            _client.LookupAsset(_applicationHeader,
                 ref correlationHeader,
                 ref sessionHeader,
-                request,
+                lookupRequest,
                 out warningHeader,
-                out lookupDobEventsResponse);
+                out createLookupResponse);
 
-            if (lookupDobEventsResponse != null)
+
+            if (createLookupResponse != null)
             {
-                LookupDobEventsResult result = lookupDobEventsResponse.lookupDobEventsResults;
-                var data = result.Item as LookupDobEventsSuccessData;
+                var data = createLookupResponse.lookupAssetResult.Item as LookupAssetSuccessData;
                 if (data == null)
                 {
-                    var serviceError = result.Item as ServiceError;
-
-
+                    var serviceError = createLookupResponse.lookupAssetResult.Item as ServiceError;
                 }
                 else
                 {
-
+                    return data;
                 }
             }
-        }*/
-        /*
-        private void LookupSignedCarriers(LookupDobSignedCarriersRequest request)
-        {
-            CorrelationHeader correlationHeader = _correlationHeader;
-            SessionHeader sessionHeader = _sessionHeader;
-
-            WarningHeader warningHeader;
-            LookupDobSignedCarriersResponse signedCarriersResponse;
-            _client.LookupDobSignedCarriers(_applicationHeader,
-                ref correlationHeader,
-                ref sessionHeader,
-                request,
-                out warningHeader,
-                out signedCarriersResponse);
-
-            if (signedCarriersResponse != null)
-            {
-                LookupDobSignedCarriersResult result = signedCarriersResponse.lookupDobSignedCarriersResults;
-                var data = result.Item as LookupDobSignedCarriersSuccessData;
-                if (data == null)
-                {
-                    var serviceError = result.Item as ServiceError;
-                
-
-                }
-                else
-                {
-
-                }
-            }
-
+            return null;
         }
 
-        private static LookupCarrierRequest BuildLookupCarrierRequest(object item, ItemChoiceType2 itemElementName)
-        {
-            var lookupCarrierOperation = new LookupCarrierOperation
-            {
-                Item = item,
-                ItemElementName = itemElementName,
-                includeDotAuthority = true,
-                includeDotAuthoritySpecified = true,
-                includeDotInsurance = true,
-                includeDotInsuranceSpecified = true,
-                includeDotProfile = true,
-                includeDotProfileSpecified = true,
-                includeFmcsaCrashes = true,
-                includeFmcsaCrashesSpecified = true,
-                includeFmcsaInspections = true,
-                includeFmcsaInspectionsSpecified = true,
-                includeFmcsaSafeStat = true,
-                includeFmcsaSafeStatSpecified = true,
-                includeFmcsaSafetyRating = true,
-                includeFmcsaSafetyRatingSpecified = true,
-                includeCsa2010Basic = true,
-                includeCsa2010BasicSpecified = true,
-                includeCsa2010SafetyFitness = true,
-                includeCsa2010SafetyFitnessSpecified = true,
-                includeExtendedProfile = true,
-                includeExtendedProfileSpecified = true
-            };
-            var lookupCarrierRequest = new LookupCarrierRequest { lookupCarrierOperation = new[] { lookupCarrierOperation } };
-            return lookupCarrierRequest;
-        }*/
+       
 
         /// <summary>
         /// 	Session header needs to be formed from the service's response, not from the ref input parameter of type <see
@@ -389,5 +191,6 @@ namespace Service.ConnexionService
                            }
             };
         }
+       
     }
 }

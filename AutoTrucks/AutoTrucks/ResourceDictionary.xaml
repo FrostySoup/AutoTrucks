@@ -8,11 +8,11 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type mainWindowViewModel:PostTrucksViewModel}">
-        <mainWindowViews:PostTrucksView/>
+        <mainWindowViews:PostAssetView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type mainWindowViewModel:PostLoadsViewModel}">
-        <mainWindowViews:PostLoadsView/>
+        <mainWindowViews:PostAssetView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type mainWindowViewModel:SearchLoadsViewModel}">

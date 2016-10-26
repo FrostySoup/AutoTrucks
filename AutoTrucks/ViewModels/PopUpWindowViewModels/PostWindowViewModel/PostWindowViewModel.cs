@@ -99,6 +99,26 @@ namespace ViewModels.PopUpWindowViewModels.PostWindowViewModel
             }
         }
 
+        public string CityOrigin
+        {
+            get { return postData.cityOrigin; }
+            set
+            {
+                postData.cityOrigin = value;
+                OnPropertyChanged("CityOrigin");
+            }
+        }
+
+        public string CityDestination
+        {
+            get { return postData.cityDestination; }
+            set
+            {
+                postData.cityDestination = value;
+                OnPropertyChanged("CityDestination");
+            }
+        }
+
         public DateTime AvailFrom
         {
             get { return postData.availFrom; }

@@ -16,5 +16,6 @@ namespace Service.DataConvertService
         ObservableCollection<SearchAssetsReceived> ShipmentCreateSearchSuccessDataToSearchAssetsReceived(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
 
         ObservableCollection<SearchAssetsReceived> EquipmentCreateSearchSuccessDataToSearchAssetsReceived(CreateSearchSuccessData searchSuccessData, DataColors dataColors);
+        
     }
 }

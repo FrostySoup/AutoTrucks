@@ -1,12 +1,11 @@
-﻿<UserControl x:Class="Views.MainWindowViews.SearchAssetView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Views.MainWindowViews"
-             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d">
-    
+﻿<UserControl x:Class="Views.MainWindowViews.PostAssetView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Views.MainWindowViews"
+        mc:Ignorable="d">
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,7 +13,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Style="{StaticResource GridRowForButtons}" />
@@ -24,36 +22,37 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Style="{StaticResource CRUDStackPanel}">
-            <Button Command="{Binding SearchForSelectedTruckCommand, Mode=OneWay}" Style="{StaticResource StartButton}"/>
-            <Button Command="{Binding OpenSearchWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
+            <Button Style="{StaticResource StartButton}"/>
+            <Button Command="{Binding OpenPostAssetWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
             <Button Style="{StaticResource EditButton}"/>
-            <Button Style="{StaticResource DeleteButton}"/>
+            <Button Command="{Binding RemoveAssetsCommand, Mode=OneWay}" Style="{StaticResource DeleteButton}"/>
         </StackPanel>
 
-        <DataGrid SelectionMode="Extended" Grid.Row="1" x:Name="dataGridSearchOptions" ItemsSource="{Binding SearchesToDisplay}" Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="1" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding PostToDisplay}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="Background" Value="{Binding BackgroundColor}"/>
-                    <Setter Property="Foreground" Value="{Binding ForegroundColor}"/>
+                    <Setter Property="Background" Value="{Binding BackgroundColor, Mode=OneWay}"/>
+                    <Setter Property="Foreground" Value="{Binding ForegroundColor, Mode=OneWay}"/>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="Search" Binding="{Binding Marked}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Truck"       Binding="{Binding EquipmentClasses, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Truck"       Binding="{Binding EquipmentType, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Origin"      Binding="{Binding Origin, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Destination" Binding="{Binding Destination, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Pickup"      Binding="{Binding Pickup, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-O"        Binding="{Binding DHO, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-D"        Binding="{Binding DHD, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="F/P"         Binding="{Binding FP, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Lenght"      Binding="{Binding Lenght, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-O"        Binding="{Binding DHOToString, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-D"        Binding="{Binding DHDToString, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="F/P"         Binding="{Binding FullOrPartial, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Length"      Binding="{Binding Length, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weight"      Binding="{Binding Weight, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Search back" Binding="{Binding SearchBack, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Trip"        Binding="{Binding Trip, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Alarm State" Binding="{Binding AlarmState, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Grid.Row="2" Style="{StaticResource CRUDStackPanel}">
-            <TextBlock Text="{Binding SearchResults}"/>
+            <TextBlock>Search results Total:0 New:0</TextBlock>
             <Button Style="{StaticResource UndoButton}"/>
             <Button Style="{StaticResource ClearButton}"/>
         </StackPanel>
@@ -77,11 +76,9 @@
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Company name" Binding="{Binding CompanyName, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Phone number" Binding="{Binding ContactPhone, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Length"       Binding="{Binding Length, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weigth"       Binding="{Binding Weigth, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weight"       Binding="{Binding Weigth, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="InitialO"     Binding="{Binding InitialO, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </UserControl>
-

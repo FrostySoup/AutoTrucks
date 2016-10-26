@@ -92,11 +92,8 @@
     <Compile Include="MainWindowViews\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindowViews\PostLoadsView.xaml.cs">
-      <DependentUpon>PostLoadsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindowViews\PostTrucksView.xaml.cs">
-      <DependentUpon>PostTrucksView.xaml</DependentUpon>
+    <Compile Include="MainWindowViews\PostAssetView.xaml.cs">
+      <DependentUpon>PostAssetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindowViews\SearchAssetView.xaml.cs">
       <DependentUpon>SearchAssetView.xaml</DependentUpon>
@@ -142,11 +139,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindowViews\PostLoadsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindowViews\PostTrucksView.xaml">
+    <Page Include="MainWindowViews\PostAssetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

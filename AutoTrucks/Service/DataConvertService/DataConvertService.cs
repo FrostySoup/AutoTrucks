@@ -64,8 +64,6 @@ namespace Service.DataConvertService
             return dimensions;
         }
 
-
-
         public CreateSearchOperation ToSearchOperationParams(SearchDataFromView searchData, AssetType assetType)
         {           
 
@@ -255,6 +253,6 @@ namespace Service.DataConvertService
             if (phone != null)
                 return phone.phone.number;
             return "-";
-        }
+        }       
     }
 }

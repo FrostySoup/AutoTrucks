@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Views.MainWindowViews
 {
     /// <summary>
-    /// Interaction logic for PostLoadsView.xaml
+    /// Interaction logic for PostAssetView.xaml
     /// </summary>
-    public partial class PostLoadsView : UserControl
+    public partial class PostAssetView : UserControl
     {
-        public PostLoadsView()
+        public PostAssetView()
         {
             InitializeComponent();
         }
