@@ -68,7 +68,6 @@ namespace Service.ConnexionService.Tests
         {
             CreateSearchOperation searchOperationParams = new CreateSearchOperation();
             CreateSearchSuccessData results = connectConnexionService.SearchConnexion(session.Object, searchOperationParams);
-
             Assert.IsNull(results);
         }
 
@@ -76,9 +75,7 @@ namespace Service.ConnexionService.Tests
         public void SearchConnexionWithNullDataTest()
         {
             CreateSearchOperation searchOperationParams = null;
-
             CreateSearchSuccessData results = connectConnexionService.SearchConnexion(session.Object, searchOperationParams);
-
             Assert.IsNull(results);
         }
 
@@ -91,5 +88,40 @@ namespace Service.ConnexionService.Tests
             CreateSearchSuccessData results = connectConnexionService.SearchConnexion(session.Object, searchOperationParams);
             Assert.IsNotNull(results);
         }
+
+        [TestMethod()]
+        public void QueryAllMyAssetsTest()
+        {
+            session.Setup(x => x.QueryAllMyAssets(It.IsAny<LookupAssetRequest>())).Returns(new LookupAssetSuccessData());
+            LookupAssetSuccessData results = connectConnexionService.QueryAllMyAssets(session.Object);
+            Assert.IsNotNull(results);
+        }
+
+        [TestMethod()]
+        public void DeleteAssetsByIdTest()
+        {
+            string[] value = { "ID1", "ID2" };
+            DeleteAssetRequest deleteAssetRequest = new DeleteAssetRequest()
+            {
+                deleteAssetOperation = new DeleteAssetOperation()
+                {
+                    Item = new DeleteAssetsByAssetIds()
+                    {
+                        assetIds = value
+                    }
+                }
+            };
+            session.Setup(x => x.DeleteAssetsById(It.IsAny<DeleteAssetRequest>())).Returns(new DeleteAssetSuccessData());
+            Data results = connectConnexionService.DeleteAssetsById(session.Object, value);
+            Assert.IsNotNull(results);
+        }
+
+        [TestMethod()]
+        public void PostNewAssetTest()
+        {
+            string results = connectConnexionService.PostNewAsset(session.Object, new PostAssetOperation());
+            Assert.IsNull(results);
+        }
+
     }
 }

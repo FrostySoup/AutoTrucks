@@ -100,6 +100,8 @@ namespace Model.DataFromView
         {
             get
             {
+                if (DHO < 0)
+                    return "-";
                 return DHO.ToString();
             }
         }
@@ -108,6 +110,8 @@ namespace Model.DataFromView
         {
             get
             {
+                if (DHD < 0)
+                    return "-";
                 return DHD.ToString();
             }
         }

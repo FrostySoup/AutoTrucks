@@ -97,6 +97,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostAssetsViewModels\PostLoadsViewModel\PostLoadsViewModelTests.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostAssetsViewModels\PostTrucksViewModel\PostTrucksViewModelTests.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchLoadsViewModel\SearchLoadsViewModelTests.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchTrucksViewModel\SearchTrucksViewModelTests.cs" />

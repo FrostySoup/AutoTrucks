@@ -66,7 +66,7 @@ namespace Service.DataExtractService
             data.originState = GetLocationFromPlace(origin);           
             data.DHO = -1;
             data.DHD = -1;
-            data.fullOrPartial = FullOrPartial.Both;
+            data.fullOrPartial = GetFullOrPartial(item.ltl);
             if (item.dimensions != null)
             {
                 data.length = item.dimensions.lengthFeet;
@@ -76,6 +76,14 @@ namespace Service.DataExtractService
             data.TripMaxValue = 0;
             data.ID = item.assetId;
             return data;
+        }
+
+        private FullOrPartial GetFullOrPartial(bool ltl)
+        {
+            if (ltl)
+                return FullOrPartial.Partial;
+            else
+                return FullOrPartial.Full;
         }
 
         private StateProvince GetLocationFromPlace(Place origin)

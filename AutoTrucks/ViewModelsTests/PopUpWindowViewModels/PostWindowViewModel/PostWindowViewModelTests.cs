@@ -237,6 +237,26 @@ namespace ViewModels.PopUpWindowViewModels.PostWindowViewModel.Tests
         }
 
         [TestMethod()]
+        public void CityOriginValue()
+        {
+            string value = "Kaunas";
+            postWindowViewModel.CityOrigin = value;
+            Assert.AreEqual(1, receivedEvents.Count);
+            Assert.AreEqual("CityOrigin", receivedEvents[0]);
+            Assert.AreEqual(value, postWindowViewModel.CityOrigin);
+        }
+
+        [TestMethod()]
+        public void CityDestinationValue()
+        {
+            string value = "Kaunas";
+            postWindowViewModel.CityDestination = value;
+            Assert.AreEqual(1, receivedEvents.Count);
+            Assert.AreEqual("CityDestination", receivedEvents[0]);
+            Assert.AreEqual(value, postWindowViewModel.CityDestination);
+        }
+
+        [TestMethod()]
         public void UselessTestToCoverSimpleGets()
         {
             var stateProvinceValues = postWindowViewModel.StateProvinceValues;
