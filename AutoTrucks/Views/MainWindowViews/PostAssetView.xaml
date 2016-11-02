@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views.MainWindowViews"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -22,10 +23,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Style="{StaticResource CRUDStackPanel}">
-            <Button Style="{StaticResource StartButton}"/>
+            <Button Command="{Binding StartAlarmsCommand, Mode=OneWay}" Style="{StaticResource StartButton}"/>
             <Button Command="{Binding OpenPostAssetWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
             <Button Style="{StaticResource EditButton}"/>
             <Button Command="{Binding RemoveAssetsCommand, Mode=OneWay}" Style="{StaticResource DeleteButton}"/>
+            <Controls:ToggleSwitch Style="{StaticResource GroupToogleButton}" IsChecked="{Binding IsGroupSelected}"/>
         </StackPanel>
 
         <DataGrid Grid.Row="1" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding PostToDisplay}" Style="{StaticResource ListResultsDataGrid}">

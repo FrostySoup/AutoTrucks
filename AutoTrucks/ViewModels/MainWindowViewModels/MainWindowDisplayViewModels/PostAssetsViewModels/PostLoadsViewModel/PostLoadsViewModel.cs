@@ -2,6 +2,7 @@
 using Service.AddNewWindowFactory;
 using Service.Commands;
 using Service.ConnexionService;
+using Service.ConnexionService.AlarmService;
 using Service.DataConvertService;
 using Service.DataExtractService;
 using System;
@@ -16,8 +17,8 @@ namespace ViewModels.MainWindowViewModels
     public class PostLoadsViewModel : AssetsAbstractViewModel, IMainWindowDisplayViewModel
     {
         public PostLoadsViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService, 
-            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService)
-            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService)
+            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IAlarmService alarmService)
+            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, alarmService)
         {
             //var testing = 
             this.dataExtractService = dataExtractService;
@@ -31,9 +32,9 @@ namespace ViewModels.MainWindowViewModels
             throw new NotImplementedException();
         }
 
-        protected override void convertData(LookupAssetSuccessData lookupAssetSuccessData)
+        protected override void convertData(LookupAssetSuccessData lookupAssetSuccessData, LookupAlarmSuccessData lookupAlarmSuccessData)
         {
-            postAssets = dataExtractService.ExtractShipmentFromData(lookupAssetSuccessData);
+            postAssets = dataExtractService.ExtractShipmentFromData(lookupAssetSuccessData, lookupAlarmSuccessData);
         }
 
         protected override PostAssetOperation convertAssetIntoBaseType(PostDataFromView postData)

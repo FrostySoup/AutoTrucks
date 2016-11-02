@@ -24,7 +24,7 @@ namespace Service.DataExtractService.Tests
         public void ExtractEquipmentFromDataTest()
         {
             LookupAssetSuccessData data = new LookupAssetSuccessData();
-            var results = dataExtractService.ExtractEquipmentFromData(data);
+            var results = dataExtractService.ExtractEquipmentFromData(data, null);
             Assert.IsNotNull(results);
         }
 
@@ -32,7 +32,7 @@ namespace Service.DataExtractService.Tests
         public void ExtractShipmentFromDataTest()
         {
             LookupAssetSuccessData data = new LookupAssetSuccessData();
-            var results = dataExtractService.ExtractShipmentFromData(data);
+            var results = dataExtractService.ExtractShipmentFromData(data, null);
             Assert.IsNotNull(results);
         }
 
@@ -45,7 +45,7 @@ namespace Service.DataExtractService.Tests
                 Item = new Shipment(),
                 ltl = false
             } };
-            var results = dataExtractService.ExtractShipmentFromData(data);
+            var results = dataExtractService.ExtractShipmentFromData(data, null);
             Assert.AreEqual(FullOrPartial.Full, results[0].fullOrPartial);
         }
 
@@ -65,7 +65,7 @@ namespace Service.DataExtractService.Tests
                 Item = new Shipment(),
                 dimensions = value
             } };
-            var results = dataExtractService.ExtractShipmentFromData(data);
+            var results = dataExtractService.ExtractShipmentFromData(data, null);
 
             Assert.AreEqual(lengthValue, results[0].length);
             Assert.AreEqual(weightValue, results[0].weight);
@@ -86,7 +86,7 @@ namespace Service.DataExtractService.Tests
                 Item = new Shipment(),
                 availability = resultsExpected
             } };
-            var results = dataExtractService.ExtractShipmentFromData(data);
+            var results = dataExtractService.ExtractShipmentFromData(data, null);
 
             Assert.AreEqual(value, results[0].availFrom);
             Assert.AreEqual(value, results[0].availTo);
@@ -101,7 +101,7 @@ namespace Service.DataExtractService.Tests
                 Item = new Shipment(),
                 ltl = true
             } };
-            var results = dataExtractService.ExtractShipmentFromData(data);
+            var results = dataExtractService.ExtractShipmentFromData(data, null);
             Assert.AreEqual(FullOrPartial.Partial, results[0].fullOrPartial);
         }
 
@@ -122,7 +122,7 @@ namespace Service.DataExtractService.Tests
                     }
                 }
             } };
-            var results = dataExtractService.ExtractShipmentFromData(data);
+            var results = dataExtractService.ExtractShipmentFromData(data, null);
             Assert.AreEqual(StateProvince.AG, results[0].originState);
         }
 
@@ -146,7 +146,7 @@ namespace Service.DataExtractService.Tests
                     }
                 }
             } };
-            var results = dataExtractService.ExtractEquipmentFromData(data);
+            var results = dataExtractService.ExtractEquipmentFromData(data, null);
             Assert.AreEqual(StateProvince.AG, results[0].destinationState);
         }
 

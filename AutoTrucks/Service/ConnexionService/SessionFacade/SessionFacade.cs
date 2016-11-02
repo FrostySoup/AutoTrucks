@@ -52,7 +52,6 @@ namespace Service.ConnexionService
                 out warningHeader,
                 out postAssetResponse);
 
-
             if (postAssetResponse != null)
             {
                 var data = postAssetResponse.postAssetResults;
@@ -169,7 +168,156 @@ namespace Service.ConnexionService
             return null;
         }
 
-       
+       public bool[] CheckUserCapabilities(LookupCapabilitiesRequest lookupCapabilietiesRequest)
+       {
+            CorrelationHeader correlationHeader = _correlationHeader;
+            SessionHeader sessionHeader = _sessionHeader;
+
+            WarningHeader warningHeader;
+            LookupCapabilitiesResponse lookupCapabilitiesResponse;
+            _client.LookupCapabilities(_applicationHeader,
+                ref correlationHeader,
+                ref sessionHeader,
+                lookupCapabilietiesRequest,
+                out warningHeader,
+                out lookupCapabilitiesResponse);
+
+
+            if (lookupCapabilitiesResponse != null)
+            {
+                var data = lookupCapabilitiesResponse.lookupCapabilitiesResult.Item as LookupCapabilitiesSuccessData;
+                if (data == null)
+                {
+                    var serviceError = lookupCapabilitiesResponse.lookupCapabilitiesResult.Item as ServiceError;
+                }
+                else
+                {
+                    return data.capabilityPresent;
+                }
+            }
+            return null;
+        }
+
+        public Alarm CreateNewAlert(CreateAlarmRequest createAlarmRequest)
+        {
+            CorrelationHeader correlationHeader = _correlationHeader;
+            SessionHeader sessionHeader = _sessionHeader;
+
+            WarningHeader warningHeader;
+            CreateAlarmResponse createAlarmResponse;
+            _client.CreateAlarm(_applicationHeader,
+                ref correlationHeader,
+                ref sessionHeader,
+                createAlarmRequest,
+                out warningHeader,
+                out createAlarmResponse);
+
+
+            if (createAlarmResponse != null)
+            {
+                var data = createAlarmResponse.createAlarmResult.Item as CreateAlarmSuccessData;
+                if (data == null)
+                {
+                    var serviceError = createAlarmResponse.createAlarmResult.Item as ServiceError;
+                }
+                else
+                {
+                    return data.alarm;
+                }
+            }
+            return null;
+        }
+
+        public LookupAlarmSuccessData QueryAllAlarms(LookupAlarmRequest createAlarmRequest)
+        {
+            CorrelationHeader correlationHeader = _correlationHeader;
+            SessionHeader sessionHeader = _sessionHeader;
+
+            WarningHeader warningHeader;
+            LookupAlarmResponse lookupAlarmResponse;
+            _client.LookupAlarm(_applicationHeader,
+                ref correlationHeader,
+                ref sessionHeader,
+                createAlarmRequest,
+                out warningHeader,
+                out lookupAlarmResponse);
+
+
+            if (lookupAlarmResponse != null)
+            {
+                var data = lookupAlarmResponse.lookupAlarmResult.Item as LookupAlarmSuccessData;
+                if (data == null)
+                {
+                    var serviceError = lookupAlarmResponse.lookupAlarmResult.Item as ServiceError;
+                }
+                else
+                {
+                    return data;
+                }
+            }
+            return null;
+        }
+
+        public void UpdateAlarmUrl(Uri alarmUrl)
+        {
+            /*
+            UpdateAlarmUrlRequest request = new UpdateAlarmUrlRequest()
+            {
+                updateAlarmUrlOperation = new UpdateAlarmUrlOperation()
+                {
+                    alarmUrl = alarmUrl.ToString()+"/"
+                }
+            };
+
+            CorrelationHeader correlationHeader = _correlationHeader;
+            SessionHeader sessionHeader = _sessionHeader;
+
+            WarningHeader warningHeader;
+            UpdateAlarmUrlResponse updateAlarmUrlResponse;
+            _client.UpdateAlarmUrl(_applicationHeader,
+                ref correlationHeader,
+                ref sessionHeader,
+                request,
+                out warningHeader,
+                out updateAlarmUrlResponse);
+
+
+            if (updateAlarmUrlResponse != null)
+            {
+                var data = updateAlarmUrlResponse.updateAlarmUrlResult.Item as UpdateAlarmUrlSuccessData;
+                if (data == null)
+                {
+                    var serviceError = updateAlarmUrlResponse.updateAlarmUrlResult.Item as ServiceError;
+                }
+            }*/
+        }
+
+        public LookupAlarmUrlSuccessData LookupCurrentAlarmUrl(LookupAlarmUrlRequest lookupAlarmUrlRequest)
+        {
+            CorrelationHeader correlationHeader = _correlationHeader;
+            SessionHeader sessionHeader = _sessionHeader;
+
+            WarningHeader warningHeader;
+            LookupAlarmUrlResponse lookupAlarmResponse;
+            _client.LookupAlarmUrl(_applicationHeader,
+                ref correlationHeader,
+                ref sessionHeader,
+                lookupAlarmUrlRequest,
+                out warningHeader,
+                out lookupAlarmResponse);
+
+
+            if (lookupAlarmResponse != null)
+            {
+                var data = lookupAlarmResponse.lookupAlarmUrlResult.Item as LookupAlarmUrlSuccessData;
+                if (data == null)
+                {
+                    var serviceError = lookupAlarmResponse.lookupAlarmUrlResult.Item as ServiceError;
+                }
+                else return data;
+            }
+            return null;
+        }
 
         /// <summary>
         /// 	Session header needs to be formed from the service's response, not from the ref input parameter of type <see
@@ -191,6 +339,6 @@ namespace Service.ConnexionService
                            }
             };
         }
-       
+        
     }
 }

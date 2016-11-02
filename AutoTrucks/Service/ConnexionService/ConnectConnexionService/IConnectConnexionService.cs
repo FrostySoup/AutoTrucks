@@ -13,5 +13,11 @@ namespace Service.ConnexionService
         LookupAssetSuccessData QueryAllMyAssets(ISessionFacade session);
         Data DeleteAssetsById(ISessionFacade session, string[] Ids);
         string PostNewAsset(ISessionFacade session, PostAssetOperation item);
+        bool[] RetrieveUserCapabilities(ISessionFacade session, CapabilityType[] capabilities);
+        Alarm CreateAlarm(ISessionFacade session, string assetID, AlarmSearchCriteria receivedCriteria);
+        LookupAssetSuccessData QueryAllMyGroupAssets(ISessionFacade sessionFacade);
+        LookupAlarmSuccessData QueryAllMyAlarms(ISessionFacade sessionFacade);
+        LookupAlarmSuccessData QueryAllMyGroupAlarms(ISessionFacade sessionFacade);
+        LookupAlarmUrlSuccessData LookupAlarmUrl(ISessionFacade sessionFacade);
     }
 }

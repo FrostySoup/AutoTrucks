@@ -84,6 +84,18 @@ namespace Service.ConnexionService
             return session.QueryAllMyAssets(lookupAssetRequest);
         }
 
+        public LookupAssetSuccessData QueryAllMyGroupAssets(ISessionFacade sessionFacade)
+        {
+            LookupAssetRequest lookupAssetRequest = new LookupAssetRequest()
+            {
+                lookupAssetOperation = new LookupAssetOperation()
+                {
+                    Item = new QueryAllMyGroupsAssets()
+                }
+            };
+            return sessionFacade.QueryAllMyAssets(lookupAssetRequest);
+        }
+
         public Data DeleteAssetsById(ISessionFacade session, string[] Ids)
         {
             DeleteAssetRequest deleteAssetRequest = new DeleteAssetRequest()
@@ -122,6 +134,64 @@ namespace Service.ConnexionService
 
             return searchRequest;
         }
-       
+
+        public bool[] RetrieveUserCapabilities(ISessionFacade session, CapabilityType[] capabilities)
+        {
+            LookupCapabilitiesRequest lookupCapabilietiesRequest = new LookupCapabilitiesRequest()
+            {
+                lookupCapabilitiesOperation = new LookupCapabilitiesOperation()
+                {
+                    capability = capabilities
+                }
+            };
+            return session.CheckUserCapabilities(lookupCapabilietiesRequest);
+        }
+
+        public Alarm CreateAlarm(ISessionFacade session, string assetID, AlarmSearchCriteria receivedCriteria)
+        {
+            CreateAlarmRequest createAlarmRequest = new CreateAlarmRequest()
+            {
+                createAlarmOperation = new CreateAlarmOperation()
+                {
+                    assetId = assetID,
+                    criteria = receivedCriteria
+                }
+            };
+            return session.CreateNewAlert(createAlarmRequest);
+        }
+
+        public LookupAlarmSuccessData QueryAllMyAlarms(ISessionFacade session)
+        {
+            LookupAlarmRequest createAlarmRequest = new LookupAlarmRequest()
+            {
+                lookupAlarmOperation = new LookupAlarmOperation()
+                {
+                    Item = new QueryAllMyAlarms()
+                }
+            };
+            return session.QueryAllAlarms(createAlarmRequest);
+        }
+
+        public LookupAlarmSuccessData QueryAllMyGroupAlarms(ISessionFacade session)
+        {
+            LookupAlarmRequest createAlarmRequest = new LookupAlarmRequest()
+            {
+                lookupAlarmOperation = new LookupAlarmOperation()
+                {
+                    Item = new QueryAllMyGroupsAlarms()
+                }
+            };
+            return session.QueryAllAlarms(createAlarmRequest);
+        }
+
+        public LookupAlarmUrlSuccessData LookupAlarmUrl(ISessionFacade session)
+        {
+            LookupAlarmUrlRequest lookupAlarmUrlRequest = new LookupAlarmUrlRequest()
+            {
+                lookupAlarmUrlOperation = new LookupAlarmUrlOperation()
+            };
+
+            return session.LookupCurrentAlarmUrl(lookupAlarmUrlRequest);
+        }
     }
 }

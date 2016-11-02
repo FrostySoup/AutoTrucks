@@ -52,6 +52,8 @@ namespace Model.DataFromView
 
         public bool includeLtls { get; set; }
 
+        public Alarm alarm { get; set; }
+
         public PostDataFromView()
         {
             availFrom = DateTime.Now;
@@ -92,7 +94,7 @@ namespace Model.DataFromView
         {
             get
             {
-                return "???";
+                return String.Format("{0:MM/dd}/{1:MM/dd}", availFrom, availTo);
             }
         }
 
@@ -144,7 +146,10 @@ namespace Model.DataFromView
         {
             get
             {
-                return "???";
+                if (alarm != null)
+                    return "Active";
+                else
+                    return "Inactive";
             }
         }
 

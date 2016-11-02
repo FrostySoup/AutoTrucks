@@ -10,8 +10,8 @@ namespace Service.DataExtractService
 {
     public interface IDataExtractService
     {
-        ObservableCollection<PostDataFromView> ExtractEquipmentFromData(LookupAssetSuccessData data);
+        ObservableCollection<PostDataFromView> ExtractEquipmentFromData(LookupAssetSuccessData data, LookupAlarmSuccessData lookupAlarmSuccessData);
 
-        ObservableCollection<PostDataFromView> ExtractShipmentFromData(LookupAssetSuccessData data);
+        ObservableCollection<PostDataFromView> ExtractShipmentFromData(LookupAssetSuccessData data, LookupAlarmSuccessData lookupAlarmSuccessData);
     }
 }

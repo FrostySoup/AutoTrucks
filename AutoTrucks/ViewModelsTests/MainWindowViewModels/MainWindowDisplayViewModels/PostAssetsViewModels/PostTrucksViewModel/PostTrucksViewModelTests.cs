@@ -15,6 +15,7 @@ using Service.ConnexionService;
 using Service.DataExtractService;
 using Service.DataConvertService;
 using System.Collections.ObjectModel;
+using Service.ConnexionService.AlarmService;
 
 namespace ViewModels.MainWindowViewModels.Tests
 {
@@ -27,6 +28,7 @@ namespace ViewModels.MainWindowViewModels.Tests
         Mock<ISessionCacheSingleton> sessionCacheSingleton;
         Mock<IDataExtractService> dataExtractService;
         Mock<IDataConvertPostAssetService> dataConvertService;
+        Mock<IAlarmService> alarmService;
 
         PostTrucksViewModel postTrucksViewModel;
         List<string> receivedEvents;
@@ -40,9 +42,10 @@ namespace ViewModels.MainWindowViewModels.Tests
             sessionCacheSingleton = new Mock<ISessionCacheSingleton>();
             dataExtractService = new Mock<IDataExtractService>();
             dataConvertService = new Mock<IDataConvertPostAssetService>();
+            alarmService = new Mock<IAlarmService>();
 
             postTrucksViewModel = new PostTrucksViewModel(windowFactory.Object, postWindowViewModel.Object, connectConnexionService.Object,
-                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object);
+                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, alarmService.Object);
             receivedEvents = new List<string>();
             postTrucksViewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
@@ -92,7 +95,7 @@ namespace ViewModels.MainWindowViewModels.Tests
 
             sessionCacheSingleton.Setup(x => x.sessions).Returns(new List<ISessionFacade>() { session.Object });
             connectConnexionService.Setup(x => x.QueryAllMyAssets(It.IsAny<ISessionFacade>())).Returns(new LookupAssetSuccessData());
-            dataExtractService.Setup(x => x.ExtractEquipmentFromData(It.IsAny<LookupAssetSuccessData>())).Returns(new ObservableCollection<PostDataFromView>()
+            dataExtractService.Setup(x => x.ExtractEquipmentFromData(It.IsAny<LookupAssetSuccessData>(), null)).Returns(new ObservableCollection<PostDataFromView>()
             { value });
             postTrucksViewModel.PostToDisplay = new ObservableCollection<PostDataFromView>()
             {

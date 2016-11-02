@@ -14,15 +14,12 @@ namespace Service.DataConvertService
         {
             PostAssetOperation postAssetOperation = MapPostAssetOperation(postData);
             Equipment equipment = new Equipment();
-            equipment.destination = new EquipmentDestination()
-            {
-                Item = CreatePlace(postData.destinationState, postData.cityDestination)
-            };
+            equipment.destination = CreateEquipmentDestination(postData.destinationState, postData.cityDestination);
             equipment.origin = CreatePlace(postData.originState, postData.cityOrigin);
             equipment.equipmentType = postData.equipmentType;
             postAssetOperation.Item = equipment;
             return postAssetOperation;
-        }       
+        }      
 
         public PostAssetOperation PostDataFromViewShipmentToBaseAsset(PostDataFromView postData)
         {
@@ -79,6 +76,35 @@ namespace Service.DataConvertService
                 latest = availTo,
                 latestSpecified = true
             };
+        }
+
+        private EquipmentDestination CreateEquipmentDestination(StateProvince destinationState, string cityDestination)
+        {
+            if (destinationState == StateProvince.Any)
+                return new EquipmentDestination()
+                {
+                    Item = new Open()
+                };
+            else if (string.IsNullOrEmpty(cityDestination))
+                return new EquipmentDestination()
+                {
+                    Item = new Area()
+                    {
+                        stateProvinces = new StateProvince[] { destinationState }
+                    }
+                };
+            else return new EquipmentDestination()
+            {
+                Item = new Place()
+                {
+                    Item = new CityAndState()
+                    {
+                        stateProvince = destinationState,
+                        city = cityDestination
+                    }
+                }
+            };
+
         }
 
         private Place CreatePlace(StateProvince state, string cityProvided)

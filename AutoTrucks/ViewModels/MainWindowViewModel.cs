@@ -1,5 +1,6 @@
 ﻿using Service.AddNewWindowFactory;
 using Service.Commands;
+using Service.ConnexionService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,10 +26,10 @@ namespace ViewModels
         public ICommand ChangePostLoadsViewModelCommand { get; private set; }
 
         public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IMainWindowDisplayViewModel postLoadsViewModel,
-             IMainWindowDisplayViewModel searchLoadsViewModel,
-             IMainWindowDisplayViewModel searchTrucksViewModel, IMainWindowDisplayViewModel postTrucksViewModel)
+             IMainWindowDisplayViewModel searchLoadsViewModel, IMainWindowDisplayViewModel searchTrucksViewModel, 
+             IMainWindowDisplayViewModel postTrucksViewModel)
         {           
-            this.topButtonsViewModel = topButtonsViewModel;           
+            this.topButtonsViewModel = topButtonsViewModel;
 
             this.ChangePostTrucksViewModelCommand = new DelegateCommand(o => this.ChangeViewModel());
             this.ChangePostLoadsViewModelCommand = new DelegateCommand(o => this.ChangeViewModel());
@@ -40,6 +41,19 @@ namespace ViewModels
             this.searchTrucksViewModel = searchTrucksViewModel;
             this.postTrucksViewModel = postTrucksViewModel;
         }
+        /*
+        private void SetCapabilieties()
+        {
+            if (sessionCacheSingleton.sessions[0] != null)
+            {
+                var res = connectConnexionService.RetrieveUserCapabilities(sessionCacheSingleton.sessions[0], new CapabilityType[] {
+                    CapabilityType.ManagePostings,
+                    CapabilityType.Search,
+                    CapabilityType.AlarmMatch
+                    });
+                int a = 45;
+            }
+        }*/
 
         private void ChangeViewModel()
         {

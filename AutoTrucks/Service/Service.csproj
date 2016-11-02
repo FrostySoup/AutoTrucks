@@ -88,6 +88,9 @@
   <ItemGroup>
     <Compile Include="ColorListHolder\ColorListHolder.cs" />
     <Compile Include="ColorListHolder\IColorListHolder.cs" />
+    <Compile Include="ConnexionService\AlarmService\AlarmService.cs" />
+    <Compile Include="ConnexionService\AlarmService\HttpServer.cs" />
+    <Compile Include="ConnexionService\AlarmService\IAlarmService.cs" />
     <Compile Include="ConnexionService\SessionCacheSingleton\ISessionCacheSingleton.cs" />
     <Compile Include="ConnexionService\SessionFacade\ISessionFacade.cs" />
     <Compile Include="DataConvertService\DataConvertPostAssetService.cs" />

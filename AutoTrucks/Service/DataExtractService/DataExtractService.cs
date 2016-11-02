@@ -11,7 +11,7 @@ namespace Service.DataExtractService
 {
     public class DataExtractService : IDataExtractService
     {
-        public ObservableCollection<PostDataFromView> ExtractEquipmentFromData(LookupAssetSuccessData data)
+        public ObservableCollection<PostDataFromView> ExtractEquipmentFromData(LookupAssetSuccessData data, LookupAlarmSuccessData lookupAlarmSuccessData)
         {
             ObservableCollection<PostDataFromView> postDataFromViewCollection = new ObservableCollection<PostDataFromView>();
 
@@ -19,12 +19,13 @@ namespace Service.DataExtractService
             if (data.assets != null)
             {
                 foreach (var item in data.assets)
-                {
+                {                   
                     Equipment equipment = item.Item as Equipment;
                     if (equipment != null)
                     {
                         postDataFromView = MapSameParams(item, equipment.origin, equipment.equipmentType);
-                        postDataFromView.destinationState = GetLocationFromEquipmentDestination(equipment.destination);
+                        postDataFromView.destinationState = GetLocationFromEquipmentDestination(equipment.destination);                       
+                        postDataFromView.alarm = SetupAlarm(lookupAlarmSuccessData, item.assetId);
                         postDataFromViewCollection.Add(postDataFromView);
                     }
                 }
@@ -32,7 +33,18 @@ namespace Service.DataExtractService
             return postDataFromViewCollection;
         }
 
-        public ObservableCollection<PostDataFromView> ExtractShipmentFromData(LookupAssetSuccessData data)
+        private Alarm SetupAlarm(LookupAlarmSuccessData lookupAlarmSuccessData, string id)
+        {
+            if (lookupAlarmSuccessData != null && lookupAlarmSuccessData.alarms != null)
+                foreach (Alarm alarm in lookupAlarmSuccessData.alarms)
+                {
+                    if (alarm.basisAssetId.Equals(id))
+                        return alarm;
+                }
+            return null;
+        }
+
+        public ObservableCollection<PostDataFromView> ExtractShipmentFromData(LookupAssetSuccessData data, LookupAlarmSuccessData lookupAlarmSuccessData)
         {
             ObservableCollection<PostDataFromView> postDataFromViewCollection = new ObservableCollection<PostDataFromView>();
 
@@ -46,6 +58,7 @@ namespace Service.DataExtractService
                     {
                         postDataFromView = MapSameParams(item, shipment.origin, shipment.equipmentType);
                         postDataFromView.destinationState = GetLocationFromPlace(shipment.destination);
+                        postDataFromView.alarm = SetupAlarm(lookupAlarmSuccessData, item.assetId);
                         postDataFromViewCollection.Add(postDataFromView);
                     }
                 }
@@ -64,8 +77,8 @@ namespace Service.DataExtractService
             }
             data.equipmentType = equipmentType;
             data.originState = GetLocationFromPlace(origin);           
-            data.DHO = -1;
-            data.DHD = -1;
+            data.DHO = 150;
+            data.DHD = 150;
             data.fullOrPartial = GetFullOrPartial(item.ltl);
             if (item.dimensions != null)
             {
@@ -107,6 +120,14 @@ namespace Service.DataExtractService
                     var namedLatLon = destinationItem.Item as NamedLatLon;
                     if (namedLatLon != null)
                         return namedLatLon.stateProvince;
+                }else
+                {
+                    var destinationAreaItem = destination.Item as Area;
+                    if (destinationAreaItem != null)
+                    {
+                        if (destinationAreaItem.stateProvinces.Length > 0)
+                            return destinationAreaItem.stateProvinces[0];
+                    }
                 }
             }
             return StateProvince.Any;

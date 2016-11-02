@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 
 namespace Service.ConnexionService
 {
@@ -8,6 +9,9 @@ namespace Service.ConnexionService
         {
             get;
         }
+
+        System.Uri defaultURL { get; }
+
         void RenewSessionsForEachData();
     }
 }

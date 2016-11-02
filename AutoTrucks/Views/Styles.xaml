@@ -108,6 +108,13 @@
         <Setter Property="Height" Value="30"/>
     </Style>
 
+    <!--Toogle switch-->
+    <Style x:Key="GroupToogleButton" TargetType="Controls:ToggleSwitch">
+        <Setter Property="Header" Value="Show all my group posts"/>
+        <Setter Property="OnLabel" Value="Yes"/>
+        <Setter Property="OffLabel" Value="No"/>
+    </Style>
+
     <!--RangeSlider-->
 
     <Style x:Key="BasicRangeSlider" TargetType="Controls:RangeSlider">

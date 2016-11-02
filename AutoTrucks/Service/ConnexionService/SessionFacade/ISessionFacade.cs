@@ -25,7 +25,12 @@ namespace Service.ConnexionService
 
         LookupAssetSuccessData QueryAllMyAssets(LookupAssetRequest lookupRequest);
         Data DeleteAssetsById(DeleteAssetRequest deleteAssetRequest);
+        void UpdateAlarmUrl(Uri alarmUrl);
         string PostNewAsset(PostAssetRequest postAssetRequest);
+        bool[] CheckUserCapabilities(LookupCapabilitiesRequest lookupCapabilietiesRequest);
+        Alarm CreateNewAlert(CreateAlarmRequest createAlarmRequest);
+        LookupAlarmSuccessData QueryAllAlarms(LookupAlarmRequest createAlarmRequest);
+        LookupAlarmUrlSuccessData LookupCurrentAlarmUrl(LookupAlarmUrlRequest lookupAlarmUrlRequest);
 
         // void UpdateAlarm(string alarmUrl);
 

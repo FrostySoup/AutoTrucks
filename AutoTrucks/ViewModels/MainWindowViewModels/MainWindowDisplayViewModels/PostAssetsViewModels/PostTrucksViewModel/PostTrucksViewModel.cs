@@ -9,14 +9,15 @@ using System.Collections.ObjectModel;
 using Service.ConnexionService;
 using Service.DataExtractService;
 using Service.DataConvertService;
+using Service.ConnexionService.AlarmService;
 
 namespace ViewModels.MainWindowViewModels
 {
     public class PostTrucksViewModel : AssetsAbstractViewModel, IMainWindowDisplayViewModel
     {
         public PostTrucksViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService,
-            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService) 
-            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService)
+            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IAlarmService alarmService) 
+            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, alarmService)
         {
             this.dataExtractService = dataExtractService;
             this.OpenPostAssetWindowCommand = new DelegateCommand(o => this.OpenPostAssetWindow());
@@ -29,9 +30,9 @@ namespace ViewModels.MainWindowViewModels
             throw new NotImplementedException();
         }
 
-        protected override void convertData(LookupAssetSuccessData lookupAssetSuccessData)
+        protected override void convertData(LookupAssetSuccessData lookupAssetSuccessData, LookupAlarmSuccessData lookupAlarmSuccessData)
         {
-            postAssets = dataExtractService.ExtractEquipmentFromData(lookupAssetSuccessData);
+            postAssets = dataExtractService.ExtractEquipmentFromData(lookupAssetSuccessData, lookupAlarmSuccessData);
         }
 
         protected override PostAssetOperation convertAssetIntoBaseType(PostDataFromView postData)
