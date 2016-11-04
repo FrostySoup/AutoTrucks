@@ -107,22 +107,27 @@ namespace Service.ConnexionService.AlarmService
                         var value = new StreamReader(context.InputStream);
                         string something = value.ReadToEnd();
 
-                        XDocument xml = XDocument.Parse(something);
+                        XNamespace ns = "http://www.tcore.com/TfmiAlarmMatch.xsd";
+                        XNamespace tfm1 = "http://www.tcore.com/TfmiFreightMatching.xsd";
 
-                        XmlSerializer serializer = new XmlSerializer(typeof(AlarmMatchNotification));
+                        XDocument doc = XDocument.Parse(something);
+                        List<XElement> result = doc.Elements("LoginResponse").ToList();
 
-                        var results = from result in xml.Descendants(XName.Get("Body"))
-                                      select result.Element("alarmMatchNotification");
-                        var results2 = from result in xml.Descendants(XName.Get("Body"))
-                                      select result.Element("tfm:alarmMatchNotification");
-                        int a = 5;
+                        IEnumerable<XElement> responses = doc.Descendants(ns + "alarmMatchNotification");
+                        IEnumerable<XElement> responseAsset = doc.Descendants(tfm1 + "asset");
+
+
+
+                        foreach (XElement response in responses)
+                        {
+                            string json = JsonConvert.SerializeXNode(response);
+                            dynamic dynObj = JsonConvert.DeserializeObject(json);
+                            var s = (string)response.Element(ns + "alarmId");
+                            var s2 = response.Element(ns + "match");
+                            int a = 5;
+                        }
+
                         //AlarmMatchNotification results = (AlarmMatchNotification)Deserialize(something, typeof(AlarmMatchNotification));
-
-                        //XmlTypeMapping myTypeMapping = (new SoapReflectionImporter().
-                        // ImportTypeMapping(typeof(AlarmMatchNotification)));
-                        //XmlSerializer mySerializer = new XmlSerializer(myTypeMapping);
-
-                        //AlarmMatchNotification result = mySerializer.Deserialize(context.InputStream) as AlarmMatchNotification;
                         System.IO.File.WriteAllText(@"E:\connexionQS\Rez.txt", something);
                     }
                     else
