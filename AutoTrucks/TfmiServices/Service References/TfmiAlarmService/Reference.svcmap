@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9df110ca-30cb-41e4-96bb-1fe8287f1eae" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://www.transcoreservices.com/wsdl/TfmiAlarmMatch.wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="TcoreTypes.xsd" MetadataType="Schema" ID="712d27f3-8463-4572-bb8c-86e359a036e4" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/TcoreTypes.xsd" />
+    <MetadataFile FileName="TcoreHeaders.xsd" MetadataType="Schema" ID="ab92f2d6-2ef3-491e-8e60-352449c44257" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/TcoreHeaders.xsd" />
+    <MetadataFile FileName="TcoreDobTypes.xsd" MetadataType="Schema" ID="9f284c51-db6c-4d77-8f32-497271a103c0" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/TcoreDobTypes.xsd" />
+    <MetadataFile FileName="TfmiAlarmMatch.xsd" MetadataType="Schema" ID="a6a7b149-8a7c-4625-bc85-aafad9f96cc7" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/TfmiAlarmMatch.xsd" />
+    <MetadataFile FileName="TfmiFreightMatching.xsd" MetadataType="Schema" ID="0e6995c7-eca7-458d-9a99-70110ce6e8ec" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/TfmiFreightMatching.xsd" />
+    <MetadataFile FileName="TcoreCarrierWatchTypes.xsd" MetadataType="Schema" ID="79f12efb-940a-45c2-8755-7e324c76b70b" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/TcoreCarrierWatchTypes.xsd" />
+    <MetadataFile FileName="soap-envelope.xsd" MetadataType="Schema" ID="a6538d7f-4959-4ea2-a457-06fa2b1fd3df" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/soap-envelope.xsd" />
+    <MetadataFile FileName="TcoreMessage.xsd" MetadataType="Schema" ID="204110e1-f5ed-4116-bebf-c9a9a85634f1" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/TcoreMessage.xsd" />
+    <MetadataFile FileName="TfmiAlarmMatch.wsdl" MetadataType="Wsdl" ID="d816c326-17cc-4aaf-91df-93b0d1772fd8" SourceId="1" SourceUrl="http://www.transcoreservices.com/wsdl/TfmiAlarmMatch.wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

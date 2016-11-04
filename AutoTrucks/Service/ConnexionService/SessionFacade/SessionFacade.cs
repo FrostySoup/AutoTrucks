@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -260,7 +261,7 @@ namespace Service.ConnexionService
 
         public void UpdateAlarmUrl(Uri alarmUrl)
         {
-            /*
+            
             UpdateAlarmUrlRequest request = new UpdateAlarmUrlRequest()
             {
                 updateAlarmUrlOperation = new UpdateAlarmUrlOperation()
@@ -289,7 +290,7 @@ namespace Service.ConnexionService
                 {
                     var serviceError = updateAlarmUrlResponse.updateAlarmUrlResult.Item as ServiceError;
                 }
-            }*/
+            }
         }
 
         public LookupAlarmUrlSuccessData LookupCurrentAlarmUrl(LookupAlarmUrlRequest lookupAlarmUrlRequest)

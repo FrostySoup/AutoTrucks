@@ -1,7 +1,17 @@
-﻿using System;
+﻿using Model.TFMIProxy;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using System.Threading;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using TfmiServices.TfmiAlarmService;
 
 namespace Service.ConnexionService.AlarmService
 {
@@ -25,8 +35,17 @@ namespace Service.ConnexionService.AlarmService
 
         public void Start(string port)
         {
-            _listener.Prefixes.Add(String.Format(@"{0}/", port));
-            _listener.Start();
+            if (_listener.Prefixes.Count > 0)
+                _listener.Prefixes.Clear();
+            _listener.Prefixes.Add("http://192.168.10.118:1010/AlarmMatch/");
+            try
+            {
+                _listener.Start();
+            }
+            catch (HttpListenerException hlex)
+            {
+                return;
+            }
             _listenerThread.Start();
 
             for (int i = 0; i < _workers.Length; i++)
@@ -55,7 +74,9 @@ namespace Service.ConnexionService.AlarmService
                 var context = _listener.BeginGetContext(ContextReady, null);
 
                 if (0 == WaitHandle.WaitAny(new[] { _stop, context.AsyncWaitHandle }))
+                {
                     return;
+                }
             }
         }
 
@@ -77,11 +98,33 @@ namespace Service.ConnexionService.AlarmService
             WaitHandle[] wait = new[] { _ready, _stop };
             while (0 == WaitHandle.WaitAny(wait))
             {
-                HttpListenerContext context;
+                HttpListenerRequest context;
                 lock (_queue)
                 {
                     if (_queue.Count > 0)
-                        context = _queue.Dequeue();
+                    {
+                        context = _queue.Dequeue().Request;
+                        var value = new StreamReader(context.InputStream);
+                        string something = value.ReadToEnd();
+
+                        XDocument xml = XDocument.Parse(something);
+
+                        XmlSerializer serializer = new XmlSerializer(typeof(AlarmMatchNotification));
+
+                        var results = from result in xml.Descendants(XName.Get("Body"))
+                                      select result.Element("alarmMatchNotification");
+                        var results2 = from result in xml.Descendants(XName.Get("Body"))
+                                      select result.Element("tfm:alarmMatchNotification");
+                        int a = 5;
+                        //AlarmMatchNotification results = (AlarmMatchNotification)Deserialize(something, typeof(AlarmMatchNotification));
+
+                        //XmlTypeMapping myTypeMapping = (new SoapReflectionImporter().
+                        // ImportTypeMapping(typeof(AlarmMatchNotification)));
+                        //XmlSerializer mySerializer = new XmlSerializer(myTypeMapping);
+
+                        //AlarmMatchNotification result = mySerializer.Deserialize(context.InputStream) as AlarmMatchNotification;
+                        System.IO.File.WriteAllText(@"E:\connexionQS\Rez.txt", something);
+                    }
                     else
                     {
                         _ready.Reset();
@@ -89,8 +132,6 @@ namespace Service.ConnexionService.AlarmService
                     }
                 }
 
-                try { ProcessRequest(context); }
-                catch (Exception e) { Console.Error.WriteLine(e); }
             }
         }
 

@@ -26,7 +26,7 @@ namespace Service.ConnexionService
         {
             string host = "";
             string path = "/AlarmMatch";
-            int port = 30000;
+            int port = 1010;
             var uriBuilder = new UriBuilder
             {
                 Scheme = "http",
@@ -42,10 +42,10 @@ namespace Service.ConnexionService
                 else
                 {
                     string hostName = Dns.GetHostName();
-                    //IPAddress[] addresses = Dns.GetHostAddresses(hostName);
-                    //ipAddress = addresses.First(x => x.AddressFamily == AddressFamily.InterNetwork);
+                    IPAddress[] addresses = Dns.GetHostAddresses(hostName);
+                    ipAddress = addresses.First(x => x.AddressFamily == AddressFamily.InterNetwork);
                 }
-                uriBuilder.Host = "37.192.181.55";
+                uriBuilder.Host = "88.119.98.103";
                 uri = uriBuilder.Uri;
             }
             return uri;
@@ -83,7 +83,7 @@ namespace Service.ConnexionService
                 ISessionFacade sessionFacade = connectConnexionService.LoginToConnexion(data.UserName, data.Password);
                 if (sessionFacade != null)
                 {
-                    //sessionFacade.UpdateAlarmUrl(defaultURL);
+                    sessionFacade.UpdateAlarmUrl(defaultURL);
                     sessions.Add(sessionFacade);
                 }
             }

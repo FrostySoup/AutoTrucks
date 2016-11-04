@@ -43,6 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -136,6 +137,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{ae228186-bc44-4a14-8148-6918e1a88759}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TfmiServices\TfmiServices.csproj">
+      <Project>{94ef477d-4041-4f50-b1bd-66333464faf1}</Project>
+      <Name>TfmiServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\Views\Views.csproj">
       <Project>{CD04E4FF-F809-4D08-8200-552BA59AD3BB}</Project>

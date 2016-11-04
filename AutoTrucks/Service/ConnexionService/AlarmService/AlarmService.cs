@@ -24,7 +24,7 @@ namespace Service.ConnexionService.AlarmService
             DateTime deadline = DateTime.Now + Timeout;
 
             // listener implements IDisposable to allow cleanup of HTTP ports
-            using (var listener = new Listener(alarmUrl, deadline))
+            using (var listener = new Listener(new Uri("http://192.168.10.118:1010/AlarmMatch"), deadline))
             {
                 var cancellableWaitForAlarm = new CancellationTokenSource();
 

@@ -33,6 +33,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,10 +57,21 @@
     <Compile Include="ReceiveData\Login\Token.cs" />
     <Compile Include="SendData\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TFMIProxy\TFMIProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ReceiveData\CreateSearch\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TfmiServices\TfmiServices.csproj">
+      <Project>{94EF477D-4041-4F50-B1BD-66333464FAF1}</Project>
+      <Name>TfmiServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

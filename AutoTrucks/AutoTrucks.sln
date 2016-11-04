@@ -6,23 +6,40 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoTrucks", "AutoTrucks\AutoTrucks.csproj", "{8BE8FA74-D8F2-490A-A467-3B72D2128009}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{AE228186-BC44-4A14-8148-6918E1A88759}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94EF477D-4041-4F50-B1BD-66333464FAF1} = {94EF477D-4041-4F50-B1BD-66333464FAF1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{6D225BB9-0378-402B-840E-E15771BEE942}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94EF477D-4041-4F50-B1BD-66333464FAF1} = {94EF477D-4041-4F50-B1BD-66333464FAF1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{2299DBD5-BEC6-4036-9184-A3BB8E765180}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94EF477D-4041-4F50-B1BD-66333464FAF1} = {94EF477D-4041-4F50-B1BD-66333464FAF1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Views", "Views\Views.csproj", "{CD04E4FF-F809-4D08-8200-552BA59AD3BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitySingleton", "UnitySingleton\UnitySingleton.csproj", "{3F49F58C-A3B1-449A-A545-1EDB1D79A867}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelsTests", "ViewModelsTests\ViewModelsTests.csproj", "{863C7C17-DB33-4A4F-ADCF-E350A3FA10DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94EF477D-4041-4F50-B1BD-66333464FAF1} = {94EF477D-4041-4F50-B1BD-66333464FAF1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTests", "ServiceTests\ServiceTests.csproj", "{397A129C-BEFB-441F-BBE8-84AE0F201116}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94EF477D-4041-4F50-B1BD-66333464FAF1} = {94EF477D-4041-4F50-B1BD-66333464FAF1}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FF624884-31AE-4221-80D8-6A667299BFF6}"
 	ProjectSection(SolutionItems) = preProject
 		AutoTrucks.runsettings = AutoTrucks.runsettings
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfmiServices", "TfmiServices\TfmiServices.csproj", "{94EF477D-4041-4F50-B1BD-66333464FAF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +79,10 @@ Global
 		{397A129C-BEFB-441F-BBE8-84AE0F201116}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{397A129C-BEFB-441F-BBE8-84AE0F201116}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{397A129C-BEFB-441F-BBE8-84AE0F201116}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94EF477D-4041-4F50-B1BD-66333464FAF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94EF477D-4041-4F50-B1BD-66333464FAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94EF477D-4041-4F50-B1BD-66333464FAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94EF477D-4041-4F50-B1BD-66333464FAF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

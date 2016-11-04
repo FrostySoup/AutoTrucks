@@ -96,6 +96,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             }
             var url = connectConnexionService.LookupAlarmUrl(sessionCacheSingleton.sessions[0]);
             httpServer.Start(sessionCacheSingleton.defaultURL.AbsoluteUri);
+            //alarmService.Execute(sessionCacheSingleton.sessions[0], null);
         }
 
         protected void GetExistingAssets()

@@ -13,30 +13,6 @@ namespace Service.DataConvertService
     public class DataConvertService : IDataConvertService
     {
 
-        /*
-        private GeoCriteria ToSearchRadius(StateProvince province, int dh, string cityProvided)
-        {
-            return new GeoCriteria
-            {
-                Item = new SearchRadius
-                {
-                    place = new Place()
-                    {
-                        Item = new CityAndState()
-                        {
-                            stateProvince = province,
-                            city = cityProvided
-                        }
-                    },
-                    radius = new Mileage()
-                    {
-                        miles = dh,
-                        method = MileageType.Air
-                    }
-                }
-            };
-        }*/
-
         private Dimensions createDimension(SearchDataFromView searchData)
         {
             Dimensions dimensions = new Dimensions()

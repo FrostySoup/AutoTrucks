@@ -124,6 +124,10 @@
       <Project>{6d225bb9-0378-402b-840e-e15771bee942}</Project>
       <Name>Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TfmiServices\TfmiServices.csproj">
+      <Project>{94ef477d-4041-4f50-b1bd-66333464faf1}</Project>
+      <Name>TfmiServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
