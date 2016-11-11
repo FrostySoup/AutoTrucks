@@ -29,7 +29,7 @@ namespace ViewModels.MainWindowViewModels.Tests
         Mock<ISessionCacheSingleton> sessionCacheSingleton;
         Mock<IDataExtractService> dataExtractService;
         Mock<IDataConvertPostAssetService> dataConvertService;
-        Mock<IAlarmService> alarmService;
+        Mock<IHttpService> httpService;
 
         PostLoadsViewModel postLoadsViewModel;
         List<string> receivedEvents;
@@ -43,10 +43,10 @@ namespace ViewModels.MainWindowViewModels.Tests
             sessionCacheSingleton = new Mock<ISessionCacheSingleton>();
             dataExtractService = new Mock<IDataExtractService>();
             dataConvertService = new Mock<IDataConvertPostAssetService>();
-            alarmService = new Mock<IAlarmService>();
+            httpService = new Mock<IHttpService>();
 
             postLoadsViewModel = new PostLoadsViewModel(windowFactory.Object, postWindowViewModel.Object, connectConnexionService.Object,
-                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, alarmService.Object);
+                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, httpService.Object);
             receivedEvents = new List<string>();
             postLoadsViewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {

@@ -1,7 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.DataFromView;
 using Model.Enums;
+using Moq;
+using Service.ColorListHolder;
 using Service.DataConvertService;
+using Service.DataConvertService.LocationHelp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +18,15 @@ namespace Service.DataConvertService.Tests
     public class DataConvertPostAssetServiceTests
     {
 
+        Mock<ILocationHelper> locationHelper;
+        Mock<IColorListHolder> colorListHolder;
         DataConvertPostAssetService dataConvertPostAssetService;
 
         [TestInitialize]
         public void SetInitialValues()
         {
-            dataConvertPostAssetService = new DataConvertPostAssetService();
+            locationHelper = new Mock<ILocationHelper>();
+            dataConvertPostAssetService = new DataConvertPostAssetService(locationHelper.Object, colorListHolder.Object);
         }
 
         [TestMethod()]

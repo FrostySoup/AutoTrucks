@@ -1,5 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model.Enums;
+using Moq;
+using Service.ColorListHolder;
+using Service.DataConvertService.BaseAssetHelp;
 using Service.DataExtractService;
 using System;
 using System.Collections.Generic;
@@ -13,11 +16,15 @@ namespace Service.DataExtractService.Tests
     public class DataExtractServiceTests
     {
         DataExtractService dataExtractService;
+        Mock<IAssetDisplayHelper> assetDisplayHelper;
+        Mock<IColorListHolder> colorListHolder;
 
         [TestInitialize]
         public void SetInitialValues()
         {
-            dataExtractService = new DataExtractService();
+            assetDisplayHelper = new Mock<IAssetDisplayHelper>();
+            colorListHolder = new Mock<IColorListHolder>();
+            dataExtractService = new DataExtractService(assetDisplayHelper.Object, colorListHolder.Object);
         }
 
         [TestMethod()]

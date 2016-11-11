@@ -37,6 +37,44 @@ namespace Service.ColorListHolder
             ColorList.Add(new ColorItem(Colors.Salmon, "Salmon"));
         }
 
+        public ColorItem GetColorByReferenceId(string referenceId)
+        {          
+            if (referenceId != null && referenceId.Length >= 7)
+            {
+                string id = "" + referenceId[5] + referenceId[6];
+                int results;
+                if (Int32.TryParse(id, out results))
+                {
+                    if (results < ColorList.Count)
+                        return ColorList.ElementAt(results);
+                }
+            }
+            return new ColorItem(Colors.White, "White");
+        }
+
+        public string SetReferenceByColor(Color color)
+        {
+            var colorItem = ColorList.FirstOrDefault(x => x.Color == color);
+            int index = ColorList.IndexOf(colorItem);
+            if (index < 10)
+                return GenerateCode() + "0" + index;
+            return GenerateCode() + index.ToString();
+        }
+
+        private string GenerateCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            return new String(stringChars);
+        }
+
         public ObservableCollection<ColorItem> GetColors()
         {
             return ColorList;

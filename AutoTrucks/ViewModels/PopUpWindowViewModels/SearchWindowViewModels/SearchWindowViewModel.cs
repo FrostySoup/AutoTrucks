@@ -19,9 +19,7 @@ namespace ViewModels.PopUpWindowViewModels
 {
     public class SearchWindowViewModel : NotifyPropertyChangedAbstract, ISearchWindowViewModel
     {
-        //private SearchOperationParams searchData;
-
-
+        
         public SearchDataFromView searchData { get; set; }
 
         private IWindowFactory windowFactory;

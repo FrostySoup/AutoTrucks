@@ -24,6 +24,7 @@
 
         <StackPanel Grid.Row="0" Style="{StaticResource CRUDStackPanel}">
             <Button Command="{Binding StartAlarmsCommand, Mode=OneWay}" Style="{StaticResource StartButton}"/>
+            <Button Command="{Binding StopAlarmCommand, Mode=OneWay}" Style="{StaticResource StopButton}"/>
             <Button Command="{Binding OpenPostAssetWindowCommand, Mode=OneWay}" Style="{StaticResource AddButton}"/>
             <Button Style="{StaticResource EditButton}"/>
             <Button Command="{Binding RemoveAssetsCommand, Mode=OneWay}" Style="{StaticResource DeleteButton}"/>
@@ -59,27 +60,22 @@
             <Button Style="{StaticResource ClearButton}"/>
         </StackPanel>
 
-        <DataGrid Grid.Row="3" x:Name="dataGridCallResults" ItemsSource="{Binding Assets}" Style="{StaticResource ListResultsDataGrid}">
+        <DataGrid Grid.Row="3" x:Name="dataGridCallResults" ItemsSource="{Binding FoundAssets}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="Background" Value="{Binding BackgroundColor}"/>
-                    <Setter Property="Foreground" Value="{Binding ForegroundColor}"/>
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Avail"        Binding="{Binding AvailabilityToString, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Age"          Binding="{Binding AgeToString, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Avail"        Binding="{Binding Avail, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Truck"        Binding="{Binding Truck, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="F/P"          Binding="{Binding FullORPartial, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Origin"       Binding="{Binding OriginToString, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-O"         Binding="{Binding DHOToString, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Destination"  Binding="{Binding DestinationToString, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="DH-D"         Binding="{Binding DHDToString, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="F/P"          Binding="{Binding FullOrPartial, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Origin"       Binding="{Binding Origin, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Destination"  Binding="{Binding Origin, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Company name" Binding="{Binding CompanyName, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Phone number" Binding="{Binding ContactPhone, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Phone number" Binding="{Binding PhoneNumber, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Length"       Binding="{Binding Length, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weight"       Binding="{Binding Weigth, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="InitialO"     Binding="{Binding InitialO, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weight"       Binding="{Binding Weight, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

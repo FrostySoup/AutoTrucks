@@ -32,6 +32,7 @@ namespace Service.ConnexionService
         Alarm CreateNewAlert(CreateAlarmRequest createAlarmRequest);
         LookupAlarmSuccessData QueryAllAlarms(LookupAlarmRequest createAlarmRequest);
         LookupAlarmUrlSuccessData LookupCurrentAlarmUrl(LookupAlarmUrlRequest lookupAlarmUrlRequest);
+        bool DeleteAlarms(DeleteAlarmRequest deleteAlarmRequest);
 
         // void UpdateAlarm(string alarmUrl);
 

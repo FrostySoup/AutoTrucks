@@ -14942,7 +14942,6 @@ public partial class MatchingAsset
 [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.tcore.com/TfmiFreightMatching.xsd")]
 public partial class Asset
 {
-
     private string assetIdField;
 
     private FmeStatus statusField;
@@ -15166,11 +15165,12 @@ public partial class Equipment : BaseAsset
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("svcutil", "4.0.30319.1")]
 [System.SerializableAttribute()]
+[Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.tcore.com/TcoreTypes.xsd")]
 public enum EquipmentType
 {
 
-    /// <remarks/>
+    /// <remarks/>   
     [System.Xml.Serialization.XmlEnumAttribute("Auto Carrier")]
     AutoCarrier,
 
@@ -15291,30 +15291,37 @@ public enum EquipmentType
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Removable Gooseneck")]
+    [System.Runtime.Serialization.EnumMember(Value = "Removable Gooseneck")]
     RemovableGooseneck,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Step Deck")]
+    [System.Runtime.Serialization.EnumMember(Value = "Step Deck")]
     StepDeck,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Stretch Trailer")]
+    [System.Runtime.Serialization.EnumMember(Value = "Stretch Trailer")]
     StretchTrailer,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Tanker, Aluminum")]
+    [System.Runtime.Serialization.EnumMember(Value = "Tanker, Aluminum")]
     TankerAluminum,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Tanker, Intermodal")]
+    [System.Runtime.Serialization.EnumMember(Value = "Tanker, Intermodal")]
     TankerIntermodal,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Tanker, Steel")]
+    [System.Runtime.Serialization.EnumMember(Value = "Tanker, Steel")]
     TankerSteel,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Truck and Trailer")]
+    [System.Runtime.Serialization.EnumMember(Value = "Truck and Trailer")]
     TruckandTrailer,
 
     /// <remarks/>
@@ -15322,106 +15329,132 @@ public enum EquipmentType
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Air-Ride")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Air-Ride")]
     VanAirRide,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Conestoga")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Conestoga")]
     VanConestoga,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Curtain")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Curtain")]
     VanCurtain,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Double")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Double")]
     VanDouble,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, HazMat")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, HazMat")]
     VanHazMat,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Hotshot")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Hotshot")]
     VanHotshot,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Insulated")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Insulated")]
     VanInsulated,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Intermodal")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Intermodal")]
     VanIntermodal,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Lift-Gate")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Lift-Gate")]
     VanLiftGate,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Logistics")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Logistics")]
     VanLogistics,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Open-Top")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Open-Top")]
     VanOpenTop,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Roller Bed")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Roller Bed")]
     VanRollerBed,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Triple")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Triple")]
     VanTriple,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, Vented")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, Vented")]
     VanVented,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van w/Team")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van w/Team")]
     VanwTeam,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van or Flatbed w/Tarps")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van or Flatbed w/Tarps")]
     VanorFlatbedwTarps,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van or Flatbed")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van or Flatbed")]
     VanorFlatbed,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van or Reefer")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van or Reefer")]
     VanorReefer,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Insulated Van or Reefer")]
+    [System.Runtime.Serialization.EnumMember(Value = "Insulated Van or Reefer")]
     InsulatedVanorReefer,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Reefer or Vented Van")]
+    [System.Runtime.Serialization.EnumMember(Value = "Reefer or Vented Van")]
     ReeferorVentedVan,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Flatbed, w/Chains")]
+    [System.Runtime.Serialization.EnumMember(Value = "Flatbed, w/Chains")]
     FlatbedwChains,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Reefer, w/Pallet Exchange")]
+    [System.Runtime.Serialization.EnumMember(Value = "Reefer, w/Pallet Exchange")]
     ReeferwPalletExchange,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, w/Blanket Wrap")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, w/Blanket Wrap")]
     VanwBlanketWrap,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Lowboy or RGN")]
+    [System.Runtime.Serialization.EnumMember(Value = "Lowboy or RGN")]
     LowboyorRGN,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Van, w/Pallet Exchange")]
+    [System.Runtime.Serialization.EnumMember(Value = "Van, w/Pallet Exchange")]
     VanwPalletExchange,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Step Deck or RGN")]
+    [System.Runtime.Serialization.EnumMember(Value = "Step Deck or RGN")]
     StepDeckorRGN,
 
     /// <remarks/>
@@ -15429,10 +15462,12 @@ public enum EquipmentType
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Flatbed, Over Dimension")]
+    [System.Runtime.Serialization.EnumMember(Value = "Flatbed, Over Dimension")]
     FlatbedOverDimension,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Lowboy, Over Dimension")]
+    [System.Runtime.Serialization.EnumMember(Value = "Lowboy, Over Dimension")]
     LowboyOverDimension,
 
     /// <remarks/>
@@ -15440,14 +15475,17 @@ public enum EquipmentType
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Flatbed Conestoga")]
+    [System.Runtime.Serialization.EnumMember(Value = "Flatbed Conestoga")]
     FlatbedConestoga,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Stepdeck Conestoga")]
+    [System.Runtime.Serialization.EnumMember(Value = "Stepdeck Conestoga")]
     StepdeckConestoga,
 
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Straight Box Truck")]
+    [System.Runtime.Serialization.EnumMember(Value = "Straight Box Truck")]
     StraightBoxTruck,
 }
 

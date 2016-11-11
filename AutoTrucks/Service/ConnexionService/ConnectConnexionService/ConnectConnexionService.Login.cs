@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Service.ConnexionService
 {
-    public class ConnectConnexionService : IConnectConnexionService
+    public partial class ConnectConnexionService : IConnectConnexionService
     {
         private string URL = "http://www.transcoreservices.com:8000/TfmiRequest";
 
@@ -22,6 +22,15 @@ namespace Service.ConnexionService
             if (session != null)
                 return true;
             return false;
+        }
+
+        public string PostNewAsset(ISessionFacade session, PostAssetOperation item)
+        {
+            PostAssetRequest postAssetRequest = new PostAssetRequest()
+            {
+                postAssetOperations = new PostAssetOperation[] { item }
+            };
+            return session.PostNewAsset(postAssetRequest);
         }
 
         public ISessionFacade LoginToConnexion(string user, string password)
@@ -109,16 +118,7 @@ namespace Service.ConnexionService
                 }
             };
             return session.DeleteAssetsById(deleteAssetRequest);
-        }
-
-        public string PostNewAsset(ISessionFacade session, PostAssetOperation item)
-        {
-            PostAssetRequest postAssetRequest = new PostAssetRequest()
-            {
-                postAssetOperations = new PostAssetOperation[] { item }
-            };
-            return session.PostNewAsset(postAssetRequest);
-        }
+        }  
 
         private CreateSearchRequest MapSearchOperationWithCreateSearchOperation(CreateSearchOperation searchDataProvided)
         {
@@ -172,6 +172,21 @@ namespace Service.ConnexionService
             return session.QueryAllAlarms(createAlarmRequest);
         }
 
+        public LookupAlarmSuccessData QueryAllMyByIdAlarms(ISessionFacade session, string[] alarmsIds)
+        {
+            LookupAlarmRequest createAlarmRequest = new LookupAlarmRequest()
+            {
+                lookupAlarmOperation = new LookupAlarmOperation()
+                {
+                    Item = new QueryAlarmsByAlarmIds()
+                    {
+                        alarmIds = alarmsIds
+                    }
+                }
+            };
+            return session.QueryAllAlarms(createAlarmRequest);
+        }
+
         public LookupAlarmSuccessData QueryAllMyGroupAlarms(ISessionFacade session)
         {
             LookupAlarmRequest createAlarmRequest = new LookupAlarmRequest()
@@ -193,5 +208,34 @@ namespace Service.ConnexionService
 
             return session.LookupCurrentAlarmUrl(lookupAlarmUrlRequest);
         }
+
+        public bool DeleteAlarms(List<string> ids, ISessionFacade session)
+        {
+            if (ids != null && ids.Count > 0)
+            {
+                DeleteAlarmRequest deleteAlarmRequest = new DeleteAlarmRequest()
+                {
+                    deleteAlarmOperation = new DeleteAlarmOperation()
+                    {
+                        Item = new DeleteAlarmsByAlarmIds()
+                        {
+                            alarmIds = ids.ToArray()
+                        }
+                    }
+                };
+                return session.DeleteAlarms(deleteAlarmRequest);
+            }
+            else
+            {
+                DeleteAlarmRequest deleteAlarmRequest = new DeleteAlarmRequest()
+                {
+                    deleteAlarmOperation = new DeleteAlarmOperation()
+                    {
+                        Item = new DeleteAllMyAlarms()
+                    }
+                };
+                return session.DeleteAlarms(deleteAlarmRequest);
+            }
+        }      
     }
 }

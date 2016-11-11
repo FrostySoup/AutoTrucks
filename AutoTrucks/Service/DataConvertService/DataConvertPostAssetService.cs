@@ -1,23 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model.DataFromView;
 using Model.Enums;
+using Model.ReceiveData.AlarmMatch;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Service.DataConvertService.LocationHelp;
+using Service.ColorListHolder;
 
 namespace Service.DataConvertService
 {
     public class DataConvertPostAssetService : IDataConvertPostAssetService
     {
+        private ILocationHelper locationHelper;
+        private IColorListHolder colorListHolder;
+
+        public DataConvertPostAssetService(ILocationHelper locationHelper, IColorListHolder colorListHolder)
+        {
+            this.locationHelper = locationHelper;
+            this.colorListHolder = colorListHolder;
+        }
+
         public PostAssetOperation PostDataFromViewEquipmentToBaseAsset(PostDataFromView postData)
         {
-            PostAssetOperation postAssetOperation = MapPostAssetOperation(postData);
-            Equipment equipment = new Equipment();
+            PostAssetOperation postAssetOperation = MapPostAssetOperation(postData);            
+            Equipment equipment = new Equipment();       
             equipment.destination = CreateEquipmentDestination(postData.destinationState, postData.cityDestination);
             equipment.origin = CreatePlace(postData.originState, postData.cityOrigin);
             equipment.equipmentType = postData.equipmentType;
             postAssetOperation.Item = equipment;
+            postAssetOperation.postersReferenceId = colorListHolder.SetReferenceByColor(postData.backgroundColor);
             return postAssetOperation;
         }      
 
@@ -29,6 +46,7 @@ namespace Service.DataConvertService
             shipment.origin = CreatePlace(postData.originState, postData.cityOrigin);
             shipment.equipmentType = postData.equipmentType;
             postAssetOperation.Item = shipment;
+            postAssetOperation.postersReferenceId = colorListHolder.SetReferenceByColor(postData.backgroundColor);
             return postAssetOperation;
         }
 
@@ -117,8 +135,6 @@ namespace Service.DataConvertService
                     city = cityProvided
                 }
             };
-
-            //new GeoCriteria() { Item = new SearchOpen() };
         }
     }
 }

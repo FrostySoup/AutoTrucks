@@ -98,8 +98,8 @@ namespace Model.DataFromView
         {
             get
             {
-                if (DHO < 0)
-                    return "-";
+                if (DHO <= 0)
+                    return "50";
                 return DHO.ToString();
             }
         }
@@ -108,8 +108,8 @@ namespace Model.DataFromView
         {
             get
             {
-                if (DHD < 0)
-                    return "-";
+                if (DHD <= 0)
+                    return "50";
                 return DHD.ToString();
             }
         }
@@ -126,6 +126,8 @@ namespace Model.DataFromView
         {
             get
             {
+                if (length <= 0)
+                    return "-";
                 return length.ToString();
             }
         }
@@ -134,6 +136,8 @@ namespace Model.DataFromView
         {
             get
             {
+                if (weight <= 0)
+                    return "-";
                 return weight.ToString();
             }
         }

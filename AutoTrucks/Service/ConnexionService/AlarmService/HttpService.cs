@@ -1,30 +1,30 @@
-﻿using Model.TFMIProxy;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Model.ReceiveData.AlarmMatch;
+using Service.DataExtractService;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System.Collections.ObjectModel;
 using System.Net;
-using System.Runtime.Serialization.Json;
 using System.Threading;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using TfmiServices.TfmiAlarmService;
+using System.Windows.Input;
 
 namespace Service.ConnexionService.AlarmService
 {
-    public class HttpServer : IDisposable
+    public class HttpService : IHttpService
     {
         private readonly HttpListener _listener;
         private readonly Thread _listenerThread;
         private readonly Thread[] _workers;
         private readonly ManualResetEvent _stop, _ready;
         private Queue<HttpListenerContext> _queue;
+        private readonly IDataExtractService _dataExtractService;
+        private List<DisplayFoundAsset> _foundAssets;
+        public ICommand AssetUpdatedCommand { get; set; }
 
-        public HttpServer(int maxThreads)
+        public HttpService(IDataExtractService dataExtractService)
         {
+            int maxThreads = 30;
+            _foundAssets = new List<DisplayFoundAsset>();
+            _dataExtractService = dataExtractService;
             _workers = new Thread[maxThreads];
             _queue = new Queue<HttpListenerContext>();
             _stop = new ManualResetEvent(false);
@@ -41,18 +41,18 @@ namespace Service.ConnexionService.AlarmService
             try
             {
                 _listener.Start();
+                _listenerThread.Start();
+
+                for (int i = 0; i < _workers.Length; i++)
+                {
+                    _workers[i] = new Thread(Worker);
+                    _workers[i].Start();
+                }
             }
             catch (HttpListenerException hlex)
             {
                 return;
-            }
-            _listenerThread.Start();
-
-            for (int i = 0; i < _workers.Length; i++)
-            {
-                _workers[i] = new Thread(Worker);
-                _workers[i].Start();
-            }
+            }           
         }
 
         public void Dispose()
@@ -104,31 +104,15 @@ namespace Service.ConnexionService.AlarmService
                     if (_queue.Count > 0)
                     {
                         context = _queue.Dequeue().Request;
-                        var value = new StreamReader(context.InputStream);
-                        string something = value.ReadToEnd();
-
-                        XNamespace ns = "http://www.tcore.com/TfmiAlarmMatch.xsd";
-                        XNamespace tfm1 = "http://www.tcore.com/TfmiFreightMatching.xsd";
-
-                        XDocument doc = XDocument.Parse(something);
-                        List<XElement> result = doc.Elements("LoginResponse").ToList();
-
-                        IEnumerable<XElement> responses = doc.Descendants(ns + "alarmMatchNotification");
-                        IEnumerable<XElement> responseAsset = doc.Descendants(tfm1 + "asset");
-
-
-
-                        foreach (XElement response in responses)
+                        DisplayFoundAsset displayFoundAsset = _dataExtractService.ConvertContextToDisplayFoundAsset(context.InputStream);
+                        if (displayFoundAsset != null)
                         {
-                            string json = JsonConvert.SerializeXNode(response);
-                            dynamic dynObj = JsonConvert.DeserializeObject(json);
-                            var s = (string)response.Element(ns + "alarmId");
-                            var s2 = response.Element(ns + "match");
-                            int a = 5;
+                            lock (_foundAssets)
+                            {
+                                _foundAssets.Add(displayFoundAsset);
+                                AssetUpdatedCommand.Execute(null);
+                            }
                         }
-
-                        //AlarmMatchNotification results = (AlarmMatchNotification)Deserialize(something, typeof(AlarmMatchNotification));
-                        System.IO.File.WriteAllText(@"E:\connexionQS\Rez.txt", something);
                     }
                     else
                     {
@@ -138,6 +122,16 @@ namespace Service.ConnexionService.AlarmService
                 }
 
             }
+        }
+
+        public ObservableCollection<DisplayFoundAsset> GetAssets()
+        {
+            return new ObservableCollection<DisplayFoundAsset>(_foundAssets);
+        }
+
+        public void BindCommand(ICommand assetUpdatedCommand)
+        {
+            this.AssetUpdatedCommand = assetUpdatedCommand;
         }
 
         public event Action<HttpListenerContext> ProcessRequest;

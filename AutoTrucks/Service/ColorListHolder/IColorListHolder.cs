@@ -11,5 +11,7 @@ namespace Service.ColorListHolder
     public interface IColorListHolder
     {
         ObservableCollection<ColorItem> GetColors();
+        ColorItem GetColorByReferenceId(string referenceId);
+        string SetReferenceByColor(System.Windows.Media.Color color);
     }
 }

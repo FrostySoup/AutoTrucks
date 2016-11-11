@@ -1,4 +1,5 @@
 ﻿using Model.DataFromView;
+using Model.ReceiveData.AlarmMatch;
 using Service.AddNewWindowFactory;
 using Service.Commands;
 using Service.ConnexionService;
@@ -26,8 +27,6 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
 
         private ISessionCacheSingleton sessionCacheSingleton;
 
-        private IAlarmService alarmService;
-
         protected bool isGroupSelected;
 
         protected IDataExtractService dataExtractService;
@@ -36,26 +35,44 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
 
         protected IDataConvertPostAssetService dataConvertService;
 
-        protected HttpServer httpServer;
+        protected IHttpService httpService;
 
         public ICommand OpenPostAssetWindowCommand { get; set; }
         public ICommand PostTruckCommand { get; set; }
         public ICommand RemoveAssetsCommand { get; set; }
         public ICommand StartAlarmsCommand { get; set; }
+        public ICommand StopAlarmCommand { get; set; }
+        public ICommand AssetUpdatedCommand { get; set; }
 
         protected AssetsAbstractViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService,
-            ISessionCacheSingleton sessionCacheSingleton, IDataConvertPostAssetService dataConvertService, IAlarmService alarmService)
+            ISessionCacheSingleton sessionCacheSingleton, IDataConvertPostAssetService dataConvertService, IHttpService httpService)
         {
             this.RemoveAssetsCommand = new DelegateCommand(o => this.RemoveSelectedAssets());
             this.StartAlarmsCommand = new DelegateCommand(o => this.StartAlarms());
+            this.StopAlarmCommand = new DelegateCommand(o => this.StopAlarms());
+            this.AssetUpdatedCommand = new DelegateCommand(o => this.AssetUpdated());
             postAssets = new ObservableCollection<PostDataFromView>();
             this.windowFactory = windowFactory;
             this.postWindowViewModel = postWindowViewModel;
             this.connectConnexionService = connectConnexionService;
             this.sessionCacheSingleton = sessionCacheSingleton;
             this.dataConvertService = dataConvertService;
-            this.alarmService = alarmService;
-            httpServer = new HttpServer(3);
+            this.httpService = httpService;
+            this.httpService.BindCommand(AssetUpdatedCommand);
+        }
+
+        private void AssetUpdated()
+        {
+            OnPropertyChanged("FoundAssets");
+        }
+
+        private void StopAlarms()
+        {
+            if (CheckSession())
+            {
+                connectConnexionService.DeleteAlarms(null, sessionCacheSingleton.sessions.FirstOrDefault());
+            }
+            httpService.Stop();
         }
 
         private void StartAlarms()
@@ -67,8 +84,6 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                     //Transfer this code somewhere else later
                     if (asset.alarm == null) {
                         var alarmSearchCriteria = new AlarmSearchCriteria();
-                        alarmSearchCriteria.ageLimitMinutes = 4000;
-                        alarmSearchCriteria.ageLimitMinutesSpecified = true;
                         if (asset.DHD > 0)
                             alarmSearchCriteria.destinationRadius = new Mileage()
                             {
@@ -78,25 +93,24 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                         if (asset.DHO > 0)
                             alarmSearchCriteria.originRadius = new Mileage()
                             {
-                                miles = asset.DHD,
+                                miles = asset.DHO,
                                 method = MileageType.Road
                             };
                         else
                             alarmSearchCriteria.originRadius = new Mileage()
                             {
-                                miles = 200,
+                                miles = 50,
                                 method = MileageType.Road
                             };
+                        alarmSearchCriteria.maxMatches = 30;
                         //----------------------------------------------------
                         asset.alarm = connectConnexionService.CreateAlarm(sessionCacheSingleton.sessions[0], asset.ID, alarmSearchCriteria);
                     }
                 }
-                //alarmService.Execute(sessionCacheSingleton.sessions[0], sessionCacheSingleton.defaultURL);
-
-            }
-            var url = connectConnexionService.LookupAlarmUrl(sessionCacheSingleton.sessions[0]);
-            httpServer.Start(sessionCacheSingleton.defaultURL.AbsoluteUri);
-            //alarmService.Execute(sessionCacheSingleton.sessions[0], null);
+            }          
+            OnPropertyChanged("PostToDisplay");
+            //connectConnexionService.QueryAllMyByIdAlarms(sessionCacheSingleton.sessions[0], new string[] { "DA0Gmkda", "DA0Gmkdb" });
+            httpService.Start(sessionCacheSingleton.defaultURL.AbsoluteUri);
         }
 
         protected void GetExistingAssets()
@@ -140,7 +154,8 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             {
                 if (CheckSession())
                 {
-                    connectConnexionService.DeleteAssetsById(sessionCacheSingleton.sessions[0], Ids.ToArray());
+                    connectConnexionService.DeleteAlarms(Ids, sessionCacheSingleton.sessions.FirstOrDefault());
+                    connectConnexionService.DeleteAssetsById(sessionCacheSingleton.sessions.FirstOrDefault(), Ids.ToArray());
                     postAssets = new ObservableCollection<PostDataFromView>(postAssets
                         .Where(x => !Ids.Any(y => y.Equals(x.ID))));                   
                     OnPropertyChanged("PostToDisplay");
@@ -154,7 +169,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             if (postWindowViewModel.saveChanges == true && postWindowViewModel.postData != null)
             {
                 if (CheckSession())
-                {
+                {                    
                     postWindowViewModel.postData.ID = connectConnexionService.PostNewAsset(sessionCacheSingleton.sessions[0], convertAssetIntoBaseType(postWindowViewModel.postData));
                     if (!string.IsNullOrEmpty(postWindowViewModel.postData.ID))
                     {
@@ -196,6 +211,27 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                 if (isGroupSelected)
                     GetExistingMyGroupAssets();
                 else GetExistingAssets();
+            }
+        }
+
+        public ObservableCollection<DisplayFoundAsset> FoundAssets
+        {
+            get
+            {
+                var assets = httpService.GetAssets();
+                if (assets.LastOrDefault() != null)
+                {
+                    string assetId = assets.LastOrDefault().AssetId;
+                    foreach (var post in postAssets)
+                    {
+                        if (assetId.Equals(post.ID))
+                        {
+                            assets.LastOrDefault().BackgroundColor = post.BackgroundColor;
+                            break;
+                        }
+                    }
+                }
+                return assets;
             }
         }
 

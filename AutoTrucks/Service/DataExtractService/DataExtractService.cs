@@ -6,11 +6,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Model.DataFromView;
 using Model.Enums;
+using Model.ReceiveData.AlarmMatch;
+using System.IO;
+using System.Xml.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Service.DataConvertService.BaseAssetHelp;
+using System.Runtime.Serialization.Formatters.Soap;
+using TfmiServices.TfmiAlarmService;
+using System.Xml.Serialization;
+using Service.JSONConverter;
+using Service.ColorListHolder;
 
 namespace Service.DataExtractService
 {
     public class DataExtractService : IDataExtractService
     {
+        private IAssetDisplayHelper assetDisplayHelper;
+
+        private IColorListHolder colorListHolder;
+
+        public DataExtractService(IAssetDisplayHelper assetDisplayHelper, IColorListHolder colorListHolder)
+        {
+            this.colorListHolder = colorListHolder;
+            this.assetDisplayHelper = assetDisplayHelper;
+        }
+
         public ObservableCollection<PostDataFromView> ExtractEquipmentFromData(LookupAssetSuccessData data, LookupAlarmSuccessData lookupAlarmSuccessData)
         {
             ObservableCollection<PostDataFromView> postDataFromViewCollection = new ObservableCollection<PostDataFromView>();
@@ -88,6 +109,7 @@ namespace Service.DataExtractService
             data.TripMinValue = 0;
             data.TripMaxValue = 0;
             data.ID = item.assetId;
+            data.backgroundColor = (System.Windows.Media.Color)colorListHolder.GetColorByReferenceId(item.postersReferenceId).Color;
             return data;
         }
 
@@ -131,6 +153,39 @@ namespace Service.DataExtractService
                 }
             }
             return StateProvince.Any;
+        }
+
+        public DisplayFoundAsset ConvertContextToDisplayFoundAsset(Stream inputStream)
+        {
+            var value = new StreamReader(inputStream);
+            string something = value.ReadToEnd();
+
+            XNamespace ns = "http://www.tcore.com/TfmiAlarmMatch.xsd";
+            XDocument doc = XDocument.Parse(something);
+
+            List<string> removeWords = new List<string> { "tfm:", "tfm1:", "tcor:" };
+
+            IEnumerable<XElement> responses = doc.Descendants(ns + "alarmMatchNotification");
+
+            string json = JsonConvert.SerializeXNode(responses.FirstOrDefault());
+            if (json == null)
+                return null;
+            foreach (string badWord in removeWords)
+            {
+                json = json.Replace(badWord, string.Empty);
+            }        
+            JObject jObject = JObject.Parse(json);
+            JToken jAlarmMatch = jObject["alarmMatchNotification"];
+            JToken jMatch = jAlarmMatch["match"];
+            JToken jAsset = jMatch["asset"];
+
+            MyAsset myAsset = JsonConvert.DeserializeObject<MyAsset>(jAsset.ToString(), new AssetConverter());
+            string basicAssetId = (string)jAlarmMatch["basisAssetId"];
+            string alarmId = (string)jAlarmMatch["alarmId"];
+
+            PostingCallback posting = JsonConvert.DeserializeObject<PostingCallback>(jMatch["callback"].ToString(), new CallbackConverter());
+
+            return assetDisplayHelper.ConvertAssetToDisplayFoundAsset(myAsset.Item, myAsset.status, posting, myAsset.ltl, myAsset.dimensions, basicAssetId);
         }
     }
 }

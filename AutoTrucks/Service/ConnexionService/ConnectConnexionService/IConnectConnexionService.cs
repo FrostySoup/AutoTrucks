@@ -1,5 +1,7 @@
 ﻿
 
+using System.Collections.Generic;
+
 namespace Service.ConnexionService
 {
 
@@ -19,5 +21,8 @@ namespace Service.ConnexionService
         LookupAlarmSuccessData QueryAllMyAlarms(ISessionFacade sessionFacade);
         LookupAlarmSuccessData QueryAllMyGroupAlarms(ISessionFacade sessionFacade);
         LookupAlarmUrlSuccessData LookupAlarmUrl(ISessionFacade sessionFacade);
+        bool DeleteAlarms(List<string> ids, ISessionFacade session);
+
+        LookupAlarmSuccessData QueryAllMyByIdAlarms(ISessionFacade session, string[] alarmsIds);
     }
 }

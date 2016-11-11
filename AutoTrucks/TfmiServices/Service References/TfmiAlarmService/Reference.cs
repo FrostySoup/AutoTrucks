@@ -3496,7 +3496,7 @@ namespace TfmiServices.TfmiAlarmService {
         AlarmExpired,
         
         /// <remarks/>
-        AlarmFulfilled,
+        AlarmFulfilled,        
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

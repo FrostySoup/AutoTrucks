@@ -17,8 +17,8 @@ namespace ViewModels.MainWindowViewModels
     public class PostLoadsViewModel : AssetsAbstractViewModel, IMainWindowDisplayViewModel
     {
         public PostLoadsViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService, 
-            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IAlarmService alarmService)
-            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, alarmService)
+            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IHttpService httpService)
+            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService)
         {
             //var testing = 
             this.dataExtractService = dataExtractService;

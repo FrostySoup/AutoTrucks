@@ -320,6 +320,33 @@ namespace Service.ConnexionService
             return null;
         }
 
+        public bool DeleteAlarms(DeleteAlarmRequest deleteAlarmRequest)
+        {
+            CorrelationHeader correlationHeader = _correlationHeader;
+            SessionHeader sessionHeader = _sessionHeader;
+
+            WarningHeader warningHeader;
+            DeleteAlarmResponse deleteAlarmResponse;
+            _client.DeleteAlarm(_applicationHeader,
+                ref correlationHeader,
+                ref sessionHeader,
+                deleteAlarmRequest,
+                out warningHeader,
+                out deleteAlarmResponse);
+
+
+            if (deleteAlarmResponse != null)
+            {
+                var data = deleteAlarmResponse.deleteAlarmResult.Item as DeleteAlarmSuccessData;
+                if (data == null)
+                {
+                    var serviceError = deleteAlarmResponse.deleteAlarmResult.Item as ServiceError;
+                }
+                else return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// 	Session header needs to be formed from the service's response, not from the ref input parameter of type <see
         ///  	cref="SessionHeader" /> .
@@ -340,6 +367,6 @@ namespace Service.ConnexionService
                            }
             };
         }
-        
+      
     }
 }
