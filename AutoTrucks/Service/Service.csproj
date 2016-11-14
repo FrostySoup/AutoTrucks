@@ -92,7 +92,6 @@
     <Compile Include="ColorListHolder\IColorListHolder.cs" />
     <Compile Include="ConnexionService\AlarmService\HttpService.cs" />
     <Compile Include="ConnexionService\AlarmService\IHttpService.cs" />
-    <Compile Include="ConnexionService\ConnectConnexionService\ConnectConnexionService.Create.cs" />
     <Compile Include="ConnexionService\SessionCacheSingleton\ISessionCacheSingleton.cs" />
     <Compile Include="ConnexionService\SessionFacade\ISessionFacade.cs" />
     <Compile Include="DataConvertService\BaseAssetHelp\AssetDisplayHelper.cs" />

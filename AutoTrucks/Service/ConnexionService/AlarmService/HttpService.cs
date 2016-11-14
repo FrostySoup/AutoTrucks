@@ -40,19 +40,19 @@ namespace Service.ConnexionService.AlarmService
             _listener.Prefixes.Add("http://192.168.10.118:1010/AlarmMatch/");
             try
             {
-                _listener.Start();
-                _listenerThread.Start();
-
-                for (int i = 0; i < _workers.Length; i++)
-                {
-                    _workers[i] = new Thread(Worker);
-                    _workers[i].Start();
-                }
+                _listener.Start();               
             }
             catch (HttpListenerException hlex)
             {
                 return;
-            }           
+            }
+            _listenerThread.Start();
+
+            for (int i = 0; i < _workers.Length; i++)
+            {
+                _workers[i] = new Thread(Worker);
+                _workers[i].Start();
+            }
         }
 
         public void Dispose()
@@ -103,21 +103,23 @@ namespace Service.ConnexionService.AlarmService
                 {
                     if (_queue.Count > 0)
                     {
-                        context = _queue.Dequeue().Request;
-                        DisplayFoundAsset displayFoundAsset = _dataExtractService.ConvertContextToDisplayFoundAsset(context.InputStream);
-                        if (displayFoundAsset != null)
-                        {
-                            lock (_foundAssets)
-                            {
-                                _foundAssets.Add(displayFoundAsset);
-                                AssetUpdatedCommand.Execute(null);
-                            }
-                        }
+                        context = _queue.Dequeue().Request;                        
                     }
                     else
                     {
                         _ready.Reset();
                         continue;
+                    }
+                }
+                if (context != null) {
+                    DisplayFoundAsset displayFoundAsset = _dataExtractService.ConvertContextToDisplayFoundAsset(context.InputStream);
+                    if (displayFoundAsset != null)
+                    {
+                        lock (_foundAssets)
+                        {
+                            _foundAssets.Add(displayFoundAsset);
+                            AssetUpdatedCommand.Execute(null);
+                        }
                     }
                 }
 
@@ -132,6 +134,14 @@ namespace Service.ConnexionService.AlarmService
         public void BindCommand(ICommand assetUpdatedCommand)
         {
             this.AssetUpdatedCommand = assetUpdatedCommand;
+        }
+
+        public void ClearFoundAssets()
+        {
+            lock (_foundAssets)
+            {
+                _foundAssets = new List<DisplayFoundAsset>();
+            }
         }
 
         public event Action<HttpListenerContext> ProcessRequest;

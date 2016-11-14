@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Service.DataExtractService.Tests
 {
@@ -24,6 +25,7 @@ namespace Service.DataExtractService.Tests
         {
             assetDisplayHelper = new Mock<IAssetDisplayHelper>();
             colorListHolder = new Mock<IColorListHolder>();
+            colorListHolder.Setup(x => x.GetColorByReferenceId(It.IsAny<string>())).Returns(new Xceed.Wpf.Toolkit.ColorItem(Color.FromRgb(0, 0, 0), "Color"));
             dataExtractService = new DataExtractService(assetDisplayHelper.Object, colorListHolder.Object);
         }
 
@@ -92,7 +94,8 @@ namespace Service.DataExtractService.Tests
             {
                 Item = new Shipment(),
                 availability = resultsExpected
-            } };
+            } };            
+
             var results = dataExtractService.ExtractShipmentFromData(data, null);
 
             Assert.AreEqual(value, results[0].availFrom);

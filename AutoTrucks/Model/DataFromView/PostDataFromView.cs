@@ -74,7 +74,7 @@ namespace Model.DataFromView
         {
             get
             {
-                return originState.ToString();
+                return String.Format("{0}, {1}", originState, cityOrigin);
             }
         }
 
@@ -82,7 +82,9 @@ namespace Model.DataFromView
         {
             get
             {
-                return destinationState.ToString();
+                if (destinationState == StateProvince.Any)
+                    return destinationState.ToString();
+                return String.Format("{0}, {1}", destinationState, cityDestination);
             }
         }
 

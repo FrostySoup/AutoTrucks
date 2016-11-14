@@ -168,7 +168,7 @@ namespace Service.DataExtractService
             IEnumerable<XElement> responses = doc.Descendants(ns + "alarmMatchNotification");
 
             string json = JsonConvert.SerializeXNode(responses.FirstOrDefault());
-            if (json == null)
+            if (json == null || json.Equals("null"))
                 return null;
             foreach (string badWord in removeWords)
             {

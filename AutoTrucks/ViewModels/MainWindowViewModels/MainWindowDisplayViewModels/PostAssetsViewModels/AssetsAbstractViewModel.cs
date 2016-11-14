@@ -38,15 +38,16 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
         protected IHttpService httpService;
 
         public ICommand OpenPostAssetWindowCommand { get; set; }
-        public ICommand PostTruckCommand { get; set; }
         public ICommand RemoveAssetsCommand { get; set; }
         public ICommand StartAlarmsCommand { get; set; }
         public ICommand StopAlarmCommand { get; set; }
         public ICommand AssetUpdatedCommand { get; set; }
+        public ICommand ClearFoundAssetsCommand { get; set; }
 
         protected AssetsAbstractViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService,
             ISessionCacheSingleton sessionCacheSingleton, IDataConvertPostAssetService dataConvertService, IHttpService httpService)
         {
+            this.ClearFoundAssetsCommand = new DelegateCommand(o => this.ClearFoundAssets());
             this.RemoveAssetsCommand = new DelegateCommand(o => this.RemoveSelectedAssets());
             this.StartAlarmsCommand = new DelegateCommand(o => this.StartAlarms());
             this.StopAlarmCommand = new DelegateCommand(o => this.StopAlarms());
@@ -59,6 +60,12 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             this.dataConvertService = dataConvertService;
             this.httpService = httpService;
             this.httpService.BindCommand(AssetUpdatedCommand);
+        }
+
+        private void ClearFoundAssets()
+        {
+            httpService.ClearFoundAssets();
+            OnPropertyChanged("FoundAssets");
         }
 
         private void AssetUpdated()
@@ -84,13 +91,13 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                     //Transfer this code somewhere else later
                     if (asset.alarm == null) {
                         var alarmSearchCriteria = new AlarmSearchCriteria();
-                        if (asset.DHD > 0)
+                        if (asset.DHD >= 0)
                             alarmSearchCriteria.destinationRadius = new Mileage()
                             {
                                 miles = asset.DHD,
                                 method = MileageType.Road
                             };
-                        if (asset.DHO > 0)
+                        if (asset.DHO >= 0)
                             alarmSearchCriteria.originRadius = new Mileage()
                             {
                                 miles = asset.DHO,
@@ -103,6 +110,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                                 method = MileageType.Road
                             };
                         alarmSearchCriteria.maxMatches = 30;
+                        alarmSearchCriteria.maxMatchesSpecified = true;
                         //----------------------------------------------------
                         asset.alarm = connectConnexionService.CreateAlarm(sessionCacheSingleton.sessions[0], asset.ID, alarmSearchCriteria);
                     }

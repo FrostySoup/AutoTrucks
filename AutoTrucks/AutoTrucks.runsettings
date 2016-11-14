@@ -18,6 +18,7 @@
                 <ModulePath>.*views.dll</ModulePath>
                 <ModulePath>.*ServiceTests.dll</ModulePath>
                 <ModulePath>.*ViewModelsTests.dll</ModulePath>
+                <ModulePath>.*tfmiservices.dll</ModulePath>
               </Exclude>
             </ModulePaths>
 

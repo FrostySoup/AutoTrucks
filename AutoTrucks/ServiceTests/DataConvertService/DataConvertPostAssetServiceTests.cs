@@ -26,6 +26,7 @@ namespace Service.DataConvertService.Tests
         public void SetInitialValues()
         {
             locationHelper = new Mock<ILocationHelper>();
+            colorListHolder = new Mock<IColorListHolder>();
             dataConvertPostAssetService = new DataConvertPostAssetService(locationHelper.Object, colorListHolder.Object);
         }
 

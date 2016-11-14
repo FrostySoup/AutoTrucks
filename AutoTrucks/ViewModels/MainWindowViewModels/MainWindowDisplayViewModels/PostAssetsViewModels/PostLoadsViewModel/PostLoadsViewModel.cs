@@ -20,16 +20,9 @@ namespace ViewModels.MainWindowViewModels
             ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IHttpService httpService)
             : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService)
         {
-            //var testing = 
             this.dataExtractService = dataExtractService;
             this.OpenPostAssetWindowCommand = new DelegateCommand(o => this.OpenPostAssetWindow());
-            this.PostTruckCommand = new DelegateCommand(o => this.PostTruck());
             GetExistingAssets();
-        }
-
-        private void PostTruck()
-        {
-            throw new NotImplementedException();
         }
 
         protected override void convertData(LookupAssetSuccessData lookupAssetSuccessData, LookupAlarmSuccessData lookupAlarmSuccessData)

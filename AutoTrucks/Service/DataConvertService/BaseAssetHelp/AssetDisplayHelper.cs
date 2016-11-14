@@ -63,7 +63,7 @@ namespace Service.DataConvertService.BaseAssetHelp
 
         private string GetAvailFromStatus(FmeStatus status)
         {
-            if (status != null && status.endDate != null)
+            if (status != null && DateTime.Compare(status.endDate, DateTime.Now) >= 0)
             {
                 return status.endDate.ToString("MM/dd");
             }

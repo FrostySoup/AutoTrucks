@@ -57,7 +57,7 @@
         <StackPanel Grid.Row="2" Style="{StaticResource CRUDStackPanel}">
             <TextBlock>Search results Total:0 New:0</TextBlock>
             <Button Style="{StaticResource UndoButton}"/>
-            <Button Style="{StaticResource ClearButton}"/>
+            <Button Command="{Binding ClearFoundAssetsCommand, Mode=OneWay}" Style="{StaticResource ClearButton}"/>
         </StackPanel>
 
         <DataGrid Grid.Row="3" x:Name="dataGridCallResults" ItemsSource="{Binding FoundAssets}" Style="{StaticResource ListResultsDataGrid}">

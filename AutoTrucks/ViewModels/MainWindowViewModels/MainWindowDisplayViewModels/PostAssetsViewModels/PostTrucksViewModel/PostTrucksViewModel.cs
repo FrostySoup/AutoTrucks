@@ -21,13 +21,7 @@ namespace ViewModels.MainWindowViewModels
         {
             this.dataExtractService = dataExtractService;
             this.OpenPostAssetWindowCommand = new DelegateCommand(o => this.OpenPostAssetWindow());
-            this.PostTruckCommand = new DelegateCommand(o => this.PostTruck());
             GetExistingAssets();
-        }
-
-        private void PostTruck()
-        {
-            throw new NotImplementedException();
         }
 
         protected override void convertData(LookupAssetSuccessData lookupAssetSuccessData, LookupAlarmSuccessData lookupAlarmSuccessData)

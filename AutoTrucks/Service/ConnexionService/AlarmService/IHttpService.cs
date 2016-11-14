@@ -19,5 +19,6 @@ namespace Service.ConnexionService.AlarmService
 
         ObservableCollection<DisplayFoundAsset> GetAssets();
         void BindCommand(ICommand assetUpdatedCommand);
+        void ClearFoundAssets();
     }
 }
