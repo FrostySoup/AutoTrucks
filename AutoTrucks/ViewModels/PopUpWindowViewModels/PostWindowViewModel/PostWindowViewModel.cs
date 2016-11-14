@@ -26,6 +26,8 @@ namespace ViewModels.PopUpWindowViewModels.PostWindowViewModel
 
         private IColorListHolder colorListHolder;
 
+        private readonly string windowName = "Post Window";
+
         IWindowFactory windowFactory;
 
         public bool saveChanges { get; set; }
@@ -43,13 +45,13 @@ namespace ViewModels.PopUpWindowViewModels.PostWindowViewModel
         {
             if (postData.originState != StateProvince.Any || postData.destinationState != StateProvince.Any)
                 saveChanges = true;
-            windowFactory.ClosePostWindow();
+            windowFactory.CloseWindowByName(windowName);
         }
 
         private void CloseWindow()
         {
             saveChanges = false;
-            windowFactory.ClosePostWindow();
+            windowFactory.CloseWindowByName(windowName);
         }
 
         #region On property changed Members

@@ -12,23 +12,12 @@ namespace Service.AddNewWindowFactory
 {
     public class WindowFactory : IWindowFactory
     {
-        public void ClosePostWindow()
+        public void CloseWindowByName(string windowName)
         {
             if (Application.Current != null)
                 if (Application.Current.Windows != null)
                 {
-                    Window win = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == "Post Window");
-                    if (win != null)
-                        win.Close();
-                }
-        }
-
-        public void CloseSearchWindow()
-        {
-            if (Application.Current != null)
-                if (Application.Current.Windows != null)
-                {
-                    Window win = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == "Search Window");
+                    Window win = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == windowName);
                     if (win != null)
                         win.Close();
                 }
@@ -49,6 +38,16 @@ namespace Service.AddNewWindowFactory
             if (dataContext != null)
             {
                 LoginView view = new LoginView();
+                view.DataContext = dataContext;
+                view.ShowDialog();
+            }
+        }
+
+        public void CreateNewRemoteConnectionWindow(object dataContext)
+        {
+            if (dataContext != null)
+            {
+                RemoteConnectionView view = new RemoteConnectionView();
                 view.DataContext = dataContext;
                 view.ShowDialog();
             }

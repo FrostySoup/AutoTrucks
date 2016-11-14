@@ -8,11 +8,11 @@ namespace Service.AddNewWindowFactory
 {
     public interface IWindowFactory
     {
+        void CloseWindowByName(string windowName);
         void CreateNewDataSourceWindow(object dataContext);
         void CreateNewLoginWindow(object loginViewModel);
         void CreateNewSearchWindow(object dataContext);
-        void CloseSearchWindow();
+        void CreateNewRemoteConnectionWindow(object dataContext);
         void CreateNewPostAssetWindow(object dataContext);
-        void ClosePostWindow();
     }
 }

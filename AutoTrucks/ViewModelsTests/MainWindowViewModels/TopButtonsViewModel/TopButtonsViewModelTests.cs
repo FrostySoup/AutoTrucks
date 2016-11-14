@@ -1,15 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ViewModels.MainWindowViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 using Moq;
 using ViewModels.PopUpWindowViewModels;
 using Service.AddNewWindowFactory;
 using System.Windows.Input;
+using ViewModels.PopUpWindowViewModels.RemoteConnectionViewModels;
 
 namespace ViewModels.MainWindowViewModels.Tests
 {
@@ -18,6 +13,7 @@ namespace ViewModels.MainWindowViewModels.Tests
     public class TopButtonsViewModelTests
     {
         Mock<IDataSourceViewModel> dataSourceViewModel;
+        Mock<IRemoteConnectionViewModel> remoteConnectionViewModel;
         Mock<IWindowFactory> windowFactory;
         TopButtonsViewModel topButtonsViewModel;
 
@@ -26,7 +22,8 @@ namespace ViewModels.MainWindowViewModels.Tests
         {
             dataSourceViewModel = new Mock<IDataSourceViewModel>();
             windowFactory = new Mock<IWindowFactory>();
-            topButtonsViewModel = new TopButtonsViewModel(windowFactory.Object, dataSourceViewModel.Object);
+            remoteConnectionViewModel = new Mock<IRemoteConnectionViewModel>();
+            topButtonsViewModel = new TopButtonsViewModel(windowFactory.Object, dataSourceViewModel.Object, remoteConnectionViewModel.Object);
         }
 
         [TestMethod()]
@@ -39,7 +36,6 @@ namespace ViewModels.MainWindowViewModels.Tests
         [TestMethod()]
         public void AddCommandNullValuesTest()
         {
-            //sessionCacheSingleton.sessions
             topButtonsViewModel.AddCommand(null, null);
             ICommand ic = topButtonsViewModel.OpenWindowCommand;
             Assert.AreEqual(null, topButtonsViewModel.ChangePostLoadsViewModelCommand);

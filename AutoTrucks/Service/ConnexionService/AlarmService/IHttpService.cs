@@ -13,7 +13,7 @@ namespace Service.ConnexionService.AlarmService
     public interface IHttpService : IDisposable
     {
         void Start(string port);
-        void Dispose();
+        new void Dispose();
         void Stop();
         event Action<HttpListenerContext> ProcessRequest;
 

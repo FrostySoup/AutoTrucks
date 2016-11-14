@@ -107,6 +107,9 @@
     <Compile Include="PopUpWindowViews\PostAssetWindowView.xaml.cs">
       <DependentUpon>PostAssetWindowView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PopUpWindowViews\RemoteConnectionView.xaml.cs">
+      <DependentUpon>RemoteConnectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopUpWindowViews\SearchWindowView.xaml.cs">
       <DependentUpon>SearchWindowView.xaml</DependentUpon>
     </Compile>
@@ -156,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PopUpWindowViews\PostAssetWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopUpWindowViews\RemoteConnectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

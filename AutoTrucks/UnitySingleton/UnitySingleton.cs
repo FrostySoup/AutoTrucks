@@ -17,6 +17,7 @@ using ViewModels;
 using ViewModels.MainWindowViewModels;
 using ViewModels.PopUpWindowViewModels;
 using ViewModels.PopUpWindowViewModels.PostWindowViewModel;
+using ViewModels.PopUpWindowViewModels.RemoteConnectionViewModels;
 
 namespace UnitySingleton
 {
@@ -43,6 +44,7 @@ namespace UnitySingleton
             unity.RegisterType<IAssetDisplayHelper, AssetDisplayHelper>();
             unity.RegisterType<ILocationHelper, LocationHelper>();
             unity.RegisterType<IHttpService, HttpService>();
+            unity.RegisterType<IRemoteConnectionViewModel, RemoteConnectionViewModel>();           
             unity.RegisterType<IDataExtractService, DataExtractService>();
             unity.RegisterType<IConnectConnexionService, ConnectConnexionService>();
             unity.RegisterType<IDataSourceViewModel, DataSourceViewModel>();

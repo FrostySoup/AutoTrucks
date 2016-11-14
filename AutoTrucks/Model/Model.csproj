@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFromView\PostDataFromView.cs" />
+    <Compile Include="DataFromView\RemoteConnection.cs" />
     <Compile Include="DataFromView\SearchDataFromView.cs" />
     <Compile Include="DataHelpers\DataColors.cs" />
     <Compile Include="DataSource.cs" />
@@ -66,9 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ReceiveData\CreateSearch\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

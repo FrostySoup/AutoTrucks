@@ -49,7 +49,7 @@ namespace Service.ConnexionService
 
             // build various headers required by the service method
             var applicationHeader = new ApplicationHeader
-            { application = "Connexion C# .NET Test", applicationVersion = "1.0" };
+            { application = "Connexion C# .NET Test", applicationVersion = "2.0" };
             var correlationHeader = new CorrelationHeader();
             var sessionHeader = new SessionHeader
             { sessionToken = new SessionToken { primary = new byte[] { }, secondary = new byte[] { } } };

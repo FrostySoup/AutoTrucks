@@ -25,6 +25,7 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
         [TestInitialize]
         public void SetInitialValues()
         {
+            assetId = "id";
             baseAsset = new Shipment()
             {
                 destination = new Place(),

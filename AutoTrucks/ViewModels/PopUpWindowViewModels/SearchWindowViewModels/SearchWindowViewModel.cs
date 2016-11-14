@@ -26,6 +26,8 @@ namespace ViewModels.PopUpWindowViewModels
 
         private IColorListHolder colorListHolder;
 
+        private readonly string _windowName = "Search Window";
+
         public bool saveData { get; set; }
 
         public ICommand CloseWindowSaveDataCommand { get; private set; }
@@ -45,14 +47,14 @@ namespace ViewModels.PopUpWindowViewModels
         {
             if (searchData.originProvince != StateProvince.Any || searchData.destinationProvince != StateProvince.Any)
                 saveData = true;
-            windowFactory.CloseSearchWindow();
+            windowFactory.CloseWindowByName(_windowName);
         }
 
         private void CloseWindow()
         {
             saveData = false;
             searchData = new SearchDataFromView();
-            windowFactory.CloseSearchWindow();
+            windowFactory.CloseWindowByName(_windowName);
         }
 
         #region On property changed Members

@@ -79,7 +79,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             {
                 connectConnexionService.DeleteAlarms(null, sessionCacheSingleton.sessions.FirstOrDefault());
             }
-            httpService.Stop();
+            httpService.Dispose();
         }
 
         private void StartAlarms()
@@ -117,7 +117,6 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                 }
             }          
             OnPropertyChanged("PostToDisplay");
-            //connectConnexionService.QueryAllMyByIdAlarms(sessionCacheSingleton.sessions[0], new string[] { "DA0Gmkda", "DA0Gmkdb" });
             httpService.Start(sessionCacheSingleton.defaultURL.AbsoluteUri);
         }
 

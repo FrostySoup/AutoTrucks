@@ -18,7 +18,7 @@
             <Button Style="{StaticResource MainWindowTopButtons}">Search Loads</Button>
             <Button Style="{StaticResource MainWindowTopButtons}">Search Trucks</Button>
             <Button Command="{Binding ChangePostLoadsViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtons}">Post Loads</Button>
-            <Button Command="{Binding ChangePostTrucksViewModelCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtons}">Post Trucks</Button>
+            <Button Command="{Binding OpemRemoteConnectionCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtons}">Remote</Button>
             <Button Command="{Binding OpenWindowCommand, Mode=OneWay}" Style="{StaticResource MainWindowTopButtons}">Data Sources</Button>
         </StackPanel>
     </Grid>

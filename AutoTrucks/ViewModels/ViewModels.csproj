@@ -89,6 +89,8 @@
     <Compile Include="PopUpWindowViewModels\DataSourceViewModel\IDataSourceViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\PostWindowViewModel\IPostWindowViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\PostWindowViewModel\PostWindowViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\RemoteConnectionViewModels\IRemoteConnectionViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\RemoteConnectionViewModels\RemoteConnectionViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\SearchWindowViewModels\ISearchWindowViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\SearchWindowViewModels\SearchWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

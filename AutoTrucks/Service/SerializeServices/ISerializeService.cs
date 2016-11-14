@@ -1,5 +1,6 @@
 ﻿using Model;
 using System.Collections.ObjectModel;
+using Model.DataFromView;
 
 namespace Service.SerializeServices
 {
@@ -10,5 +11,6 @@ namespace Service.SerializeServices
         ObservableCollection<DataSource> SerializeDataSourceList(ObservableCollection<DataSource> dataSourceListReceived);
 
         ObservableCollection<DataSource> ReturnDataSource();
+        void SerializeRemoteConnection(RemoteConnection remoteConnection);
     }
 }

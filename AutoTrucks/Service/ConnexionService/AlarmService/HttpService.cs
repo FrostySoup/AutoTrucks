@@ -22,7 +22,7 @@ namespace Service.ConnexionService.AlarmService
 
         public HttpService(IDataExtractService dataExtractService)
         {
-            int maxThreads = 30;
+            int maxThreads = 5;
             _foundAssets = new List<DisplayFoundAsset>();
             _dataExtractService = dataExtractService;
             _workers = new Thread[maxThreads];
@@ -42,7 +42,7 @@ namespace Service.ConnexionService.AlarmService
             {
                 _listener.Start();               
             }
-            catch (HttpListenerException hlex)
+            catch (HttpListenerException)
             {
                 return;
             }
