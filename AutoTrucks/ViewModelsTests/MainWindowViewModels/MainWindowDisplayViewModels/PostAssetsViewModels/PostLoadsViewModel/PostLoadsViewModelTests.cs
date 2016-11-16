@@ -16,6 +16,7 @@ using Service.DataConvertService;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Service.ConnexionService.AlarmService;
+using Service.SerializeServices;
 
 namespace ViewModels.MainWindowViewModels.Tests
 {
@@ -29,6 +30,7 @@ namespace ViewModels.MainWindowViewModels.Tests
         Mock<ISessionCacheSingleton> sessionCacheSingleton;
         Mock<IDataExtractService> dataExtractService;
         Mock<IDataConvertPostAssetService> dataConvertService;
+        Mock<ISerializeService> serializeService;
         Mock<IHttpService> httpService;
 
         PostLoadsViewModel postLoadsViewModel;
@@ -43,10 +45,11 @@ namespace ViewModels.MainWindowViewModels.Tests
             sessionCacheSingleton = new Mock<ISessionCacheSingleton>();
             dataExtractService = new Mock<IDataExtractService>();
             dataConvertService = new Mock<IDataConvertPostAssetService>();
+            serializeService = new Mock<ISerializeService>();
             httpService = new Mock<IHttpService>();
 
             postLoadsViewModel = new PostLoadsViewModel(windowFactory.Object, postWindowViewModel.Object, connectConnexionService.Object,
-                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, httpService.Object);
+                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, httpService.Object, serializeService.Object);
             receivedEvents = new List<string>();
             postLoadsViewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {

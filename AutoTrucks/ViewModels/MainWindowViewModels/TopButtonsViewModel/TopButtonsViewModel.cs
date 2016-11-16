@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ViewModels.PopUpWindowViewModels;
+using ViewModels.PopUpWindowViewModels.BlacklistViewModel;
 using ViewModels.PopUpWindowViewModels.RemoteConnectionViewModels;
 
 namespace ViewModels.MainWindowViewModels
@@ -25,22 +26,30 @@ namespace ViewModels.MainWindowViewModels
 
         private IRemoteConnectionViewModel remoteConnectionViewModel;
 
+        private IBlacklistViewModel blacklistViewModel;
+
+        private ISessionCacheSingleton sessionCacheSingleton;
+
         public ICommand OpenWindowCommand { get; private set; }
 
         public ICommand ChangePostTrucksViewModelCommand { get; private set; }
         public ICommand ChangePostLoadsViewModelCommand { get; private set; }
-
+        public ICommand OpenBlacklistCommand { get; private set; }
         public ICommand OpemRemoteConnectionCommand { get; private set; }
 
         public TopButtonsViewModel(IWindowFactory windowFactory, IDataSourceViewModel dataSourceViewModel,
-            IRemoteConnectionViewModel remoteConnectionViewModel, ISerializeService serializeService)
+            IRemoteConnectionViewModel remoteConnectionViewModel, ISerializeService serializeService, ISessionCacheSingleton sessionCacheSingleton,
+            IBlacklistViewModel blacklistViewModel)
         {
+            this.blacklistViewModel = blacklistViewModel;
+            this.sessionCacheSingleton = sessionCacheSingleton;
             this.serializeService = serializeService;
             this.windowFactory = windowFactory;
             this.remoteConnectionViewModel = remoteConnectionViewModel;
             this.dataSourceViewModel = dataSourceViewModel;
             this.OpenWindowCommand = new DelegateCommand(o => this.OpenWindowConnections());
-            this.OpemRemoteConnectionCommand = new DelegateCommand(o => this.OpemRemoteConnection());           
+            this.OpemRemoteConnectionCommand = new DelegateCommand(o => this.OpemRemoteConnection());
+            this.OpenBlacklistCommand = new DelegateCommand(o => this.OpenBlacklist());
         }
 
         private void OpemRemoteConnection()
@@ -50,7 +59,14 @@ namespace ViewModels.MainWindowViewModels
             {
                 remoteConnectionViewModel.saveData = false;
                 serializeService.SerializeRemoteConnection(remoteConnectionViewModel.remoteConnection);
+                sessionCacheSingleton.UpdateAlarmAdress();
             }
+        }
+
+        private void OpenBlacklist()
+        {
+            blacklistViewModel.RefreshBlacklist();
+            windowFactory.CreateNewBlacklistWindow(blacklistViewModel);
         }
 
         private void OpenWindowConnections()

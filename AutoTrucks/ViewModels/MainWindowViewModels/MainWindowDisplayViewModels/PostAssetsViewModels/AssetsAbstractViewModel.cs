@@ -1,4 +1,5 @@
 ﻿using Model.DataFromView;
+using Model.Enums;
 using Model.ReceiveData.AlarmMatch;
 using Service.AddNewWindowFactory;
 using Service.Commands;
@@ -6,6 +7,7 @@ using Service.ConnexionService;
 using Service.ConnexionService.AlarmService;
 using Service.DataConvertService;
 using Service.DataExtractService;
+using Service.SerializeServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +29,8 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
 
         private ISessionCacheSingleton sessionCacheSingleton;
 
+        private ISerializeService serializeService;
+
         protected bool isGroupSelected;
 
         protected IDataExtractService dataExtractService;
@@ -44,8 +48,10 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
         public ICommand AssetUpdatedCommand { get; set; }
         public ICommand ClearFoundAssetsCommand { get; set; }
 
+        private ICommand m_blacklistCommand;       
+
         protected AssetsAbstractViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService,
-            ISessionCacheSingleton sessionCacheSingleton, IDataConvertPostAssetService dataConvertService, IHttpService httpService)
+            ISessionCacheSingleton sessionCacheSingleton, IDataConvertPostAssetService dataConvertService, IHttpService httpService, ISerializeService serializeService)
         {
             this.ClearFoundAssetsCommand = new DelegateCommand(o => this.ClearFoundAssets());
             this.RemoveAssetsCommand = new DelegateCommand(o => this.RemoveSelectedAssets());
@@ -60,18 +66,8 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             this.dataConvertService = dataConvertService;
             this.httpService = httpService;
             this.httpService.BindCommand(AssetUpdatedCommand);
-        }
-
-        private void ClearFoundAssets()
-        {
-            httpService.ClearFoundAssets();
-            OnPropertyChanged("FoundAssets");
-        }
-
-        private void AssetUpdated()
-        {
-            OnPropertyChanged("FoundAssets");
-        }
+            this.serializeService = serializeService;
+        }       
 
         private void StopAlarms()
         {
@@ -117,7 +113,8 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                 }
             }          
             OnPropertyChanged("PostToDisplay");
-            httpService.Start(sessionCacheSingleton.defaultURL.AbsoluteUri);
+            var uri = connectConnexionService.LookupAlarmUrl(sessionCacheSingleton.sessions[0]);
+            httpService.Start(sessionCacheSingleton.remoteURI);
         }
 
         protected void GetExistingAssets()
@@ -161,7 +158,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             {
                 if (CheckSession())
                 {
-                    connectConnexionService.DeleteAlarms(Ids, sessionCacheSingleton.sessions.FirstOrDefault());
+                    //connectConnexionService.DeleteAlarms(Ids, sessionCacheSingleton.sessions.FirstOrDefault());
                     connectConnexionService.DeleteAssetsById(sessionCacheSingleton.sessions.FirstOrDefault(), Ids.ToArray());
                     postAssets = new ObservableCollection<PostDataFromView>(postAssets
                         .Where(x => !Ids.Any(y => y.Equals(x.ID))));                   
@@ -192,6 +189,42 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
 
         protected abstract PostAssetOperation convertAssetIntoBaseType(PostDataFromView postData);
 
+        public ICommand AddToBlackistCommand
+        {
+            get
+            {
+                if (m_blacklistCommand == null)
+                {
+                    m_blacklistCommand = new DelegateCommand(param => AddToBlacklist((string)param), param => CanAddToBlacklist);
+                }
+                return m_blacklistCommand;
+            }
+        }
+
+        private void AddToBlacklist(string companyName)
+        {
+            if (companyName != null)
+            {
+                serializeService.SerializeCompanyName(companyName);
+            }
+        }
+
+        private bool CanAddToBlacklist
+        {
+            get { return true; }
+        }
+
+        private void ClearFoundAssets()
+        {
+            httpService.ClearFoundAssets();
+            OnPropertyChanged("FoundAssets");
+        }
+
+        private void AssetUpdated()
+        {
+            OnPropertyChanged("FoundAssets");
+        }
+
         public ObservableCollection<PostDataFromView> PostToDisplay
         {
             get
@@ -202,6 +235,15 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             {
                 postAssets = value;
                 OnPropertyChanged("PostToDisplay");
+            }
+        }
+
+        public IEnumerable<ButtonOptions> ButtonOptions
+        {
+            get
+            {
+                return Enum.GetValues(typeof(ButtonOptions))
+                   .Cast<ButtonOptions>();
             }
         }
 

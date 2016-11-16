@@ -5,6 +5,9 @@ using ViewModels.PopUpWindowViewModels;
 using Service.AddNewWindowFactory;
 using System.Windows.Input;
 using ViewModels.PopUpWindowViewModels.RemoteConnectionViewModels;
+using Service.SerializeServices;
+using ViewModels.PopUpWindowViewModels.BlacklistViewModel;
+using Service.ConnexionService;
 
 namespace ViewModels.MainWindowViewModels.Tests
 {
@@ -15,6 +18,9 @@ namespace ViewModels.MainWindowViewModels.Tests
         Mock<IDataSourceViewModel> dataSourceViewModel;
         Mock<IRemoteConnectionViewModel> remoteConnectionViewModel;
         Mock<IWindowFactory> windowFactory;
+        Mock<ISerializeService> serializeService;
+        Mock<IBlacklistViewModel> blacklistViewModel;
+        Mock<ISessionCacheSingleton> sessionCacheSingleton;
         TopButtonsViewModel topButtonsViewModel;
 
         [TestInitialize]
@@ -23,7 +29,8 @@ namespace ViewModels.MainWindowViewModels.Tests
             dataSourceViewModel = new Mock<IDataSourceViewModel>();
             windowFactory = new Mock<IWindowFactory>();
             remoteConnectionViewModel = new Mock<IRemoteConnectionViewModel>();
-            topButtonsViewModel = new TopButtonsViewModel(windowFactory.Object, dataSourceViewModel.Object, remoteConnectionViewModel.Object);
+            blacklistViewModel = new Mock<IBlacklistViewModel>();
+            topButtonsViewModel = new TopButtonsViewModel(windowFactory.Object, dataSourceViewModel.Object, remoteConnectionViewModel.Object, serializeService.Object, sessionCacheSingleton.Object, blacklistViewModel.Object);
         }
 
         [TestMethod()]

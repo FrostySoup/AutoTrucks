@@ -72,5 +72,15 @@ namespace Service.AddNewWindowFactory
                 view.ShowDialog();
             }
         }
+
+        public void CreateNewBlacklistWindow(object dataContext)
+        {
+            if (dataContext != null)
+            {
+                BlacklistView view = new BlacklistView();
+                view.DataContext = dataContext;
+                view.ShowDialog();
+            }
+        }
     }
 }

@@ -1,9 +1,12 @@
-﻿using Model.ReceiveData.AlarmMatch;
+﻿using Model.DataFromView;
+using Model.ReceiveData.AlarmMatch;
 using Service.DataExtractService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Input;
 
@@ -33,25 +36,36 @@ namespace Service.ConnexionService.AlarmService
             _listenerThread = new Thread(HandleRequests);
         }
 
-        public void Start(string port)
+        private IPAddress GetPrivateIP()
         {
-            if (_listener.Prefixes.Count > 0)
-                _listener.Prefixes.Clear();
-            _listener.Prefixes.Add("http://192.168.10.118:1010/AlarmMatch/");
-            try
-            {
-                _listener.Start();               
-            }
-            catch (HttpListenerException)
-            {
-                return;
-            }
-            _listenerThread.Start();
+            string hostName = Dns.GetHostName();
+            IPAddress[] addresses = Dns.GetHostAddresses(hostName);
+            return addresses.First(x => x.AddressFamily == AddressFamily.InterNetwork);
+        }
 
-            for (int i = 0; i < _workers.Length; i++)
+        public void Start(RemoteConnection remoteConnection)
+        {
+            if (remoteConnection != null && remoteConnection.Port != null)
             {
-                _workers[i] = new Thread(Worker);
-                _workers[i].Start();
+                if (_listener.Prefixes.Count > 0)
+                    _listener.Prefixes.Clear();
+                _listener.Prefixes.Add(string.Format("http://{0}:{1}/AlarmMatch/", GetPrivateIP().ToString(), remoteConnection.Port));
+                int a = 5;
+                try
+                {
+                    _listener.Start();
+                }
+                catch (HttpListenerException)
+                {
+                    return;
+                }
+                _listenerThread.Start();
+
+                for (int i = 0; i < _workers.Length; i++)
+                {
+                    _workers[i] = new Thread(Worker);
+                    _workers[i].Start();
+                }
             }
         }
 

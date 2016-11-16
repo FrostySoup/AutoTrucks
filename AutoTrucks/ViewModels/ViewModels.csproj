@@ -77,6 +77,8 @@
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\PostAssetsViewModels\AssetsAbstractViewModel.cs" />
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchViewModelAbstract.cs" />
     <Compile Include="NotifyPropertyChangedAbstract.cs" />
+    <Compile Include="PopUpWindowViewModels\BlacklistViewModel\BlacklistViewModel.cs" />
+    <Compile Include="PopUpWindowViewModels\BlacklistViewModel\IBlacklistViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\LoginViewModel\LoginViewModel.cs" />
     <Compile Include="PopUpWindowViewModels\LoginViewModel\ILoginViewModel.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\ITopButtonsViewModel.cs" />

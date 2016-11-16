@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using Service.ConnexionService.AlarmService;
 using Model.ReceiveData.AlarmMatch;
 using System.Windows.Media;
+using Service.SerializeServices;
 
 namespace ViewModels.MainWindowViewModels.Tests
 {
@@ -30,6 +31,7 @@ namespace ViewModels.MainWindowViewModels.Tests
         Mock<ISessionCacheSingleton> sessionCacheSingleton;
         Mock<IDataExtractService> dataExtractService;
         Mock<IDataConvertPostAssetService> dataConvertService;
+        Mock<ISerializeService> serializeService;
         Mock<IHttpService> httpService;
 
         PostTrucksViewModel postTrucksViewModel;
@@ -44,12 +46,13 @@ namespace ViewModels.MainWindowViewModels.Tests
             sessionCacheSingleton = new Mock<ISessionCacheSingleton>();
             dataExtractService = new Mock<IDataExtractService>();
             dataConvertService = new Mock<IDataConvertPostAssetService>();
+            dataConvertService = new Mock<IDataConvertPostAssetService>();
             httpService = new Mock<IHttpService>();
-
-            sessionCacheSingleton.Setup(x => x.defaultURL).Returns(new Uri("http://www.myserver.com"));
+            serializeService = new Mock<ISerializeService>();
+            sessionCacheSingleton.Setup(x => x.remoteURI).Returns(new RemoteConnection());
 
             postTrucksViewModel = new PostTrucksViewModel(windowFactory.Object, postWindowViewModel.Object, connectConnexionService.Object,
-                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, httpService.Object);
+                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, httpService.Object, serializeService.Object);
             receivedEvents = new List<string>();
             postTrucksViewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {

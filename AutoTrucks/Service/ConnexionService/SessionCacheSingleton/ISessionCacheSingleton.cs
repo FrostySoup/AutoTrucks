@@ -1,4 +1,5 @@
 ﻿
+using Model.DataFromView;
 using System.Collections.Generic;
 
 namespace Service.ConnexionService
@@ -10,7 +11,12 @@ namespace Service.ConnexionService
             get;
         }
 
-        System.Uri defaultURL { get; }
+        RemoteConnection remoteURI
+        {
+            get;
+        }
+
+        void UpdateAlarmAdress();
 
         void RenewSessionsForEachData();
     }

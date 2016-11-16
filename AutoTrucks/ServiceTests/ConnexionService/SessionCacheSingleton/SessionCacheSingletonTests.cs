@@ -2,6 +2,7 @@
 using Model;
 using Moq;
 using Service.ConnexionService;
+using Service.FirewallController;
 using Service.SerializeServices;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace Service.ConnexionService.Tests
         Mock<ISerializeService> serializeService;
         Mock<IConnectConnexionService> connectConnexionService;
         Mock<ISessionFacade> sessionFacade;
+        Mock<IFirewallControl> firewallControl;
         DataSource data;
 
         [TestInitialize]
@@ -30,6 +32,7 @@ namespace Service.ConnexionService.Tests
             serializeService = new Mock<ISerializeService>();
             connectConnexionService = new Mock<IConnectConnexionService>();
             sessionFacade = new Mock<ISessionFacade>();
+            firewallControl = new Mock<IFirewallControl>();
             data = new DataSource()
             {
                 UserName = "Hairy",
@@ -38,7 +41,7 @@ namespace Service.ConnexionService.Tests
             serializeService.Setup(x => x.ReturnDataSource()).Returns(new ObservableCollection<DataSource>() { data });
 
             connectConnexionService.Setup(x => x.LoginToConnexion(data.UserName, data.Password)).Returns(sessionFacade.Object);
-            sessionCacheSingleton = new SessionCacheSingleton(serializeService.Object, connectConnexionService.Object);            
+            sessionCacheSingleton = new SessionCacheSingleton(serializeService.Object, connectConnexionService.Object, firewallControl.Object);            
         }
 
         [TestMethod()]

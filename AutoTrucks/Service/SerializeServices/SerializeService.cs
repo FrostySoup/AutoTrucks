@@ -12,6 +12,8 @@ namespace Service.SerializeServices
     public class SerializeService : ISerializeService
     {
         private readonly string fileName = "SerializedData.bin";
+        private readonly string remoteFile = "SerializedDataRemote.bin";
+        private readonly string companiesBlacklistFile = "SerializedCompaniesBlacklist.bin";
 
         public ObservableCollection<DataSource> SerializeDataSource(DataSource dataSource)
         {
@@ -73,7 +75,77 @@ namespace Service.SerializeServices
 
         public void SerializeRemoteConnection(RemoteConnection remoteConnection)
         {
-            throw new NotImplementedException();
+            string path = "./" + remoteFile;
+            FileInfo myfileinf = new FileInfo(path);
+            myfileinf.Delete();
+            if (remoteConnection == null)
+                return;
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(remoteFile,
+                         FileMode.Create,
+                         FileAccess.Write, FileShare.None);
+            formatter.Serialize(stream, remoteConnection);
+            stream.Close();
+        }
+
+        public RemoteConnection DeserializeRemote()
+        {
+            if (File.Exists(fileName))
+            {
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(remoteFile,
+                                          FileMode.Open,
+                                          FileAccess.Read,
+                                          FileShare.Read);
+                RemoteConnection obj = (RemoteConnection)formatter.Deserialize(stream);
+                stream.Close();
+
+                return obj;
+            }
+            else
+                return new RemoteConnection();
+        }
+
+        public List<string> DeserializeCompanyName()
+        {
+            if (File.Exists(companiesBlacklistFile))
+            {
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(companiesBlacklistFile,
+                                          FileMode.Open,
+                                          FileAccess.Read,
+                                          FileShare.Read);
+                List<string> obj = (List<string>)formatter.Deserialize(stream);
+                stream.Close();
+
+                return obj;
+            }
+            else
+                return new List<string>();
+        }
+
+        public void SerializeCompanyName(string companyName)
+        {
+            var oldCompanies = DeserializeCompanyName();
+            if (checkIfUniqueCompany(companyName, oldCompanies)) {
+                oldCompanies.Add(companyName);
+                string path = "./" + companiesBlacklistFile;
+                FileInfo myfileinf = new FileInfo(path);
+                myfileinf.Delete();
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(companiesBlacklistFile,
+                             FileMode.Create,
+                             FileAccess.Write, FileShare.None);
+                formatter.Serialize(stream, oldCompanies);
+                stream.Close();
+            }
+        }
+
+        private bool checkIfUniqueCompany(string companyName, List<string> oldCompanies)
+        {
+            if (oldCompanies.Contains(companyName))
+                return false;
+            return true;
         }
     }
 

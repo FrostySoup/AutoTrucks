@@ -8,72 +8,41 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Model.DataFromView;
+using Service.FirewallController;
 
 namespace Service.ConnexionService
 {
     public class SessionCacheSingleton : ISessionCacheSingleton
     {
-        public Uri defaultURL { get; private set; }
         public List<ISessionFacade> sessions { get; private set; }
+
+        public RemoteConnection remoteURI { get; private set; }
 
         private ObservableCollection<DataSource> dataSources;
 
-        private ISerializeService serializeService;
+        private readonly ISerializeService serializeService;
 
-        private IConnectConnexionService connectConnexionService;
+        private readonly IConnectConnexionService connectConnexionService;
 
-        private Uri BuildAlarmUrl()
+        private readonly IFirewallControl firewallControl;
+
+        public SessionCacheSingleton(ISerializeService serializeService, IConnectConnexionService connectConnexionService, IFirewallControl firewallControl)
         {
-            string host = "";
-            string path = "/AlarmMatch";
-            int port = 1010;
-            var uriBuilder = new UriBuilder
-            {
-                Scheme = "http",
-                Host = host,
-                Path = path,
-                Port = port
-            };
-            Uri uri;
-            if (!TryUri(uriBuilder, out uri))
-            {
-                IPAddress ipAddress;
-                if (host != null && IPAddress.TryParse(host, out ipAddress)) { }
-                else
-                {
-                    string hostName = Dns.GetHostName();
-                    IPAddress[] addresses = Dns.GetHostAddresses(hostName);
-                    ipAddress = addresses.First(x => x.AddressFamily == AddressFamily.InterNetwork);
-                }
-                uriBuilder.Host = "88.119.98.103";
-                uri = uriBuilder.Uri;
-            }
-            return uri;
-        }
-
-        private static bool TryUri(UriBuilder builder, out Uri uri)
-        {
-            bool wellFormed = false;
-            try
-            {
-                uri = builder.Uri;
-                wellFormed = true;
-            }
-            catch (UriFormatException)
-            {
-                uri = null;
-            }
-            return wellFormed;
-        }
-
-        public SessionCacheSingleton(ISerializeService serializeService, IConnectConnexionService connectConnexionService)
-        {
-            defaultURL = BuildAlarmUrl();
             sessions = new List<ISessionFacade>();
             this.serializeService = serializeService;
+            this.firewallControl = firewallControl;
             this.connectConnexionService = connectConnexionService;
             dataSources = serializeService.ReturnDataSource();
+            SetAlarmUri();
             CreateSessionsForEachData();
+        }
+
+        private void SetAlarmUri()
+        {
+            remoteURI = serializeService.DeserializeRemote();
+            if (sessions.Count > 0)
+                sessions[0].UpdateAlarmUrl(new Uri(string.Format("http://{0}:{1}/AlarmMatch", remoteURI.RemoteIp, remoteURI.Port)));
         }
 
         private void CreateSessionsForEachData()
@@ -83,7 +52,6 @@ namespace Service.ConnexionService
                 ISessionFacade sessionFacade = connectConnexionService.LoginToConnexion(data.UserName, data.Password);
                 if (sessionFacade != null)
                 {
-                    sessionFacade.UpdateAlarmUrl(defaultURL);
                     sessions.Add(sessionFacade);
                 }
             }
@@ -101,6 +69,12 @@ namespace Service.ConnexionService
                     sessions.Add(sessionFacade);
                 }
             }
+        }
+
+        public void UpdateAlarmAdress()
+        {            
+            SetAlarmUri();
+            firewallControl.AddNewPortToFirewall(remoteURI.Port);
         }
     }
 }

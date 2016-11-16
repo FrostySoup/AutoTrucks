@@ -14,5 +14,6 @@ namespace Service.AddNewWindowFactory
         void CreateNewSearchWindow(object dataContext);
         void CreateNewRemoteConnectionWindow(object dataContext);
         void CreateNewPostAssetWindow(object dataContext);
+        void CreateNewBlacklistWindow(object dataContext);
     }
 }

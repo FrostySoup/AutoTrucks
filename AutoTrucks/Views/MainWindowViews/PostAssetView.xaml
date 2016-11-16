@@ -31,6 +31,7 @@
             <Controls:ToggleSwitch Style="{StaticResource GroupToogleButton}" IsChecked="{Binding IsGroupSelected}"/>
         </StackPanel>
 
+        
         <DataGrid Grid.Row="1" x:Name="dataGridPostLoadsResults" ItemsSource="{Binding PostToDisplay}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
@@ -71,8 +72,20 @@
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Truck"        Binding="{Binding Truck, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="F/P"          Binding="{Binding FullOrPartial, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Origin"       Binding="{Binding Origin, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Destination"  Binding="{Binding Origin, Mode=OneWay}"/>
-                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Company name" Binding="{Binding CompanyName, Mode=OneWay}"/>
+                <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Destination"  Binding="{Binding Destination, Mode=OneWay}"/>
+                <DataGridTemplateColumn Header="Company name">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                              <Hyperlink  Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                        Path=DataContext.AddToBlackistCommand}"
+                                        CommandParameter="{Binding CompanyName}">
+                                    <TextBlock Text="{Binding CompanyName, Mode=OneWay}" />
+                               </Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Phone number" Binding="{Binding PhoneNumber, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Length"       Binding="{Binding Length, Mode=OneWay}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Weight"       Binding="{Binding Weight, Mode=OneWay}"/>

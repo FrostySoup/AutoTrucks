@@ -48,11 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFromView\PostDataFromView.cs" />
-    <Compile Include="DataFromView\RemoteConnection.cs" />
+    <Compile Include="Credentials\RemoteConnection.cs" />
     <Compile Include="DataFromView\SearchDataFromView.cs" />
     <Compile Include="DataHelpers\DataColors.cs" />
-    <Compile Include="DataSource.cs" />
+    <Compile Include="Credentials\DataSource.cs" />
+    <Compile Include="DataHelpers\StringWrapper.cs" />
     <Compile Include="DataToView\SearchAssetsSearches.cs" />
+    <Compile Include="Enums\ButtonOptions.cs" />
     <Compile Include="Enums\EnumExtensionForDescription.cs" />
     <Compile Include="Enums\FullOrPartial.cs" />
     <Compile Include="Enums\Length.cs" />
@@ -65,9 +67,7 @@
     <Compile Include="SendData\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ReceiveData\CreateSearch\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

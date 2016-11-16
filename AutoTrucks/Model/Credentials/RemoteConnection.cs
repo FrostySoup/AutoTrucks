@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.DataFromView
 {
+    [Serializable]
     public class RemoteConnection
     {
         public string RemoteIp { get; set; }

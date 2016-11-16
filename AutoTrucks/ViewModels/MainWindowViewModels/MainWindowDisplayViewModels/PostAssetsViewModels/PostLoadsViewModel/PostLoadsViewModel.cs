@@ -5,6 +5,7 @@ using Service.ConnexionService;
 using Service.ConnexionService.AlarmService;
 using Service.DataConvertService;
 using Service.DataExtractService;
+using Service.SerializeServices;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -17,8 +18,9 @@ namespace ViewModels.MainWindowViewModels
     public class PostLoadsViewModel : AssetsAbstractViewModel, IMainWindowDisplayViewModel
     {
         public PostLoadsViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService, 
-            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IHttpService httpService)
-            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService)
+            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService,
+            IHttpService httpService, ISerializeService serializeService)
+            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService, serializeService)
         {
             this.dataExtractService = dataExtractService;
             this.OpenPostAssetWindowCommand = new DelegateCommand(o => this.OpenPostAssetWindow());

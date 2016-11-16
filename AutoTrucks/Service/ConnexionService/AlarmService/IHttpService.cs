@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Model.ReceiveData.AlarmMatch;
+using Model.DataFromView;
 
 namespace Service.ConnexionService.AlarmService
 {
     public interface IHttpService : IDisposable
     {
-        void Start(string port);
+        void Start(RemoteConnection port);
         new void Dispose();
         void Stop();
         event Action<HttpListenerContext> ProcessRequest;

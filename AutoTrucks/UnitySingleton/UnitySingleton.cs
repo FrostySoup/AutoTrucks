@@ -7,6 +7,7 @@ using Service.DataConvertService;
 using Service.DataConvertService.BaseAssetHelp;
 using Service.DataConvertService.LocationHelp;
 using Service.DataExtractService;
+using Service.FirewallController;
 using Service.SerializeServices;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 using ViewModels;
 using ViewModels.MainWindowViewModels;
 using ViewModels.PopUpWindowViewModels;
+using ViewModels.PopUpWindowViewModels.BlacklistViewModel;
 using ViewModels.PopUpWindowViewModels.PostWindowViewModel;
 using ViewModels.PopUpWindowViewModels.RemoteConnectionViewModels;
 
@@ -43,7 +45,9 @@ namespace UnitySingleton
             unity.RegisterType<ILoginViewModel, LoginViewModel>();
             unity.RegisterType<IAssetDisplayHelper, AssetDisplayHelper>();
             unity.RegisterType<ILocationHelper, LocationHelper>();
+            unity.RegisterType<IFirewallControl, FirewallControl>();
             unity.RegisterType<IHttpService, HttpService>();
+            unity.RegisterType<IBlacklistViewModel, BlacklistViewModel>();
             unity.RegisterType<IRemoteConnectionViewModel, RemoteConnectionViewModel>();           
             unity.RegisterType<IDataExtractService, DataExtractService>();
             unity.RegisterType<IConnectConnexionService, ConnectConnexionService>();

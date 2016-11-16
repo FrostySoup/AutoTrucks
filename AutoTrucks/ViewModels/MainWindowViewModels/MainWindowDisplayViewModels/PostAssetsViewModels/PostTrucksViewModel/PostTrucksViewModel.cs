@@ -10,14 +10,16 @@ using Service.ConnexionService;
 using Service.DataExtractService;
 using Service.DataConvertService;
 using Service.ConnexionService.AlarmService;
+using Service.SerializeServices;
 
 namespace ViewModels.MainWindowViewModels
 {
     public class PostTrucksViewModel : AssetsAbstractViewModel, IMainWindowDisplayViewModel
     {
         public PostTrucksViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService,
-            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IHttpService httpService) 
-            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService)
+            ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IHttpService httpService,
+            ISerializeService serializeService) 
+            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService, serializeService)
         {
             this.dataExtractService = dataExtractService;
             this.OpenPostAssetWindowCommand = new DelegateCommand(o => this.OpenPostAssetWindow());

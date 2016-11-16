@@ -101,6 +101,9 @@
     <Compile Include="MainWindowViews\TopButtonsView.xaml.cs">
       <DependentUpon>TopButtonsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PopUpWindowViews\BlacklistView.xaml.cs">
+      <DependentUpon>BlacklistView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopUpWindowViews\DataSourceView.xaml.cs">
       <DependentUpon>DataSourceView.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PopUpWindowViews\BlacklistView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PopUpWindowViews\DataSourceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,6 +198,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Options.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

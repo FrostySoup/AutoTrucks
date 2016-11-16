@@ -12,21 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Views.MainWindowViews
+namespace Views.PopUpWindowViews
 {
     /// <summary>
-    /// Interaction logic for PostAssetView.xaml
+    /// Interaction logic for BlacklistView.xaml
     /// </summary>
-    public partial class PostAssetView : UserControl
+    public partial class BlacklistView : Window
     {
-        public PostAssetView()
+        public BlacklistView()
         {
             InitializeComponent();
-        }
-
-        private void DataGridTextColumn_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }

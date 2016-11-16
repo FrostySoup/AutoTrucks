@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Model.DataFromView;
 using Model.Enums;
 using Model.ReceiveData.AlarmMatch;
@@ -12,9 +9,6 @@ using System.Xml.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Service.DataConvertService.BaseAssetHelp;
-using System.Runtime.Serialization.Formatters.Soap;
-using TfmiServices.TfmiAlarmService;
-using System.Xml.Serialization;
 using Service.JSONConverter;
 using Service.ColorListHolder;
 
