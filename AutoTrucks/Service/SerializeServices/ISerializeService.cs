@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Model.DataFromView;
 using System.Collections.Generic;
+using Model.DataHelpers;
 
 namespace Service.SerializeServices
 {
@@ -14,7 +15,8 @@ namespace Service.SerializeServices
         ObservableCollection<DataSource> ReturnDataSource();
         void SerializeRemoteConnection(RemoteConnection remoteConnection);
         RemoteConnection DeserializeRemote();
-        void SerializeCompanyName(string companyName);
+        List<string> SerializeCompanyName(string companyName);
         List<string> DeserializeCompanyName();
+        void SerializeCompanyNamesList(ObservableCollection<StringWrapper> companiesCollection);
     }
 }

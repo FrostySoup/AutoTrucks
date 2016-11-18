@@ -109,6 +109,8 @@
     <Compile Include="JSONConverter\JsonCovert.cs" />
     <Compile Include="SerializeServices\ISerializeService.cs" />
     <Compile Include="SerializeServices\SerializeService.cs" />
+    <Compile Include="ViewModelsHelpers\AssetsViewModelHelper.cs" />
+    <Compile Include="ViewModelsHelpers\IAssetsViewModelHelper.cs" />
     <Compile Include="WindowsFactory\IWindowFactory.cs" />
     <Compile Include="WindowsFactory\WindowFactory.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />

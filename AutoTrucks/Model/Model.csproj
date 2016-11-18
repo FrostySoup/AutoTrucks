@@ -64,7 +64,7 @@
     <Compile Include="ReceiveData\AlarmMatch\MyAsset.cs" />
     <Compile Include="ReceiveData\Login\ReceivedLogin.cs" />
     <Compile Include="ReceiveData\Login\Token.cs" />
-    <Compile Include="SendData\Login.cs" />
+    <Compile Include="Credentials\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

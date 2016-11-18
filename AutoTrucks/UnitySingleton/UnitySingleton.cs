@@ -9,6 +9,7 @@ using Service.DataConvertService.LocationHelp;
 using Service.DataExtractService;
 using Service.FirewallController;
 using Service.SerializeServices;
+using Service.ViewModelsHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,29 +38,36 @@ namespace UnitySingleton
         private UnitySingleton()
         {
             unity = new UnityContainer();
-            unity.RegisterType<IWindowFactory, WindowFactory>();
-            unity.RegisterType<ISerializeService, SerializeService>();
-            unity.RegisterType<IDataConvertService, DataConvertService>();
-            unity.RegisterType<IColorListHolder, ColorListHolder>(new ContainerControlledLifetimeManager());
-            unity.RegisterType<ISessionCacheSingleton, SessionCacheSingleton>(new ContainerControlledLifetimeManager());
-            unity.RegisterType<ILoginViewModel, LoginViewModel>();
-            unity.RegisterType<IAssetDisplayHelper, AssetDisplayHelper>();
-            unity.RegisterType<ILocationHelper, LocationHelper>();
-            unity.RegisterType<IFirewallControl, FirewallControl>();
-            unity.RegisterType<IHttpService, HttpService>();
-            unity.RegisterType<IBlacklistViewModel, BlacklistViewModel>();
-            unity.RegisterType<IRemoteConnectionViewModel, RemoteConnectionViewModel>();           
-            unity.RegisterType<IDataExtractService, DataExtractService>();
-            unity.RegisterType<IConnectConnexionService, ConnectConnexionService>();
-            unity.RegisterType<IDataSourceViewModel, DataSourceViewModel>();
-            unity.RegisterType<IDataConvertPostAssetService, DataConvertPostAssetService>();
-            unity.RegisterType<ISearchWindowViewModel, SearchWindowViewModel>();
-            unity.RegisterType<IPostWindowViewModel, PostWindowViewModel>();
+            //MainWindowViewModels----------------------------------------------------------------------------------------
             unity.RegisterType<IMainWindowDisplayViewModel, PostLoadsViewModel>("PostLoadsViewModel");
             unity.RegisterType<IMainWindowDisplayViewModel, PostTrucksViewModel>("PostTrucksViewModel");
             unity.RegisterType<IMainWindowDisplayViewModel, SearchLoadsViewModel>("SearchLoadsViewModel");
             unity.RegisterType<IMainWindowDisplayViewModel, SearchTrucksViewModel>("SearchTrucksViewModel");
             unity.RegisterType<ITopButtonsViewModel, TopButtonsViewModel>();
+            unity.RegisterType<IRemoteConnectionViewModel, RemoteConnectionViewModel>();
+            //------------------------------------------------------------------------------------------------------------
+            //PopUpWindowViewModels---------------------------------------------------------------------------------------
+            unity.RegisterType<ISearchWindowViewModel, SearchWindowViewModel>();
+            unity.RegisterType<IPostWindowViewModel, PostWindowViewModel>();
+            unity.RegisterType<IBlacklistViewModel, BlacklistViewModel>();
+            unity.RegisterType<IDataSourceViewModel, DataSourceViewModel>();
+            unity.RegisterType<ILoginViewModel, LoginViewModel>();
+            //------------------------------------------------------------------------------------------------------------
+            //ServicesViewModels------------------------------------------------------------------------------------------
+            unity.RegisterType<IDataExtractService, DataExtractService>();
+            unity.RegisterType<IConnectConnexionService, ConnectConnexionService>();
+            unity.RegisterType<IDataConvertPostAssetService, DataConvertPostAssetService>();
+            unity.RegisterType<IWindowFactory, WindowFactory>();
+            unity.RegisterType<ISerializeService, SerializeService>();
+            unity.RegisterType<IDataConvertService, DataConvertService>();
+            unity.RegisterType<IColorListHolder, ColorListHolder>(new ContainerControlledLifetimeManager());
+            unity.RegisterType<ISessionCacheSingleton, SessionCacheSingleton>(new ContainerControlledLifetimeManager());
+            unity.RegisterType<IAssetDisplayHelper, AssetDisplayHelper>();
+            unity.RegisterType<ILocationHelper, LocationHelper>();
+            unity.RegisterType<IFirewallControl, FirewallControl>();
+            unity.RegisterType<IHttpService, HttpService>();
+            unity.RegisterType<IAssetsViewModelHelper, AssetsViewModelHelper>();
+            //------------------------------------------------------------------------------------------------------------
 
             unity.RegisterType<MainWindowViewModel>(new InjectionConstructor(
                 new ResolvedParameter<ITopButtonsViewModel>(),

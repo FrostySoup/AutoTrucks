@@ -18,7 +18,7 @@ namespace ViewModels.PopUpWindowViewModels.BlacklistViewModel
 
         private readonly IWindowFactory windowFactory;
 
-        public ICommand DeleteSelectedDataSourcesCommand { get; private set; }
+        public ICommand DeleteSelectedCompaniesCommand { get; private set; }
 
         public ISerializeService serializeService;
 
@@ -30,16 +30,20 @@ namespace ViewModels.PopUpWindowViewModels.BlacklistViewModel
 
             this.serializeService = serializeService;
 
-            this.DeleteSelectedDataSourcesCommand = new DelegateCommand(o => this.DeleteSelectedDataSources());
+            this.DeleteSelectedCompaniesCommand = new DelegateCommand(o => this.DeleteSelectedDataSources());
         }
 
         private void DeleteSelectedDataSources()
         {
-            
+            companiesCollection = new ObservableCollection<StringWrapper>(companiesCollection
+                .Where(x => !x.Checked).AsEnumerable());
+            serializeService.SerializeCompanyNamesList(companiesCollection);
+            OnPropertyChanged("CompaniesCollection");
         }
 
         public void RefreshBlacklist()
         {
+            companiesCollection = new ObservableCollection<StringWrapper>();
             var companies = serializeService.DeserializeCompanyName();
             foreach(var company in companies)
             {
@@ -48,6 +52,7 @@ namespace ViewModels.PopUpWindowViewModels.BlacklistViewModel
                     Value = company
                 });
             }
+            OnPropertyChanged("CompaniesCollection");
         }
 
         public ObservableCollection<StringWrapper> CompaniesCollection

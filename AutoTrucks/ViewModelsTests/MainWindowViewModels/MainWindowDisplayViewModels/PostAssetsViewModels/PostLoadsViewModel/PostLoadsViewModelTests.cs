@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Service.ConnexionService.AlarmService;
 using Service.SerializeServices;
+using Service.ViewModelsHelpers;
 
 namespace ViewModels.MainWindowViewModels.Tests
 {
@@ -30,7 +31,7 @@ namespace ViewModels.MainWindowViewModels.Tests
         Mock<ISessionCacheSingleton> sessionCacheSingleton;
         Mock<IDataExtractService> dataExtractService;
         Mock<IDataConvertPostAssetService> dataConvertService;
-        Mock<ISerializeService> serializeService;
+        Mock<IAssetsViewModelHelper> assetsViewModelHelper;
         Mock<IHttpService> httpService;
 
         PostLoadsViewModel postLoadsViewModel;
@@ -45,11 +46,11 @@ namespace ViewModels.MainWindowViewModels.Tests
             sessionCacheSingleton = new Mock<ISessionCacheSingleton>();
             dataExtractService = new Mock<IDataExtractService>();
             dataConvertService = new Mock<IDataConvertPostAssetService>();
-            serializeService = new Mock<ISerializeService>();
+            assetsViewModelHelper = new Mock<IAssetsViewModelHelper>();
             httpService = new Mock<IHttpService>();
 
             postLoadsViewModel = new PostLoadsViewModel(windowFactory.Object, postWindowViewModel.Object, connectConnexionService.Object,
-                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, httpService.Object, serializeService.Object);
+                sessionCacheSingleton.Object, dataExtractService.Object, dataConvertService.Object, httpService.Object, assetsViewModelHelper.Object);
             receivedEvents = new List<string>();
             postLoadsViewModel.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
@@ -116,34 +117,6 @@ namespace ViewModels.MainWindowViewModels.Tests
             ICommand ic = postLoadsViewModel.RemoveAssetsCommand;
             ic.Execute(this);
             Assert.AreEqual(0, postLoadsViewModel.PostToDisplay.Count);
-        }
-
-        [TestMethod()]
-        public void RemoveAssetsRemoveOneAssetTestTest()
-        {
-
-            PostDataFromView value = new PostDataFromView()
-            {
-                Marked = true,
-                ID = "ID"
-            };
-            ICommand ic = postLoadsViewModel.RemoveAssetsCommand;
-
-            Mock<ISessionFacade> session = new Mock<ISessionFacade>();
-
-            sessionCacheSingleton.Setup(x => x.sessions).Returns(new List<ISessionFacade>() { session.Object });
-            connectConnexionService.Setup(x => x.QueryAllMyAssets(It.IsAny<ISessionFacade>())).Returns(new LookupAssetSuccessData());
-            dataExtractService.Setup(x => x.ExtractShipmentFromData(It.IsAny<LookupAssetSuccessData>(), null)).Returns(new ObservableCollection<PostDataFromView>()
-            { value });
-            postLoadsViewModel.PostToDisplay = new ObservableCollection<PostDataFromView>()
-            {
-                new PostDataFromView(),
-                value,
-                value
-            };
-
-            ic.Execute(this);
-            Assert.AreEqual(1, postLoadsViewModel.PostToDisplay.Count);
         }
     }
 }

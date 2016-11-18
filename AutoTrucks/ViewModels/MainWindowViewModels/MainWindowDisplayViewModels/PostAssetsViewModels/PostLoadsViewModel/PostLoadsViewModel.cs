@@ -6,6 +6,7 @@ using Service.ConnexionService.AlarmService;
 using Service.DataConvertService;
 using Service.DataExtractService;
 using Service.SerializeServices;
+using Service.ViewModelsHelpers;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,8 +20,8 @@ namespace ViewModels.MainWindowViewModels
     {
         public PostLoadsViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService, 
             ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService,
-            IHttpService httpService, ISerializeService serializeService)
-            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService, serializeService)
+            IHttpService httpService, IAssetsViewModelHelper assetsViewModelHelper)
+            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService, assetsViewModelHelper)
         {
             this.dataExtractService = dataExtractService;
             this.OpenPostAssetWindowCommand = new DelegateCommand(o => this.OpenPostAssetWindow());

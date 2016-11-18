@@ -11,6 +11,7 @@ using Service.DataExtractService;
 using Service.DataConvertService;
 using Service.ConnexionService.AlarmService;
 using Service.SerializeServices;
+using Service.ViewModelsHelpers;
 
 namespace ViewModels.MainWindowViewModels
 {
@@ -18,8 +19,8 @@ namespace ViewModels.MainWindowViewModels
     {
         public PostTrucksViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService,
             ISessionCacheSingleton sessionCacheSingleton, IDataExtractService dataExtractService, IDataConvertPostAssetService dataConvertService, IHttpService httpService,
-            ISerializeService serializeService) 
-            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService, serializeService)
+            IAssetsViewModelHelper assetsViewModelHelper) 
+            : base(windowFactory, postWindowViewModel, connectConnexionService, sessionCacheSingleton, dataConvertService, httpService, assetsViewModelHelper)
         {
             this.dataExtractService = dataExtractService;
             this.OpenPostAssetWindowCommand = new DelegateCommand(o => this.OpenPostAssetWindow());

@@ -6,6 +6,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Model.DataFromView;
+using Model.DataHelpers;
 
 namespace Service.SerializeServices
 {
@@ -28,6 +29,7 @@ namespace Service.SerializeServices
                          FileAccess.Write, FileShare.None);
             formatter.Serialize(stream, dataSourceList);
             stream.Close();
+
             return new ObservableCollection<DataSource>(dataSourceList.DataSourceLis);
         }
 
@@ -36,16 +38,20 @@ namespace Service.SerializeServices
             string path = "./" + fileName;
             FileInfo myfileinf = new FileInfo(path);
             myfileinf.Delete();
+
             if (dataSourceListReceived == null || dataSourceListReceived.Count < 1)
                 return new ObservableCollection<DataSource>();
+
             DataSourceList dataSourceList = new DataSourceList();
             dataSourceList.DataSourceLis = new List<DataSource>(dataSourceListReceived);
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(fileName,
                          FileMode.Create,
                          FileAccess.Write, FileShare.None);
+
             formatter.Serialize(stream, dataSourceList);
             stream.Close();
+
             return new ObservableCollection<DataSource>(dataSourceList.DataSourceLis);
         }
 
@@ -78,8 +84,10 @@ namespace Service.SerializeServices
             string path = "./" + remoteFile;
             FileInfo myfileinf = new FileInfo(path);
             myfileinf.Delete();
+
             if (remoteConnection == null)
                 return;
+
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(remoteFile,
                          FileMode.Create,
@@ -124,21 +132,30 @@ namespace Service.SerializeServices
                 return new List<string>();
         }
 
-        public void SerializeCompanyName(string companyName)
+        public List<string> SerializeCompanyName(string companyName)
         {
-            var oldCompanies = DeserializeCompanyName();
-            if (checkIfUniqueCompany(companyName, oldCompanies)) {
-                oldCompanies.Add(companyName);
-                string path = "./" + companiesBlacklistFile;
-                FileInfo myfileinf = new FileInfo(path);
-                myfileinf.Delete();
-                IFormatter formatter = new BinaryFormatter();
-                Stream stream = new FileStream(companiesBlacklistFile,
-                             FileMode.Create,
-                             FileAccess.Write, FileShare.None);
-                formatter.Serialize(stream, oldCompanies);
-                stream.Close();
+            var companies = DeserializeCompanyName();
+
+            if (checkIfUniqueCompany(companyName, companies)) {
+                companies.Add(companyName);
+                SerializeCompanyNamesListToFile(companies);
             }
+            return companies;
+        }
+
+        private void SerializeCompanyNamesListToFile(List<string> companyNamesList)
+        {
+            string path = "./" + companiesBlacklistFile;
+            FileInfo myfileinf = new FileInfo(path);
+            myfileinf.Delete();
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(companiesBlacklistFile,
+                         FileMode.Create,
+                         FileAccess.Write, FileShare.None);
+
+            formatter.Serialize(stream, companyNamesList);
+            stream.Close();
         }
 
         private bool checkIfUniqueCompany(string companyName, List<string> oldCompanies)
@@ -147,6 +164,25 @@ namespace Service.SerializeServices
                 return false;
             return true;
         }
+
+        public void SerializeCompanyNamesList(ObservableCollection<StringWrapper> companiesCollection)
+        {
+            List<string> companiesCollectionList = ToCompaniesCollectionList(companiesCollection);
+            SerializeCompanyNamesListToFile(companiesCollectionList);
+        }
+
+        private List<string> ToCompaniesCollectionList(ObservableCollection<StringWrapper> companiesCollection)
+        {
+            List<string> stringListToSerialize = new List<string>();
+
+            foreach (var stringWrapper in companiesCollection)
+            {
+                stringListToSerialize.Add(stringWrapper.Value);
+            }
+
+            return stringListToSerialize;
+        }
+
     }
 
 

@@ -103,6 +103,7 @@
     <Compile Include="MainWindowViewModels\MainWindowDisplayViewModels\SearchViewModels\SearchTrucksViewModel\SearchTrucksViewModelTests.cs" />
     <Compile Include="MainWindowViewModels\TopButtonsViewModel\TopButtonsViewModelTests.cs" />
     <Compile Include="MainWindowViewModelTests.cs" />
+    <Compile Include="PopUpWindowViewModels\BlacklistViewModel\BlacklistViewModelTests.cs" />
     <Compile Include="PopUpWindowViewModels\DataSourceViewModel\DataSourceViewModelTests.cs" />
     <Compile Include="PopUpWindowViewModels\LoginViewModel\LoginViewModelTests.cs" />
     <Compile Include="PopUpWindowViewModels\PostWindowViewModel\PostWindowViewModelTests.cs" />

@@ -50,7 +50,6 @@ namespace Service.ConnexionService.AlarmService
                 if (_listener.Prefixes.Count > 0)
                     _listener.Prefixes.Clear();
                 _listener.Prefixes.Add(string.Format("http://{0}:{1}/AlarmMatch/", GetPrivateIP().ToString(), remoteConnection.Port));
-                int a = 5;
                 try
                 {
                     _listener.Start();
@@ -131,9 +130,9 @@ namespace Service.ConnexionService.AlarmService
                     {
                         lock (_foundAssets)
                         {
-                            _foundAssets.Add(displayFoundAsset);
-                            AssetUpdatedCommand.Execute(null);
+                            _foundAssets.Add(displayFoundAsset);                            
                         }
+                        AssetUpdatedCommand.Execute(null);
                     }
                 }
 
@@ -155,6 +154,14 @@ namespace Service.ConnexionService.AlarmService
             lock (_foundAssets)
             {
                 _foundAssets = new List<DisplayFoundAsset>();
+            }
+        }
+
+        public void RemoveAsset(DisplayFoundAsset asset)
+        {
+            lock (_foundAssets)
+            {
+                _foundAssets.Remove(asset);
             }
         }
 

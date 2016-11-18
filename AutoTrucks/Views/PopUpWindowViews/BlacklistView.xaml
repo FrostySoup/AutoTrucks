@@ -22,10 +22,10 @@
 
         <DataGrid x:Name="dataGridPostLoadsResults" ItemsSource="{Binding CompaniesCollection}" Style="{StaticResource ListResultsDataGrid}">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="" Binding="{Binding Marked}"/>
+                <DataGridCheckBoxColumn Header="" Binding="{Binding Checked}"/>
                 <DataGridTextColumn CellStyle="{StaticResource CellStyle}" Header="Companies" Binding="{Binding Value, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
-
+        <Button Style="{StaticResource DataSourceButtons}" Command="{Binding DeleteSelectedCompaniesCommand, Mode=OneWay}">Delete</Button>
     </StackPanel>
 </Window>

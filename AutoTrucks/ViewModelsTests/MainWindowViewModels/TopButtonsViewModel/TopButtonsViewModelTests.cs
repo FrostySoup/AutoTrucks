@@ -30,6 +30,8 @@ namespace ViewModels.MainWindowViewModels.Tests
             windowFactory = new Mock<IWindowFactory>();
             remoteConnectionViewModel = new Mock<IRemoteConnectionViewModel>();
             blacklistViewModel = new Mock<IBlacklistViewModel>();
+            sessionCacheSingleton = new Mock<ISessionCacheSingleton>();
+            serializeService = new Mock<ISerializeService>();
             topButtonsViewModel = new TopButtonsViewModel(windowFactory.Object, dataSourceViewModel.Object, remoteConnectionViewModel.Object, serializeService.Object, sessionCacheSingleton.Object, blacklistViewModel.Object);
         }
 

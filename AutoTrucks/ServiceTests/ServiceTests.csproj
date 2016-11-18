@@ -84,6 +84,7 @@
     <Compile Include="DataExtractService\DataExtractServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializeServices\SerializeServiceTests.cs" />
+    <Compile Include="ViewModelsHelpers\AssetsViewModelHelperTests.cs" />
     <Compile Include="WindowsFactory\WindowFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>

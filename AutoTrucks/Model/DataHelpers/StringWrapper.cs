@@ -8,6 +8,7 @@ namespace Model.DataHelpers
 {
     public class StringWrapper
     {
+        public bool Checked { get; set; }
         public string Value { get; set; }
     }
 }

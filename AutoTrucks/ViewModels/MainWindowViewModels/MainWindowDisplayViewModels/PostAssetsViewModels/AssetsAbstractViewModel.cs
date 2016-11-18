@@ -8,6 +8,7 @@ using Service.ConnexionService.AlarmService;
 using Service.DataConvertService;
 using Service.DataExtractService;
 using Service.SerializeServices;
+using Service.ViewModelsHelpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,19 +28,19 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
 
         private IConnectConnexionService connectConnexionService;
 
-        private ISessionCacheSingleton sessionCacheSingleton;
+        private ISessionCacheSingleton sessionCacheSingleton;      
 
-        private ISerializeService serializeService;
+        private IAssetsViewModelHelper assetsViewModelHelper;        
 
-        protected bool isGroupSelected;
-
-        protected IDataExtractService dataExtractService;
-
-        protected ObservableCollection<PostDataFromView> postAssets;
+        protected IDataExtractService dataExtractService;       
 
         protected IDataConvertPostAssetService dataConvertService;
 
         protected IHttpService httpService;
+
+        protected bool isGroupSelected;
+
+        protected ObservableCollection<PostDataFromView> postAssets;
 
         public ICommand OpenPostAssetWindowCommand { get; set; }
         public ICommand RemoveAssetsCommand { get; set; }
@@ -51,7 +52,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
         private ICommand m_blacklistCommand;       
 
         protected AssetsAbstractViewModel(IWindowFactory windowFactory, IPostWindowViewModel postWindowViewModel, IConnectConnexionService connectConnexionService,
-            ISessionCacheSingleton sessionCacheSingleton, IDataConvertPostAssetService dataConvertService, IHttpService httpService, ISerializeService serializeService)
+            ISessionCacheSingleton sessionCacheSingleton, IDataConvertPostAssetService dataConvertService, IHttpService httpService, IAssetsViewModelHelper assetsViewModelHelper)
         {
             this.ClearFoundAssetsCommand = new DelegateCommand(o => this.ClearFoundAssets());
             this.RemoveAssetsCommand = new DelegateCommand(o => this.RemoveSelectedAssets());
@@ -66,7 +67,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             this.dataConvertService = dataConvertService;
             this.httpService = httpService;
             this.httpService.BindCommand(AssetUpdatedCommand);
-            this.serializeService = serializeService;
+            this.assetsViewModelHelper = assetsViewModelHelper;
         }       
 
         private void StopAlarms()
@@ -84,36 +85,12 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             {              
                 foreach (var asset in postAssets)
                 {
-                    //Transfer this code somewhere else later
-                    if (asset.alarm == null) {
-                        var alarmSearchCriteria = new AlarmSearchCriteria();
-                        if (asset.DHD >= 0)
-                            alarmSearchCriteria.destinationRadius = new Mileage()
-                            {
-                                miles = asset.DHD,
-                                method = MileageType.Road
-                            };
-                        if (asset.DHO >= 0)
-                            alarmSearchCriteria.originRadius = new Mileage()
-                            {
-                                miles = asset.DHO,
-                                method = MileageType.Road
-                            };
-                        else
-                            alarmSearchCriteria.originRadius = new Mileage()
-                            {
-                                miles = 50,
-                                method = MileageType.Road
-                            };
-                        alarmSearchCriteria.maxMatches = 30;
-                        alarmSearchCriteria.maxMatchesSpecified = true;
-                        //----------------------------------------------------
-                        asset.alarm = connectConnexionService.CreateAlarm(sessionCacheSingleton.sessions[0], asset.ID, alarmSearchCriteria);
-                    }
+                    if (asset.alarm == null)                    
+                        asset.alarm = assetsViewModelHelper.AddAlarmForAsset(sessionCacheSingleton.sessions.FirstOrDefault(), asset, connectConnexionService);
                 }
             }          
             OnPropertyChanged("PostToDisplay");
-            var uri = connectConnexionService.LookupAlarmUrl(sessionCacheSingleton.sessions[0]);
+            var url = connectConnexionService.LookupAlarmUrl(sessionCacheSingleton.sessions[0]);
             httpService.Start(sessionCacheSingleton.remoteURI);
         }
 
@@ -145,25 +122,11 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
         }
 
         private void RemoveSelectedAssets()
-        {
-            List<string> Ids = new List<string>();
-            foreach (var item in postAssets)
+        {          
+            if (CheckSession())
             {
-                if (item != null && item.Marked && item.ID != null)
-                {
-                    Ids.Add(item.ID);
-                }
-            }
-            if (Ids.Count > 0)
-            {
-                if (CheckSession())
-                {
-                    //connectConnexionService.DeleteAlarms(Ids, sessionCacheSingleton.sessions.FirstOrDefault());
-                    connectConnexionService.DeleteAssetsById(sessionCacheSingleton.sessions.FirstOrDefault(), Ids.ToArray());
-                    postAssets = new ObservableCollection<PostDataFromView>(postAssets
-                        .Where(x => !Ids.Any(y => y.Equals(x.ID))));                   
-                    OnPropertyChanged("PostToDisplay");
-                }
+                postAssets = assetsViewModelHelper.RemoveSelectedAssets(sessionCacheSingleton.sessions.FirstOrDefault(), postAssets, connectConnexionService);
+                OnPropertyChanged("PostToDisplay");
             }
         }
 
@@ -205,7 +168,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
         {
             if (companyName != null)
             {
-                serializeService.SerializeCompanyName(companyName);
+                assetsViewModelHelper.SerializeCompanyName(companyName);
             }
         }
 
@@ -238,15 +201,6 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             }
         }
 
-        public IEnumerable<ButtonOptions> ButtonOptions
-        {
-            get
-            {
-                return Enum.GetValues(typeof(ButtonOptions))
-                   .Cast<ButtonOptions>();
-            }
-        }
-
         public bool IsGroupSelected
         {
             get
@@ -267,20 +221,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
         {
             get
             {
-                var assets = httpService.GetAssets();
-                if (assets.LastOrDefault() != null)
-                {
-                    string assetId = assets.LastOrDefault().AssetId;
-                    foreach (var post in postAssets)
-                    {
-                        if (assetId.Equals(post.ID))
-                        {
-                            assets.LastOrDefault().BackgroundColor = post.BackgroundColor;
-                            break;
-                        }
-                    }
-                }
-                return assets;
+                return assetsViewModelHelper.GetAssetsFromHttpService(httpService, postAssets);
             }
         }
 
