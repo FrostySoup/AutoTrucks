@@ -18,7 +18,7 @@ namespace ViewModels.PopUpWindowViewModels.RemoteConnectionViewModels
 
         public ICommand SaveDataCommand { get; private set; }
 
-        private IWindowFactory _windowFactory;
+        private readonly IWindowFactory _windowFactory;
 
         private readonly string windowName = "Remote connection";
 

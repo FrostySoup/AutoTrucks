@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TfmiServices.TfmiAlarmService;
 
 namespace Service.DataConvertService.BaseAssetHelp
 {
@@ -18,26 +19,6 @@ namespace Service.DataConvertService.BaseAssetHelp
             this.locationHelper = locationHelper;
         }
 
-        public DisplayFoundAsset ConvertAssetToDisplayFoundAsset(BaseAsset baseAsset, FmeStatus status, PostingCallback callback, bool ltl, Dimensions dimensions, string assetId)
-        {
-            DisplayFoundAsset displayFoundAsset = GetBaseAsset(baseAsset);
-            if (displayFoundAsset == null)
-                return null;
-            displayFoundAsset.Avail = GetAvailFromStatus(status);
-            if (callback != null)
-            {
-                displayFoundAsset.PhoneNumber = GetPhoneNumberFromCallBack(callback.Item);
-                displayFoundAsset.CompanyName = callback.displayCompany;               
-            }
-            displayFoundAsset.FullOrPartial = GetFullOrPartial(ltl);
-            if (dimensions != null) {
-                displayFoundAsset.Length = dimensions.lengthFeet.ToString();
-                displayFoundAsset.Weight = dimensions.weightPounds.ToString();
-            }
-            displayFoundAsset.AssetId = assetId;
-            return displayFoundAsset;
-        }
-
         private string GetFullOrPartial(bool ltl)
         {
             if (ltl)
@@ -48,11 +29,11 @@ namespace Service.DataConvertService.BaseAssetHelp
                 return "F";
         }
 
-        private string GetPhoneNumberFromCallBack(CallbackContact callback)
+        private string GetPhoneNumberFromCallBack(TfmiServices.TfmiAlarmService.CallbackContact callback)
         {
             if (callback != null)
             {
-                CallbackPhoneNumber phoneNumber = callback as CallbackPhoneNumber;
+                TfmiServices.TfmiAlarmService.CallbackPhoneNumber phoneNumber = callback as TfmiServices.TfmiAlarmService.CallbackPhoneNumber;
                 if (phoneNumber != null && phoneNumber.phone != null)
                 {
                     return phoneNumber.phone.extension + phoneNumber.phone.number;
@@ -61,7 +42,7 @@ namespace Service.DataConvertService.BaseAssetHelp
             return "-";
         }
 
-        private string GetAvailFromStatus(FmeStatus status)
+        private string GetAvailFromStatus(TfmiServices.TfmiAlarmService.FmeStatus status)
         {
             if (status != null && DateTime.Compare(status.endDate, DateTime.Now) >= 0)
             {
@@ -70,33 +51,54 @@ namespace Service.DataConvertService.BaseAssetHelp
             return "-";
         }
 
-        private DisplayFoundAsset GetBaseAsset(BaseAsset baseAsset)
+        private DisplayFoundAsset GetBaseAsset(TfmiServices.TfmiAlarmService.BaseAsset baseAsset)
         {
-            Shipment shipment = baseAsset as Shipment;
+            TfmiServices.TfmiAlarmService.Shipment shipment = baseAsset as TfmiServices.TfmiAlarmService.Shipment;
             if (shipment != null)
             {
                 return new DisplayFoundAsset()
                 {
                     Truck = shipment.equipmentType.ToString(),
-                    Origin = locationHelper.GeographicLocationToString(shipment.origin),
-                    Destination = locationHelper.GeographicLocationToString(shipment.destination)
+                    Origin = locationHelper.GeographicLocationToStringAlarmService(shipment.origin),
+                    Destination = locationHelper.GeographicLocationToStringAlarmService(shipment.destination)
                 };
             }
             else
             {
-                Equipment equipment = baseAsset as Equipment;
+                TfmiServices.TfmiAlarmService.Equipment equipment = baseAsset as TfmiServices.TfmiAlarmService.Equipment;
                 if (equipment != null)
                 {
                     return new DisplayFoundAsset()
                     {
                         Truck = equipment.equipmentType.ToString(),
-                        Origin = locationHelper.GeographicLocationToString(equipment.origin),
-                        Destination = locationHelper.GeographicLocationToString(equipment.destination.Item as GeographicLocation)
+                        Origin = locationHelper.GeographicLocationToStringAlarmService(equipment.origin),
+                        Destination = locationHelper.GeographicLocationToStringAlarmService(equipment.destination.Item as TfmiServices.TfmiAlarmService.GeographicLocation)
                     };
                 }
             }
 
             return null;
+        }
+
+        public DisplayFoundAsset ConvertAssetIntoDisplayFoundAsset(TfmiServices.TfmiAlarmService.BaseAsset baseAsset, TfmiServices.TfmiAlarmService.FmeStatus status, TfmiServices.TfmiAlarmService.PostingCallback callback, bool ltl, TfmiServices.TfmiAlarmService.Dimensions dimensions, string basisAssetId)
+        {
+            DisplayFoundAsset displayFoundAsset = GetBaseAsset(baseAsset);
+            if (displayFoundAsset == null)
+                return null;
+            displayFoundAsset.Avail = GetAvailFromStatus(status);
+            if (callback != null)
+            {
+                displayFoundAsset.PhoneNumber = GetPhoneNumberFromCallBack(callback.Item);
+                displayFoundAsset.CompanyName = callback.displayCompany;
+            }
+            displayFoundAsset.FullOrPartial = GetFullOrPartial(ltl);
+            if (dimensions != null)
+            {
+                displayFoundAsset.Length = dimensions.lengthFeet.ToString();
+                displayFoundAsset.Weight = dimensions.weightPounds.ToString();
+            }
+            displayFoundAsset.AssetId = basisAssetId;
+            return displayFoundAsset;
         }
     }
 }

@@ -90,6 +90,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                 }
             }          
             OnPropertyChanged("PostToDisplay");
+
             var url = connectConnexionService.LookupAlarmUrl(sessionCacheSingleton.sessions[0]);
             httpService.Start(sessionCacheSingleton.remoteURI);
         }
@@ -100,6 +101,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             {
                 convertData(connectConnexionService.QueryAllMyAssets(sessionCacheSingleton.sessions[0]),
                     connectConnexionService.QueryAllMyAlarms(sessionCacheSingleton.sessions[0]));
+
                 OnPropertyChanged("PostToDisplay");
             }
         }
@@ -117,6 +119,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             {
                 convertData(connectConnexionService.QueryAllMyGroupAssets(sessionCacheSingleton.sessions[0]),
                     connectConnexionService.QueryAllMyGroupAlarms(sessionCacheSingleton.sessions[0]));
+
                 OnPropertyChanged("PostToDisplay");
             }
         }
@@ -138,6 +141,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
                 if (CheckSession())
                 {                    
                     postWindowViewModel.postData.ID = connectConnexionService.PostNewAsset(sessionCacheSingleton.sessions[0], convertAssetIntoBaseType(postWindowViewModel.postData));
+
                     if (!string.IsNullOrEmpty(postWindowViewModel.postData.ID))
                     {
                         postAssets.Add(postWindowViewModel.postData);
@@ -211,6 +215,7 @@ namespace ViewModels.MainWindowViewModels.MainWindowDisplayViewModels.PostAssets
             {
                 isGroupSelected = value;
                 OnPropertyChanged("IsGroupSelected");
+
                 if (isGroupSelected)
                     GetExistingMyGroupAssets();
                 else GetExistingAssets();

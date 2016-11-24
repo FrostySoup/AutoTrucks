@@ -60,16 +60,25 @@ namespace Service.ViewModelsHelpers
 
             assets = removeBlacklistedCompaniesAssets(assets, httpService);
 
-            if (assets.LastOrDefault() != null)
+            var lastAddedAsset = assets.LastOrDefault();
+
+            if (lastAddedAsset != null)
             {
-                string assetId = assets.LastOrDefault().AssetId;
+                string assetId = lastAddedAsset.AssetId;
+                bool matchAsset = false;
                 foreach (var post in postAssets)
                 {
                     if (assetId.Equals(post.ID))
                     {
-                        assets.LastOrDefault().BackgroundColor = post.BackgroundColor;
+                        lastAddedAsset.BackgroundColor = post.BackgroundColor;
+                        matchAsset = true;
                         break;
                     }
+                }
+                if (!matchAsset)
+                {
+                    httpService.RemoveAsset(lastAddedAsset);
+                    assets.Remove(lastAddedAsset);
                 }
             }
 

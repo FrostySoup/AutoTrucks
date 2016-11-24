@@ -51,6 +51,7 @@ namespace ViewModels.MainWindowViewModels
         protected void OpenWindowConnections()
         {
             windowFactory.CreateNewSearchWindow(searchWindowViewModel);
+
             if (searchWindowViewModel.saveData == true && searchWindowViewModel.searchData != null)
             {
                 AddNewSearch(searchWindowViewModel.searchData);
@@ -68,6 +69,7 @@ namespace ViewModels.MainWindowViewModels
             {
                 CreateSearchSuccessData searchSuccessData = new CreateSearchSuccessData();
                 assets = new ObservableCollection<SearchAssetsReceived>();
+
                 foreach (SearchAssetsSearches asset in searchesToDisplay)
                 {
                     if (asset.Marked)
@@ -97,6 +99,7 @@ namespace ViewModels.MainWindowViewModels
             {
                 if (assets != null)
                     return totalAssetsFoundString + assets.Count.ToString();
+
                 return totalAssetsFoundString + "0";
             }
         }

@@ -24,18 +24,18 @@ namespace ViewModels.PopUpWindowViewModels.PostWindowViewModel
 
         public PostDataFromView postData { get; set; }
 
-        private IColorListHolder colorListHolder;
+        private readonly IColorListHolder _colorListHolder;
 
-        private readonly string windowName = "Post Window";
+        private readonly IWindowFactory _windowFactory;
 
-        IWindowFactory windowFactory;
+        private readonly string windowName = "Post Window";       
 
         public bool saveChanges { get; set; }
 
         public PostWindowViewModel(IWindowFactory windowFactory, IColorListHolder colorListHolder)
         {
-            this.windowFactory = windowFactory;
-            this.colorListHolder = colorListHolder;
+            this._windowFactory = windowFactory;
+            this._colorListHolder = colorListHolder;
             this.CloseWindowCommand = new DelegateCommand(o => this.CloseWindow());
             this.CloseWindowSaveDataCommand = new DelegateCommand(o => this.CloseWindowSaveData());
             postData = new PostDataFromView();
@@ -45,13 +45,14 @@ namespace ViewModels.PopUpWindowViewModels.PostWindowViewModel
         {
             if (postData.originState != StateProvince.Any || postData.destinationState != StateProvince.Any)
                 saveChanges = true;
-            windowFactory.CloseWindowByName(windowName);
+
+            _windowFactory.CloseWindowByName(windowName);
         }
 
         private void CloseWindow()
         {
             saveChanges = false;
-            windowFactory.CloseWindowByName(windowName);
+            _windowFactory.CloseWindowByName(windowName);
         }
 
         #region On property changed Members
@@ -69,7 +70,7 @@ namespace ViewModels.PopUpWindowViewModels.PostWindowViewModel
         public ObservableCollection<ColorItem> AvailableColors
         {
             get {
-                return colorListHolder.GetColors();
+                return _colorListHolder.GetColors();
             }
         }     
 

@@ -44,6 +44,7 @@ namespace ViewModels.MainWindowViewModels
         protected override void ConvertIntoDisplayableData(CreateSearchSuccessData searchSuccessData, DataColors dataColors)
         {
             var foundList = dataConvertService.EquipmentCreateSearchSuccessDataToSearchAssetsReceived(searchSuccessData, dataColors);
+
             foreach(var item in foundList)
             {
                 assets.Add(item);

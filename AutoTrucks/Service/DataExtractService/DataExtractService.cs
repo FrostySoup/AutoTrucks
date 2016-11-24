@@ -11,6 +11,8 @@ using Newtonsoft.Json.Linq;
 using Service.DataConvertService.BaseAssetHelp;
 using Service.JSONConverter;
 using Service.ColorListHolder;
+using TfmiServices.TfmiAlarmService;
+using System.Xml.Serialization;
 
 namespace Service.DataExtractService
 {
@@ -155,12 +157,16 @@ namespace Service.DataExtractService
             string something = value.ReadToEnd();
 
             XNamespace ns = "http://www.tcore.com/TfmiAlarmMatch.xsd";
-            XDocument doc = XDocument.Parse(something);
+            XDocument doc = XDocument.Parse(something);           
 
-            List<string> removeWords = new List<string> { "tfm:", "tfm1:", "tcor:" };
+            //List<string> removeWords = new List<string> { "tfm:", "tfm1:", "tcor:" };
 
             IEnumerable<XElement> responses = doc.Descendants(ns + "alarmMatchNotification");
-
+            if (responses.Count() <= 0)
+                return null;
+            XmlSerializer oXmlSerializer = new XmlSerializer(typeof(AlarmMatchNotification));           
+            AlarmMatchNotification alarmDeserialized = (AlarmMatchNotification)oXmlSerializer.Deserialize(responses.FirstOrDefault().CreateReader());
+            /*
             string json = JsonConvert.SerializeXNode(responses.FirstOrDefault());
             if (json == null || json.Equals("null"))
                 return null;
@@ -177,9 +183,10 @@ namespace Service.DataExtractService
             string basicAssetId = (string)jAlarmMatch["basisAssetId"];
             string alarmId = (string)jAlarmMatch["alarmId"];
 
-            PostingCallback posting = JsonConvert.DeserializeObject<PostingCallback>(jMatch["callback"].ToString(), new CallbackConverter());
+            PostingCallback posting = JsonConvert.DeserializeObject<PostingCallback>(jMatch["callback"].ToString(), new CallbackConverter());*/
 
-            return assetDisplayHelper.ConvertAssetToDisplayFoundAsset(myAsset.Item, myAsset.status, posting, myAsset.ltl, myAsset.dimensions, basicAssetId);
+            return assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(alarmDeserialized.match.asset.Item, alarmDeserialized.match.asset.status, 
+                alarmDeserialized.match.callback, alarmDeserialized.match.asset.ltl, alarmDeserialized.match.asset.dimensions, alarmDeserialized.basisAssetId);
         }
     }
 }

@@ -55,6 +55,7 @@ namespace ViewModels.MainWindowViewModels
         private void OpemRemoteConnection()
         {
             windowFactory.CreateNewRemoteConnectionWindow(remoteConnectionViewModel);
+
             if (remoteConnectionViewModel.saveData)
             {
                 remoteConnectionViewModel.saveData = false;

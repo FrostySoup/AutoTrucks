@@ -19,9 +19,9 @@ namespace ViewModels.PopUpWindowViewModels
     {
         private ObservableCollection<DataSource> dataSourceCollection;
 
-        private readonly IWindowFactory windowFactory;
+        private readonly IWindowFactory _windowFactory;
 
-        private ILoginViewModel loginViewModel;
+        private readonly ILoginViewModel _loginViewModel;
 
         public ICommand OpenWindowCommand { get; private set; }
 
@@ -35,14 +35,11 @@ namespace ViewModels.PopUpWindowViewModels
 
             DataSources = serializeService.ReturnDataSource();            
 
-            this.windowFactory = windowFactory;
-
-            this.loginViewModel = loginViewModel;
+            _windowFactory = windowFactory;
+            _loginViewModel = loginViewModel;
 
             this.serializeService = serializeService;
-
             this.OpenWindowCommand = new DelegateCommand(o => this.OpenWindowLogin());
-
             this.DeleteSelectedDataSourcesCommand = new DelegateCommand(o => this.DeleteSelectedDataSources());
         }
 
@@ -50,6 +47,7 @@ namespace ViewModels.PopUpWindowViewModels
         {
             dataSourceCollection = new ObservableCollection<DataSource>(dataSourceCollection
                 .Where(x => x.Selected == false));
+
             dataSourceCollection = serializeService.SerializeDataSourceList(dataSourceCollection);
             OnPropertyChanged("DataSources");
         }
@@ -70,21 +68,22 @@ namespace ViewModels.PopUpWindowViewModels
 
         private void OpenWindowLogin()
         {
-            windowFactory.CreateNewLoginWindow(loginViewModel);
-            SaveLoginCredentials(loginViewModel.loginCredentials);      
+            _windowFactory.CreateNewLoginWindow(_loginViewModel);
+            SaveLoginCredentials(_loginViewModel.loginCredentials);      
         }
 
         private void SaveLoginCredentials(Login loginCredentials)
         {
-            if (loginViewModel.loginCredentials != null)
+            if (_loginViewModel.loginCredentials != null)
             {
                 DataSource loginToDataSource = new DataSource()
                 {
-                    UserName = loginViewModel.loginCredentials.loginId,
-                    Password = loginViewModel.loginCredentials.password,
+                    UserName = _loginViewModel.loginCredentials.loginId,
+                    Password = _loginViewModel.loginCredentials.password,
                     Selected = false
                 };
-                if (loginViewModel.loginCompleted)
+
+                if (_loginViewModel.loginCompleted)
                 {
                     dataSourceCollection = serializeService.SerializeDataSource(loginToDataSource);
                     OnPropertyChanged("DataSources");

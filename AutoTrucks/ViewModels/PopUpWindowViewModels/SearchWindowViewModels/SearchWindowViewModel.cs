@@ -18,13 +18,12 @@ using Xceed.Wpf.Toolkit;
 namespace ViewModels.PopUpWindowViewModels
 {
     public class SearchWindowViewModel : NotifyPropertyChangedAbstract, ISearchWindowViewModel
-    {
-        
+    {       
         public SearchDataFromView searchData { get; set; }
 
-        private IWindowFactory windowFactory;
+        private readonly IWindowFactory _windowFactory;
 
-        private IColorListHolder colorListHolder;
+        private readonly IColorListHolder _colorListHolder;
 
         private readonly string _windowName = "Search Window";
 
@@ -36,8 +35,8 @@ namespace ViewModels.PopUpWindowViewModels
 
         public SearchWindowViewModel(IWindowFactory windowFactory, IColorListHolder colorListHolder)
         {
-            this.colorListHolder = colorListHolder;
-            this.windowFactory = windowFactory;
+            _colorListHolder = colorListHolder;
+            _windowFactory = windowFactory;
             searchData = new SearchDataFromView();
             this.CloseWindowSaveDataCommand = new DelegateCommand(o => this.CloseSaveDataWindow());
             this.CloseWindowCommand = new DelegateCommand(o => this.CloseWindow());
@@ -47,14 +46,15 @@ namespace ViewModels.PopUpWindowViewModels
         {
             if (searchData.originProvince != StateProvince.Any || searchData.destinationProvince != StateProvince.Any)
                 saveData = true;
-            windowFactory.CloseWindowByName(_windowName);
+
+            _windowFactory.CloseWindowByName(_windowName);
         }
 
         private void CloseWindow()
         {
             saveData = false;
             searchData = new SearchDataFromView();
-            windowFactory.CloseWindowByName(_windowName);
+            _windowFactory.CloseWindowByName(_windowName);
         }
 
         #region On property changed Members
@@ -63,7 +63,7 @@ namespace ViewModels.PopUpWindowViewModels
         {
             get
             {
-                return colorListHolder.GetColors();
+                return _colorListHolder.GetColors();
             }
         }
 

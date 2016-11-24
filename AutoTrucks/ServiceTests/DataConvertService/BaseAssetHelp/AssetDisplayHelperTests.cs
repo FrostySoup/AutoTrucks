@@ -15,22 +15,22 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
     {
         AssetDisplayHelper assetDisplayHelper;
         Mock<ILocationHelper> locationHelper;
-        BaseAsset baseAsset;
-        FmeStatus fmeStatus;
-        PostingCallback postingCallback;
+        TfmiServices.TfmiAlarmService.BaseAsset baseAsset;
+        TfmiServices.TfmiAlarmService.FmeStatus fmeStatus;
+        TfmiServices.TfmiAlarmService.PostingCallback postingCallback;
         bool ltl;
-        Dimensions dimensions;
+        TfmiServices.TfmiAlarmService.Dimensions dimensions;
         string assetId;
 
         [TestInitialize]
         public void SetInitialValues()
         {
             assetId = "id";
-            baseAsset = new Shipment()
+            baseAsset = new TfmiServices.TfmiAlarmService.Shipment()
             {
-                destination = new Place(),
-                equipmentType = EquipmentType.Container,
-                origin = new Place()
+                destination = new TfmiServices.TfmiAlarmService.Place(),
+                equipmentType = TfmiServices.TfmiAlarmService.EquipmentType.Container,
+                origin = new TfmiServices.TfmiAlarmService.Place()
             };
             locationHelper = new Mock<ILocationHelper>();
             assetDisplayHelper = new AssetDisplayHelper(locationHelper.Object);
@@ -40,37 +40,37 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
         public void ConvertAssetAllNullsTest()
         {
             baseAsset = null;
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);           
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);           
             Assert.IsNull(result);
         }
 
         [TestMethod()]
         public void ConvertAssetShipmentTest()
         {
-            var value = EquipmentType.Container;
-            baseAsset = new Shipment()
+            var value = TfmiServices.TfmiAlarmService.EquipmentType.Container;
+            baseAsset = new TfmiServices.TfmiAlarmService.Shipment()
             {
-                destination = new Place(),
+                destination = new TfmiServices.TfmiAlarmService.Place(),
                 equipmentType = value,
-                origin = new Place()
+                origin = new TfmiServices.TfmiAlarmService.Place()
             };
 
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
             Assert.AreEqual(value.ToString(), result.Truck);
         }
 
         [TestMethod()]
         public void ConvertAssetEquipmentTest()
         {
-            var value = EquipmentType.Container;
-            baseAsset = new Equipment()
+            var value = TfmiServices.TfmiAlarmService.EquipmentType.Container;
+            baseAsset = new TfmiServices.TfmiAlarmService.Equipment()
             {
-                destination = new EquipmentDestination(),
+                destination = new TfmiServices.TfmiAlarmService.EquipmentDestination(),
                 equipmentType = value,
-                origin = new Place()
+                origin = new TfmiServices.TfmiAlarmService.Place()
             };
 
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
             Assert.AreEqual(value.ToString(), result.Truck);
         }
 
@@ -81,7 +81,7 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
 
             ltl = true;
 
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
             Assert.AreEqual(value, result.FullOrPartial);
         }
 
@@ -90,17 +90,17 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
         {
             var value = "8550";
 
-            postingCallback = new PostingCallback()
+            postingCallback = new TfmiServices.TfmiAlarmService.PostingCallback()
             {
-                Item = new CallbackPhoneNumber() {
-                    phone = new PhoneNumber()
+                Item = new TfmiServices.TfmiAlarmService.CallbackPhoneNumber() {
+                    phone = new TfmiServices.TfmiAlarmService.PhoneNumber()
                     {
                         number = value
                     }
                 }
             };
 
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
             Assert.AreEqual(value, result.PhoneNumber);
         }
 
@@ -109,12 +109,12 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
         {
             var value = "-";
 
-            postingCallback = new PostingCallback()
+            postingCallback = new TfmiServices.TfmiAlarmService.PostingCallback()
             {
-                Item = new CallbackPhoneNumber()
+                Item = new TfmiServices.TfmiAlarmService.CallbackPhoneNumber()
             };
 
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
             Assert.AreEqual(value, result.PhoneNumber);
         }
 
@@ -123,9 +123,9 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
         {
             var value = "-";
 
-            fmeStatus = new FmeStatus(){};
+            fmeStatus = new TfmiServices.TfmiAlarmService.FmeStatus(){};
 
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
             Assert.AreEqual(value, result.Avail);
         }
 
@@ -134,12 +134,12 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
         {
             var value = DateTime.Now.AddDays(1);
 
-            fmeStatus = new FmeStatus()
+            fmeStatus = new TfmiServices.TfmiAlarmService.FmeStatus()
             {
                 endDate = value
             };
 
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
             Assert.AreEqual(value.ToString("MM/dd"), result.Avail);
         }
 
@@ -148,13 +148,13 @@ namespace Service.DataConvertService.BaseAssetHelp.Tests
         {
             var value = 50;
 
-            dimensions = new Dimensions()
+            dimensions = new TfmiServices.TfmiAlarmService.Dimensions()
             {
                 lengthFeet = value,
                 weightPounds = value
             };
 
-            var result = assetDisplayHelper.ConvertAssetToDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
+            var result = assetDisplayHelper.ConvertAssetIntoDisplayFoundAsset(baseAsset, fmeStatus, postingCallback, ltl, dimensions, assetId);
             Assert.AreEqual(value.ToString(), result.Length);
             Assert.AreEqual(value.ToString(), result.Weight);
         }

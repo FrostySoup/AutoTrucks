@@ -22,17 +22,15 @@ namespace ViewModels.PopUpWindowViewModels
         private string message;
 
         public Login loginCredentials { get; set; }
-
         public bool loginCompleted { get; set; }
-
         public ICommand LoginCommand { get; private set; }
 
         private IConnectConnexionService connectConnexionService;
 
         public LoginViewModel(IConnectConnexionService connectConnexionService)
-        {
-            this.connectConnexionService = connectConnexionService;
+        {            
             loginCompleted = false;
+            this.connectConnexionService = connectConnexionService;
             this.LoginCommand = new DelegateCommand(o => this.LoginUser());
         }
 
@@ -42,8 +40,6 @@ namespace ViewModels.PopUpWindowViewModels
             this.OnPropertyChanged("Message");
             if (DataIsValid())
             {
-                //Task.Run(() =>
-               // {
                 bool correctLogin = connectConnexionService.CheckIfValidLoginToConnexion(username, password);
 
                 if (correctLogin == false)
@@ -62,7 +58,6 @@ namespace ViewModels.PopUpWindowViewModels
                     };
                 }
                 this.OnPropertyChanged("Message");
-                //});
             }
             else
             {

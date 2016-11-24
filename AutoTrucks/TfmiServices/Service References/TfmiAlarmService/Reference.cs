@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Xml.Serialization;
+
 namespace TfmiServices.TfmiAlarmService {
     
     
@@ -54,6 +56,7 @@ namespace TfmiServices.TfmiAlarmService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.tcore.com/TfmiAlarmMatch.xsd")]
+    [XmlRoot("alarmMatchNotification", Namespace = "http://www.tcore.com/TfmiAlarmMatch.xsd")]
     public partial class AlarmMatchNotification : AlarmNotification {
         
         private string alarmIdField;

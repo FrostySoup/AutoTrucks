@@ -16,11 +16,11 @@ namespace ViewModels
     public class MainWindowViewModel : NotifyPropertyChangedAbstract, INotifyPropertyChanged
     {
 
-        private ITopButtonsViewModel topButtonsViewModel;
-        private IMainWindowDisplayViewModel postLoadsViewModel;
-        private IMainWindowDisplayViewModel postTrucksViewModel;
-        private IMainWindowDisplayViewModel searchLoadsViewModel;
-        private IMainWindowDisplayViewModel searchTrucksViewModel;
+        private ITopButtonsViewModel _topButtonsViewModel;
+        private IMainWindowDisplayViewModel _postLoadsViewModel;
+        private IMainWindowDisplayViewModel _postTrucksViewModel;
+        private IMainWindowDisplayViewModel _searchLoadsViewModel;
+        private IMainWindowDisplayViewModel _searchTrucksViewModel;
 
         public ICommand ChangePostTrucksViewModelCommand { get; private set; }
         public ICommand ChangePostLoadsViewModelCommand { get; private set; }
@@ -28,18 +28,17 @@ namespace ViewModels
         public MainWindowViewModel(ITopButtonsViewModel topButtonsViewModel, IMainWindowDisplayViewModel postLoadsViewModel,
              IMainWindowDisplayViewModel searchLoadsViewModel, IMainWindowDisplayViewModel searchTrucksViewModel, 
              IMainWindowDisplayViewModel postTrucksViewModel)
-        {           
-            this.topButtonsViewModel = topButtonsViewModel;
+        {                     
+            ChangePostTrucksViewModelCommand = new DelegateCommand(o => this.ChangeViewModel());
+            ChangePostLoadsViewModelCommand = new DelegateCommand(o => this.ChangeViewModel());
 
-            this.ChangePostTrucksViewModelCommand = new DelegateCommand(o => this.ChangeViewModel());
-            this.ChangePostLoadsViewModelCommand = new DelegateCommand(o => this.ChangeViewModel());
+            _topButtonsViewModel = topButtonsViewModel;
+            _topButtonsViewModel.AddCommand(ChangePostTrucksViewModelCommand, ChangePostLoadsViewModelCommand);
 
-            this.topButtonsViewModel.AddCommand(ChangePostTrucksViewModelCommand, ChangePostLoadsViewModelCommand);
-
-            this.postLoadsViewModel = postLoadsViewModel;
-            this.searchLoadsViewModel = searchLoadsViewModel;
-            this.searchTrucksViewModel = searchTrucksViewModel;
-            this.postTrucksViewModel = postTrucksViewModel;
+            _postLoadsViewModel = postLoadsViewModel;
+            _searchLoadsViewModel = searchLoadsViewModel;
+            _searchTrucksViewModel = searchTrucksViewModel;
+            _postTrucksViewModel = postTrucksViewModel;
         }
         /*
         private void SetCapabilieties()
@@ -64,50 +63,50 @@ namespace ViewModels
 
         public IMainWindowDisplayViewModel SearchTrucksViewModel
         {
-            get { return searchTrucksViewModel; }
+            get { return _searchTrucksViewModel; }
             set
             {
-                searchTrucksViewModel = value;
+                _searchTrucksViewModel = value;
                 this.OnPropertyChanged("SearchTrucksViewModel");
             }
         }
 
         public IMainWindowDisplayViewModel PostTrucksViewModel
         {
-            get { return postTrucksViewModel; }
+            get { return _postTrucksViewModel; }
             set
             {
-                postTrucksViewModel = value;
+                _postTrucksViewModel = value;
                 this.OnPropertyChanged("PostTrucksViewModel");
             }
         }
 
         public IMainWindowDisplayViewModel PostLoadsViewModel
         {
-            get { return postLoadsViewModel; }
+            get { return _postLoadsViewModel; }
             set
             {
-                postLoadsViewModel = value;
+                _postLoadsViewModel = value;
                 this.OnPropertyChanged("PostLoadsViewModel");
             }
         }
 
         public IMainWindowDisplayViewModel SearchLoadsViewModel
         {
-            get { return searchLoadsViewModel; }
+            get { return _searchLoadsViewModel; }
             set
             {
-                searchLoadsViewModel = value;
+                _searchLoadsViewModel = value;
                 this.OnPropertyChanged("SearchLoadsViewModel");
             }
         }
 
         public ITopButtonsViewModel TopButtonsViewModel
         {
-            get { return topButtonsViewModel; }
+            get { return _topButtonsViewModel; }
             set
             {
-                topButtonsViewModel = value;
+                _topButtonsViewModel = value;
                 this.OnPropertyChanged("TopButtonsViewModel");
             }
         }
